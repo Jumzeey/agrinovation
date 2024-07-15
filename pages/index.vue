@@ -1,5 +1,5 @@
 <template>
-  <div class="md:px-[120px] banner bg-custom-gradient h-screen">
+  <div class="px-0 md:px-[120px] banner bg-custom-gradient h-screen">
     <Header />
     <Banner />
   </div>
@@ -107,23 +107,23 @@
 
   </div>
 
-  <div class="py-12 md:px-[120px]">
+  <div class="py-12 px-10 md:px-[120px]">
     <OutputChart />
   </div>
 
-  <div class="px-[120px] pb-[120px] py-12">
+  <div class="px-10 md:px-[120px] pb-[120px] py-12">
     <AgroInvestment />
   </div>
 
-  <div class="section pt-12 px-[120px] pb-[120px]">
+  <div class="section pt-12 px-10 md:px-[120px] pb-[120px]">
     <News />
   </div>
 
-  <div class="px-[256px] pb-[63px]">
+  <div class="px-10 md:px-[256px] pb-[63px]">
     <Faq />
   </div>
 
-  <div class="bg-[#FCFAF7] mx-[120px] py-3 rounded-2xl mb-[120px]">
+  <div class="bg-[#FCFAF7] mx-10 md:mx-[120px] py-3 rounded-2xl mb-[120px]">
     <div class="text-center flex flex-col items-center">
       <div class="w-32 py-8">
         <img src="/images/group.svg" class="w-full" alt="" />
@@ -132,7 +132,7 @@
         <h3 class="pb-2 text-[#101828] text-xl font-medium">
           Still have questions?
         </h3>
-        <p class="text-[#667085] text-lg font-normal pb-8">
+        <p class="text-[#667085] text-md md:text-lg font-normal pb-8">
           Can’t find the answer you’re looking for? Please reach out to our
           friendly team.
         </p>

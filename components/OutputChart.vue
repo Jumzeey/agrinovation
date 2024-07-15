@@ -1,12 +1,15 @@
 <template>
-  <div>
+  <div class="w-full">
     <h1 class="text-[#101828] text-xl font-semibold pb-1">
       Output of Agricpreneur in Lagos
     </h1>
     <p class="text-[#667085] text-sm font-medium">
       Sorted by the quantity of products per tonnes
     </p>
-    <AreaChart :data="data" index="name" :categories="['total']" :colors="['#0045E6']" />
+    <div class="border border-[#EFF2F5] py-3 rounded-md">
+      <AreaChart :data="data" index="name" :categories="['total']" :colors="['#0045E6']" />
+    </div>
+    
   </div>
 </template>
 

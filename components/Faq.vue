@@ -2,13 +2,13 @@
   <div>
     <div class="flex flex-col text-center justify-center items-center mb-10">
       <div class="mb-4">
-        <h3 class="text-[#101828] text-4xl font-semibold">
+        <h3 class="text-[#101828] text-3xl md:text-4xl font-semibold">
           Frequently asked questions
         </h3>
       </div>
 
-      <div class="px-[163px]">
-        <p class="text-[#667085] text-xl font-normal">
+      <div class="px-10 md:px-[163px]">
+        <p class="text-[#667085] text-sm md:text-xl font-normal">
           Everything you need to know about Agriinovation In Lagos State.
         </p>
       </div>
