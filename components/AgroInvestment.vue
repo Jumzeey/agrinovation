@@ -17,6 +17,7 @@
                 }"
                 :rounded-corners="4"
                 :colors="['#4285F4']"
+                class=" w-full h-full"
             />
         </div>
     </div>

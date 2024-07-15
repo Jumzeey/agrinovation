@@ -1,15 +1,15 @@
 <template>
   <div class="bg-[#17180A]">
-    <div class="px-[120px] flex justify-between pt-16 pb-40">
-      <div>
+    <div class="px-10 md:px-[120px] flex flex-col md:flex-row justify-between pt-16 pb-40">
+      <div class="mb-10 md:mb-0">
         <h3 class="text-[#98A2B3]">Agrinnovation</h3>
         <p class="text-[#98A2B3]">
           © Copyright 2020 Rayna. <br />All rights reserved.
         </p>
       </div>
-      <div>
+      <div class="mb-10 md:mb-0">
         <h3 class="text-[#98A2B3] pb-4">Company</h3>
-        <div class="md:flex md:flex-col gap-3">
+        <div class="flex flex-col gap-3">
           <a href="#" class="text-gray-300 hover:text-white">About</a>
           <a href="#" class="text-gray-300 hover:text-white">Leadership</a>
           <a href="#" class="text-gray-300 hover:text-white">Blogs</a>
@@ -20,9 +20,9 @@
           <a href="#" class="text-gray-300 hover:text-white">Community</a>
         </div>
       </div>
-      <div>
+      <div class="mb-10 md:mb-0">
         <h3 class="text-[#98A2B3] pb-4">Legal</h3>
-        <div class="md:flex md:flex-col gap-3">
+        <div class="flex flex-col gap-3">
           <a href="#" class="text-gray-300 hover:text-white">Legal Notice</a>
           <a href="#" class="text-gray-300 hover:text-white">Privacy Policy</a>
           <a href="#" class="text-gray-300 hover:text-white">Terms of Use</a>

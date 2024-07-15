@@ -6,11 +6,11 @@
       </div>
 
       <div class="mb-4">
-        <h3 class="text-[#101828] text-4xl font-semibold">News and Insigths</h3>
+        <h3 class="text-[#101828] text-3xl md:text-4xl font-semibold">News and Insigths</h3>
       </div>
 
-      <div class="px-[163px]">
-        <p class="text-[#667085] text-xl font-normal">
+      <div class="px-0 md:px-[163px]">
+        <p class="text-[#667085] text-sm md:text-xl font-normal">
           It’s no doubt that when a development takes longer to complete,
           additional costs tointegrate and test each extra feature creeps up and
           haunts most of us.
@@ -29,9 +29,9 @@
         </div>
       </div>
 
-      <div class="mt-[52px] flex justify-between gap-8 items-center">
+      <div class="mt-[52px] flex flex-col md:flex-row justify-between gap-8 items-center">
         <!-- Blog Post 1 -->
-        <div class="shadow-md py-3 w-2/6 px-6">
+        <div class="shadow-md py-3 w-full md:w-2/6 px-6">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div class="shadow-md py-3 w-2/6 px-6">
+        <div class="shadow-md py-3 w-full md:w-2/6 px-6">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="shadow-md py-3 w-2/6 px-6">
+        <div class="shadow-md py-3 w-full md:w-2/6 px-6">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
