@@ -3,10 +3,11 @@
     <nav class="px-4 pt-4">
         <div class="container mx-auto flex items-center justify-between">
             <div class="text-white text-lg font-bold">
-                <img src="../public/logo/logo.svg" alt="">
+                <NuxtLink to="/" ><img src="../public/logo/logo.svg" alt=""></NuxtLink>
             </div>
-            <div class="hidden md:flex space-x-4">
-                <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Agripreneur</a>
+            
+            <div class="hidden md:flex space-x-4" v-if="props.type === 'home'">
+                <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#291B0A]">Agripreneur</NuxtLink>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Investors</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Agro-Hubs</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Events</a>
@@ -14,6 +15,17 @@
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Market Places</a>
             </div>
+
+            <div class="hidden md:flex space-x-4" v-else>
+                <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
+                <a href="#" class="text-white hover:text-[#FBE234]">Investors</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Agro-Hubs</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Events</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Market Places</a>
+            </div>
+
             <div class="md:hidden">
                 <button @click="toggleMenu" class="text-gray-300 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +56,12 @@
 </template>
 
 <script setup lang="ts">
+
+interface IType {
+  type: 'home' | 'other'
+}
+
+const props = defineProps<IType>()
 
 const menuOpen = ref(false)
 

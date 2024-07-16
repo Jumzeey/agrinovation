@@ -1,6 +1,6 @@
 <template>
   <div class="px-0 md:px-[120px] banner bg-custom-gradient h-screen">
-    <Header />
+    <Header type="home" />
     <Banner />
   </div>
 
