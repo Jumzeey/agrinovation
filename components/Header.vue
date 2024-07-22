@@ -1,15 +1,19 @@
 <template>
   <div class="md:pb-[123px]">
-    <nav class="px-4 pt-4">
-        <div class="container mx-auto flex items-center justify-between">
-            <div class="text-white text-lg font-bold">
-                <NuxtLink to="/" ><img src="../public/logo/logo.svg" alt=""></NuxtLink>
+    <nav class="pt-4 px-4 md:px-0">
+        <div class="flex items-center justify-between">
+            <div class="text-white text-lg font-bold flex items-center gap-2">
+                <div class="border-r-2 border-[#FDEE34] pe-2">
+                    <NuxtLink to="/" ><img src="../public/logo/logo.svg" alt=""></NuxtLink>
+                </div>
+                <div>
+                    <img src="../public/logo/logo1.svg" alt="">
+                </div>
             </div>
             
             <div class="hidden md:flex space-x-4" v-if="props.type === 'home'">
                 <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#291B0A]">Agripreneur</NuxtLink>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Investors</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Agro-Hubs</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Events</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Research</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</a>
@@ -19,7 +23,6 @@
             <div class="hidden md:flex space-x-4" v-else>
                 <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
                 <a href="#" class="text-white hover:text-[#FBE234]">Investors</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Agro-Hubs</a>
                 <a href="#" class="text-white hover:text-[#FBE234]">Events</a>
                 <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
                 <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
@@ -34,21 +37,34 @@
                 </button>
             </div>
 
-            <div class="hidden md:flex">
+            <div class="hidden md:hidden lg:flex">
                 <input type="text" placeholder="Search here" class="w-[321px] rounded-md px-3 p-2">
             </div>
 
             <div class="hidden md:flex gap-[14px] items-center">
-                <a href="" class="text-[#291B0A]">Login</a>
+                
+                <a href="" class="text-[#291B0A]" v-if="props.type === 'home'">Login</a>
+                <a href="" class="text-white" v-else>Login</a>
                 <a class="bg-[#275927] p-3 text-white text-base rounded-md px-3 py-2" href="">Sign up</a>
             </div>
         </div>
         <div v-if="menuOpen" class="md:hidden">
-            <div class="flex flex-col items-center">
-                <a href="#" class="block text-[#291B0A] hover:text-[#291B0A] py-2">Home</a>
-                <a href="#" class="block text-[#291B0A] hover:text-[#291B0A] py-2">About</a>
-                <a href="#" class="block text-[#291B0A] hover:text-[#291B0A] py-2">Services</a>
-                <a href="#" class="block text-[#291B0A] hover:text-[#291B0A] py-2">Contact</a>
+            <div class="flex flex-col items-center" v-if="props.type === 'home'">
+                <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#FBE234]">Agripreneur</NuxtLink>
+                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Investors</a>
+                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Events</a>
+                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Research</a>
+                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Jobs</a>
+                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Market Places</a>
+            </div>
+
+            <div class="flex flex-col items-center" v-else>
+                <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
+                <a href="#" class="text-white hover:text-[#FBE234]">Investors</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Events</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
+                <a href="#" class="text-white hover:text-[#FBE234]">Market Places</a>
             </div>
         </div>
     </nav>

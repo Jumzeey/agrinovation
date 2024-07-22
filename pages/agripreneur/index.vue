@@ -2,6 +2,7 @@
 import Card from '~/components/card/Card.vue';
 import ButtonInput from '~/components/inputs/ButtonInput.vue';
 import SelectInput from '~/components/inputs/SelectInput.vue';
+import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
 
 const location = ref([
@@ -26,15 +27,23 @@ const tabs = [
   }
 ]
 
+const router = useRouter()
+
+const goTo = (slug: any) => {
+    router.push(`/agripreneur/${slug}`)
+}
+
 </script>
 
 <template>
-    <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/bg.png')] ">
-        <Header type="other" />
+    <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/bg.png')]">
+        <div class="px-0 md:px-[120px]">
+            <Header type="other" />
+        </div>
 
-        <div class="px-[168px] pb-[100px]">
+        <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[60px] text-[#FCFFF6]">List of <span class="text-[#FEE934]">Agriprenuer</span> in <br>Lagos State</h3>
+                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">List of <span class="text-[#FEE934]">Agriprenuer</span> <br>in Lagos State</h3>
             </div>
 
             <div class="bg-white rounded-2xl mt-[40px]">
@@ -44,7 +53,7 @@ const tabs = [
                             <span class="bg-[#FFFBF5] rounded-lg p-[10px]">Search Agripreneur</span>
                         </div>
 
-                        <div class="flex gap-16">
+                        <div class="lg:flex gap-16 hidden">
                             <div class="border-r-2 border-red-50 pe-16">
                                 <SelectInput 
                                     label="Location"
@@ -94,13 +103,13 @@ const tabs = [
         </div>
     </div>
 
-    <div class="px-[120px] py-[77px] bg-[#F8FCF8]">
+    <div class="px-[40px] md:px-[120px] py-[77px] bg-[#F8FCF8]">
         <div class="mb-4">
             <h3 class="text-[#261B0D] text-xl font-semibold">Agripreneurs</h3>
         </div>
 
         <div class="">
-            <div>
+            <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
                         <div class="flex gap-5 flex-wrap">
@@ -112,6 +121,7 @@ const tabs = [
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    @move="goTo('vga-fish-farm')"
                                 />
                             </div>
 
@@ -196,7 +206,11 @@ const tabs = [
                 </TabItems>
             </div>
 
-            <div class="bg-[#FCFAF7] mx-10 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-[141px]">
+            <div>
+                <Pagination :totalPage="5" />
+            </div>
+
+            <div class="bg-[#FCFAF7] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
                 <div class="w-32 py-8">
                     <img src="/images/group.svg" class="w-full" alt="" />
@@ -214,10 +228,6 @@ const tabs = [
                     </button>
                 </div>
                 </div>
-            </div>
-
-            <div>
-
             </div>
         </div>
     </div>

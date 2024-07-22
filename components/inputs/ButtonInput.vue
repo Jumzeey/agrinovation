@@ -34,14 +34,14 @@ const props = defineProps<IButtonProps>()
         outline
         v-if="props.icon && props.iconLeft"
         :icon="props.icon"
-        class="bg-green"
+        :class="props.bg"
       />
       <div class="text-center font-bold font-inter"><slot></slot></div>
       <MaterialIcon
         outline
         v-if="props.icon && !props.iconLeft"
         :icon="props.icon"
-        class="bg-green"
+        :class="props.bg"
       />
     </template>
   </button>
