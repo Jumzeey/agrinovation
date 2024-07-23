@@ -14,7 +14,7 @@
             <div class="hidden md:flex space-x-4" v-if="props.type === 'home'">
                 <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#291B0A]">Agripreneur</NuxtLink>
                 <NuxtLink to="/investor" class="text-[#291B0A] hover:text-[#291B0A]">Investors</NuxtLink>
-                <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Events</a>
+                <NuxtLink to="/events" class="text-[#291B0A] hover:text-[#291B0A]">Events</NuxtLink>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Research</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</a>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Market Places</a>
@@ -23,7 +23,7 @@
             <div class="hidden md:flex space-x-4" v-else>
                 <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
                 <NuxtLink to="/investor" class="text-white hover:text-[#FBE234]">Investors</NuxtLink>
-                <a href="#" class="text-white hover:text-[#FBE234]">Events</a>
+                <NuxtLink to="/events" class="text-white hover:text-[#FBE234]">Events</NuxtLink>
                 <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
                 <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
                 <a href="#" class="text-white hover:text-[#FBE234]">Market Places</a>
