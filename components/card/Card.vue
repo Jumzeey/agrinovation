@@ -9,20 +9,18 @@ interface ICardProps {
   address?: string;
   amount?: string;
   date?: string;
-  centerImage?: boolean
+  centerImage?: boolean;
 }
 
 const emit = defineEmits<{
-  (e: 'move'): void
-}>()
+  (e: "move"): void;
+}>();
 
 const props = defineProps<ICardProps>();
 </script>
 
 <template>
-  <div
-    class="w-full md:w-[300px] h-full rounded-2xl bg-white shadow relative"
-  >
+  <div class="w-full md:w-[300px] h-full rounded-2xl bg-white shadow relative">
     <div class="w-full h-[220px]">
       <img
         :src="props.img"
@@ -39,28 +37,25 @@ const props = defineProps<ICardProps>();
       >
         <img src="../../public/images/agripreneur/agri.svg" alt="" />
       </div>
-      
-      <div class="px-[11px] my-2 text-center" :class="props.centerImage ? 'mt-[50px]' : 'mt-[20px]'">
+
+      <div
+        class="px-[11px] my-2 text-center"
+        :class="props.centerImage ? 'mt-[50px]' : 'mt-[20px]'"
+      >
         <h3 class="text-[#261B0D] text-xl font-semibold">{{ props.title }}</h3>
 
         <div class="flex gap-3 my-3 items-center justify-center">
-            <Badge class="success">
-                <template v-slot:content>
-                    Farming
-                </template>
-            </Badge>
+          <Badge class="success">
+            <template v-slot:content> Farming </template>
+          </Badge>
 
-            <Badge class="primary">
-                <template v-slot:content>
-                    Aquatics
-                </template>
-            </Badge>
+          <Badge class="primary">
+            <template v-slot:content> Aquatics </template>
+          </Badge>
 
-            <Badge class="warning">
-                <template v-slot:content>
-                    Aquatics
-                </template>
-            </Badge>
+          <Badge class="warning">
+            <template v-slot:content> Aquatics </template>
+          </Badge>
         </div>
       </div>
 

@@ -16,7 +16,7 @@
                 <NuxtLink to="/investor" class="text-[#291B0A] hover:text-[#291B0A]">Investors</NuxtLink>
                 <NuxtLink to="/events" class="text-[#291B0A] hover:text-[#291B0A]">Events</NuxtLink>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Research</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</a>
+                <NuxtLink to="/jobs" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</NuxtLink>
                 <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Market Places</a>
             </div>
 
@@ -25,7 +25,7 @@
                 <NuxtLink to="/investor" class="text-white hover:text-[#FBE234]">Investors</NuxtLink>
                 <NuxtLink to="/events" class="text-white hover:text-[#FBE234]">Events</NuxtLink>
                 <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
+                <NuxtLink to="/jobs" class="text-white hover:text-[#FBE234]">Jobs</NuxtLink>
                 <a href="#" class="text-white hover:text-[#FBE234]">Market Places</a>
             </div>
 
