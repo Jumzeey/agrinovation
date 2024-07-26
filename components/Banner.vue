@@ -9,7 +9,7 @@
           <h3
             class="md:text-[50px] text-[32px] px-7 md:px-0 font-bold text-[#291B0A] pb-8 mt-0 pt-0 sm:text-left"
           >
-            Advancing <span class="text-[#76BF20]">Agrinovation</span> <br />in
+            Advancing <span class="text-[#76BF20]">Agrinnovation</span> <br />in
             Lagos State
           </h3>
         </div>
