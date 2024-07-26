@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import MaterialIcon from "~/components/icon/MaterialIcon.vue";
 import ButtonInput from "~/components/inputs/ButtonInput.vue";
+import ResearchBar from "~/components/progressbar/ResearchBar.vue";
 
 const route = useRoute();
+
+const progress = ref(20)
 </script>
 
 <template>
@@ -80,7 +83,36 @@ const route = useRoute();
           </div>
         </div>
 
-        <div></div>
+        <div class="w-[300px]">
+          <div class="mb-[60px] mt-[22px]">
+            <div class="flex gap-3 my-3 flex-wrap">
+              <Badge class="success">
+                <template v-slot:content> Farming </template>
+              </Badge>
+
+              <Badge class="primary">
+                <template v-slot:content> Aquatics </template>
+              </Badge>
+
+              <Badge class="warning">
+                <template v-slot:content> Aquatics </template>
+              </Badge>
+
+              <Badge class="warning">
+                <template v-slot:content> Aquatics </template>
+              </Badge>
+
+              <Badge class="warning">
+                <template v-slot:content> Aquatics </template>
+              </Badge>
+            </div>
+          </div>
+
+          <div class="">
+            <p class="pb-3 text-[#CCCCCC] text-sm">Profile Completion</p>
+            <ResearchBar :progress="progress" />
+          </div>
+      </div>
       </div>
     </div>
 
@@ -122,23 +154,23 @@ const route = useRoute();
 
               <div class="flex items-center gap-3 mb-4">
                 <div>
-                  <img src="../../public/images/award.svg" alt="">
+                  <img src="../../public/images/agripreneur/locate.svg" alt="">
                 </div>
-                <p class="text-sm font-normal">Founding Stage: NA</p>
+                <p class="text-sm font-normal">Ibeju Lekki, off Agugungi Road Lagos Nigeria</p>
               </div>
 
               <div class="flex items-center gap-3 mb-4">
                 <div>
                   <img src="../../public/images/award.svg" alt="">
                 </div>
-                <p class="text-sm font-normal">Founding Stage: NA</p>
+                <p class="text-sm font-normal">Average Annual Revenue: Not Avaliable</p>
               </div>
 
               <div class="flex items-center gap-3 mb-4">
                 <div>
                   <img src="../../public/images/award.svg" alt="">
                 </div>
-                <p class="text-sm font-normal">Founding Stage: NA</p>
+                <p class="text-sm font-normal">Produce Information: Fish Farming</p>
               </div>
             </div>
             
@@ -147,14 +179,14 @@ const route = useRoute();
                 <div>
                   <img src="../../public/images/award.svg" alt="">
                 </div>
-                <p class="text-sm font-normal">Founding Stage: NA</p>
+                <p class="text-sm font-normal">Available for Acquisition</p>
               </div>
 
               <div class="flex items-center gap-3 mb-4">
                 <div>
                   <img src="../../public/images/award.svg" alt="">
                 </div>
-                <p class="text-sm font-normal">Founding Stage: NA</p>
+                <p class="text-sm font-normal">Available for Merger</p>
               </div>
             </div>
           </div>

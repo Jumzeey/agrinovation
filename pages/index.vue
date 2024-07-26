@@ -20,6 +20,48 @@
     <News />
   </div>
 
+  <div class="bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat px-10 md:px-[120px] pb-[80px] mb-[120px] py-12">
+    <Testimonies />
+  </div>
+
+  <div class="section pt-12 px-10 md:px-[120px] pb-[120px]">
+    <div class="m-auto">
+      <div class="text-center mb-12">
+        <span class="bg-[#FFF6F5] py-1 px-3 rounded-2xl text-[#5D421F]"
+          >Our Gallery</span
+        >
+        <p class="text-[#101828] text-[36px] font-semibold">Explore Agrinnovation in Lagos</p>
+      </div>
+
+      <div class="flex flex-wrap flex-row gap-4 mb-7">
+        
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      
+        <div class="">
+          <img src="../public/images/media/media2.png" class="rounded-2xl" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="px-10 md:px-[256px] pb-[63px]">
     <Faq />
   </div>
