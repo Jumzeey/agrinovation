@@ -3,12 +3,14 @@ import ButtonInput from "../inputs/ButtonInput.vue";
 
 interface ICardProps {
   img?: string;
-  title: string;
+  title?: string;
   review?: string;
   count?: string;
   address?: string;
   amount?: string;
   date?: string;
+  description?: string
+  tags?: boolean
 }
 
 const emit = defineEmits<{
@@ -36,7 +38,11 @@ const props = defineProps<ICardProps>();
             {{ props.title }}
           </h3>
 
-          <div class="flex gap-3 my-3">
+          <div>
+            <p class="text-[#261B0D] text-md font-medium">{{ props.description }}</p>
+          </div>
+          
+          <div class="flex gap-3 my-3" v-if="props.tags">
             <Badge class="success">
               <template v-slot:content> Farming </template>
             </Badge>
@@ -51,7 +57,7 @@ const props = defineProps<ICardProps>();
           </div>
         </div>
 
-        <div class="px-6 mb-6">
+        <div class="px-3 mb-6">
           <div class="flex gap-4 mb-[10px]" v-if="props.count">
             <img src="../../public/logo/team.svg" class="w-6" alt="" />
             <p class="text-sm">{{ props.count }} Team Member</p>

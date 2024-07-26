@@ -15,7 +15,7 @@
                 <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#291B0A]">Agripreneur</NuxtLink>
                 <NuxtLink to="/investor" class="text-[#291B0A] hover:text-[#291B0A]">Investors</NuxtLink>
                 <NuxtLink to="/events" class="text-[#291B0A] hover:text-[#291B0A]">Events</NuxtLink>
-                <a href="#" class="text-[#291B0A] hover:text-[#291B0A]">Research</a>
+                <NuxtLink to="/research" class="text-[#291B0A] hover:text-[#291B0A]">Research</NuxtLink>
                 <NuxtLink to="/jobs" class="text-[#291B0A] hover:text-[#291B0A]">Jobs</NuxtLink>
                 <NuxtLink to="/marketplace" class="text-[#291B0A] hover:text-[#291B0A]">Market Places</NuxtLink>
             </div>
@@ -24,7 +24,7 @@
                 <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
                 <NuxtLink to="/investor" class="text-white hover:text-[#FBE234]">Investors</NuxtLink>
                 <NuxtLink to="/events" class="text-white hover:text-[#FBE234]">Events</NuxtLink>
-                <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
+                <NuxtLink to="/research" class="text-white hover:text-[#FBE234]">Research</NuxtLink>
                 <NuxtLink to="/jobs" class="text-white hover:text-[#FBE234]">Jobs</NuxtLink>
                 <NuxtLink to="/marketplace" class="text-white hover:text-[#FBE234]">Market Places</NuxtLink>
             </div>
@@ -51,20 +51,20 @@
         <div v-if="menuOpen" class="md:hidden">
             <div class="flex flex-col items-center" v-if="props.type === 'home'">
                 <NuxtLink to="/agripreneur" class="text-[#291B0A] hover:text-[#FBE234]">Agripreneur</NuxtLink>
-                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Investors</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Events</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Research</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Jobs</a>
-                <a href="#" class="text-[#291B0A] hover:text-[#FBE234]">Market Places</a>
+                <NuxtLink to="/investor" class="text-[#291B0A] hover:text-[#FBE234]">Investors</NuxtLink>
+                <NuxtLink to="/events" class="text-[#291B0A] hover:text-[#FBE234]">Events</NuxtLink>
+                <NuxtLink to="/research" class="text-[#291B0A] hover:text-[#FBE234]">Research</NuxtLink>
+                <NuxtLink to="/jobs" class="text-[#291B0A] hover:text-[#FBE234]">Jobs</NuxtLink>
+                <NuxtLink to="/marketplace" class="text-[#291B0A] hover:text-[#FBE234]">Market Places</NuxtLink>
             </div>
 
             <div class="flex flex-col items-center" v-else>
                 <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
-                <a href="#" class="text-white hover:text-[#FBE234]">Investors</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Events</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Research</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Jobs</a>
-                <a href="#" class="text-white hover:text-[#FBE234]">Market Places</a>
+                <NuxtLink to="/investor" class="text-white hover:text-[#FBE234]">Investors</NuxtLink>
+                <NuxtLink to="/events" class="text-white hover:text-[#FBE234]">Events</NuxtLink>
+                <NuxtLink to="/research" class="text-white hover:text-[#FBE234]">Research</NuxtLink>
+                <NuxtLink to="/jobs" class="text-white hover:text-[#FBE234]">Jobs</NuxtLink>
+                <NuxtLink to="/marketplace" class="text-white hover:text-[#FBE234]">Market Places</NuxtLink>
             </div>
         </div>
     </nav>
