@@ -20,6 +20,14 @@
     <News />
   </div>
 
+  <div class="bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat px-10 md:px-[120px] pb-[80px] mb-[120px] py-12">
+    <Testimonies />
+  </div>
+
+  <div class="section pt-12 px-10 md:px-[120px] pb-[120px]">
+    <Gallery />
+  </div>
+
   <div class="px-10 md:px-[256px] pb-[63px]">
     <Faq />
   </div>
