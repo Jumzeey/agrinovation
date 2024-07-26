@@ -14,6 +14,8 @@ const location = ref([
     }
 ])
 
+const description = ref('Africa Fish farmerInfluence of Leaf Extract of Lantana camara Integrated with Maize-based Coating Summit')
+
 const tabs = [
   {
     name: 'All Categories'
@@ -32,20 +34,20 @@ const tabs = [
 const router = useRouter()
 
 const goTo = (slug: any) => {
-    router.push(`/events/${slug}`)
+    router.push(`/research/${slug}`)
 }
 
 </script>
 
 <template>
-    <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/events/bg.png')]">
+    <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/research/bg.png')]">
         <div class="px-0 md:px-[120px]">
             <Header type="other" />
         </div>
 
         <div class="px-10 md:px-[168px] pb-[230px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Be a part of <span class="text-[#FEE934]">Agric-centered</span> <br>events in Lagos State</h3>
+                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Research</span> to <br>better make your work easy</h3>
             </div>
 
             <div class="mt-[32px]">
@@ -63,7 +65,7 @@ const goTo = (slug: any) => {
 
     <div class="px-[40px] md:px-[120px] py-[77px] bg-[#F8FCF8]">
         <div class="mb-4">
-            <h3 class="text-[#261B0D] text-xl font-semibold">Events</h3>
+            <h3 class="text-[#261B0D] text-xl font-semibold">Knowledge Hub</h3>
         </div>
 
         <div class="">
@@ -72,74 +74,68 @@ const goTo = (slug: any) => {
                     <template v-slot:tab-0>
                         <div class="flex gap-5 flex-wrap">
                             <div>
-                                <CardTwo 
+                                <CardTwo
                                     img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('africa-fish-farmer-summit')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
 
                             <div>
                                 <CardTwo 
                                     img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('vga-fish-farm')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
 
                             <div>
                                 <CardTwo 
                                     img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('vga-fish-farm')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
 
                             <div>
                                 <CardTwo 
                                     img="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('vga-fish-farm')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
 
                             <div>
                                 <CardTwo 
                                     img="https://www.farmersguide.co.uk/wp-content/uploads/2020/10/LAMMA-004-HI-RES-1.jpg"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('vga-fish-farm')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
 
                             <div>
                                 <CardTwo 
                                     img="https://malonefm.com/wp-content/uploads/2022/11/lama-show.png"
-                                    title="Africa Fish farmer Summit"
+                                    :description="description"
                                     @move="goTo('vga-fish-farm')"
                                     date="15-July-2024"
                                     bg="bg-[#F4FAF4]"
                                     text="text-[#2B612B]"
-                                    tags
                                 />
                             </div>
                         </div>
