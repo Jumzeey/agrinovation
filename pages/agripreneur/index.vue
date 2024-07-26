@@ -122,6 +122,7 @@ const goTo = (slug: any) => {
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
                                     @move="goTo('vga-fish-farm')"
+                                    centerImage
                                 />
                             </div>
 
@@ -133,6 +134,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -144,6 +146,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -155,6 +158,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -166,6 +170,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -177,6 +182,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -188,6 +194,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
 
@@ -199,6 +206,7 @@ const goTo = (slug: any) => {
                                     count="56"
                                     address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
                                     amount="56m"
+                                    centerImage
                                 />
                             </div>
                         </div>

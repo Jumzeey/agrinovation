@@ -397,14 +397,12 @@ const route = useRoute();
 
               <div class="pt-4 w-[150px]">
                 <ButtonInput
-                  class="text-sm w-full shadow border rounded-[15.36px]"
+                  class="text-sm w-full border rounded-[40px]"
                   bg="bg-[#fff]"
                   text="text-[#475467]"
                   :onClick="console.log"
-                  icon="shopping_cart"
-                  iconLeft
                 >
-                  Add to Cart
+                  Contact seller
                 </ButtonInput>
               </div>
             </div>
@@ -423,14 +421,12 @@ const route = useRoute();
 
               <div class="pt-4 w-[150px]">
                 <ButtonInput
-                  class="text-sm w-full shadow border rounded-[15.36px]"
+                  class="text-sm w-full border rounded-[40px]"
                   bg="bg-[#fff]"
                   text="text-[#475467]"
                   :onClick="console.log"
-                  icon="shopping_cart"
-                  iconLeft
                 >
-                  Add to Cart
+                  Contact seller
                 </ButtonInput>
               </div>
             </div>
@@ -449,14 +445,12 @@ const route = useRoute();
 
               <div class="pt-4 w-[150px]">
                 <ButtonInput
-                  class="text-sm w-full shadow border rounded-[15.36px]"
+                  class="text-sm w-full border rounded-[40px]"
                   bg="bg-[#fff]"
                   text="text-[#475467]"
                   :onClick="console.log"
-                  icon="shopping_cart"
-                  iconLeft
                 >
-                  Add to Cart
+                  Contact seller
                 </ButtonInput>
               </div>
             </div>
@@ -482,7 +476,7 @@ const route = useRoute();
           <div class="w-[30%]">
             <div class="mb-[30px]">
               <ButtonInput
-                  class="text-sm w-full shadow border rounded-[15.36px]"
+                  class="text-sm w-full border rounded-[15.36px]"
                   bg="bg-[#275927]"
                   text="text-[#fff]"
                   :onClick="console.log"
