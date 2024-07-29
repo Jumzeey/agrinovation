@@ -23,7 +23,7 @@ const handleChange = (newValue: string) => {
     <div
       class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/single.svg')] relative h-[350px]"
     >
-      <div class="px-0 md:px-[120px]">
+      <div class="mx-0 md:mx-[120px]">
         <Header type="other" />
       </div>
     </div>
