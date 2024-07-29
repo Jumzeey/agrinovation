@@ -1,5 +1,5 @@
 <template>
-  <div class="px-0 md:px-[120px] banner bg-custom-gradient h-screen">
+  <div class="mx-0 md:mx-[120px] banner bg-custom-gradient h-screen">
     <Header type="home" />
     <Banner />
   </div>
@@ -8,15 +8,15 @@
     <Explore />
   </div>
 
-  <div class="py-12 px-10 md:px-[120px] bg-white">
+  <div class="py-12 mx-10 md:mx-[120px] bg-white">
     <OutputChart />
   </div>
 
-  <div class="px-10 md:px-[120px] pb-[120px] py-12">
+  <div class="mx-10 md:mx-[120px] pb-[120px] py-12">
     <AgroInvestment />
   </div>
 
-  <div class="section pt-12 px-10 md:px-[120px] pb-[120px]">
+  <div class="section pt-12 mx-10 md:mx-[120px] pb-[120px]">
     <News />
   </div>
 
@@ -24,11 +24,11 @@
     <Testimonies />
   </div>
 
-  <div class="section pt-12 px-10 md:px-[120px] pb-[120px]">
+  <div class="section pt-12 mx-10 md:mx-[120px] pb-[120px]">
     <Gallery />
   </div>
 
-  <div class="px-10 md:px-[256px] pb-[63px]">
+  <div class="mx-10 md:px-[256px] pb-[63px]">
     <Faq />
   </div>
 
