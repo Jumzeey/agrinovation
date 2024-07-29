@@ -1,7 +1,9 @@
 <template>
-  <div class="mx-0 md:mx-[120px] banner bg-custom-gradient h-screen">
-    <Header type="home" />
-    <Banner />
+  <div class="banner bg-custom-gradient h-screen">
+    <div class="mx-0 md:mx-[120px] ">
+      <Header type="home" />
+      <Banner />
+    </div>
   </div>
 
   <div class="section bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat py-12 px-8 md:px-[120px]">
