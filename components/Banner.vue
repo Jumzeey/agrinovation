@@ -1,3 +1,90 @@
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import { ImageOne, ImageThree, ImageTwo } from "./images";
+
+const fadeContainer = ref<HTMLElement | null>(null);
+
+const imagesGroups = {
+  groupOne: ImageOne,
+  groupTwo: ImageTwo,
+  groupThree: ImageThree,
+};
+
+const currentImages = ref({
+  groupOne: imagesGroups.groupOne.map(image => image.name),
+  groupTwo: imagesGroups.groupTwo.map(image => image.name),
+  groupThree: imagesGroups.groupThree.map(image => image.name),
+});
+
+const imageStates = ref({
+  groupOne: imagesGroups.groupOne.map(() => true),
+  groupTwo: imagesGroups.groupTwo.map(() => true),
+  groupThree: imagesGroups.groupThree.map(() => true),
+});
+
+const imageClasses = ref({
+  groupOne: imagesGroups.groupOne.map(() => 'zoom-in'),
+  groupTwo: imagesGroups.groupTwo.map(() => 'zoom-in'),
+  groupThree: imagesGroups.groupThree.map(() => 'zoom-in'),
+});
+
+function switchImageState(group: 'groupOne' | 'groupTwo' | 'groupThree') {
+  imageStates.value[group] = imageStates.value[group].map(state => !state);
+  currentImages.value[group] = currentImages.value[group].map((src, index) =>
+    imageStates.value[group][index] ? imagesGroups[group][index].name : imagesGroups[group][index].imageright
+  );
+  imageClasses.value[group] = imageStates.value[group].map(state =>
+    state ? 'zoom-in' : 'zoom-out'
+  );
+}
+
+function nextImages(group: 'groupOne' | 'groupTwo' | 'groupThree') {
+  imagesGroups[group].forEach((_, index) => {
+    if (imageStates.value[group][index]) {
+      currentImages.value[group][index] = imagesGroups[group][index].name;
+      imageClasses.value[group][index] = 'zoom-in';
+    } else {
+      currentImages.value[group][index] = imagesGroups[group][index].imageright;
+      imageClasses.value[group][index] = 'zoom-out';
+    }
+  });
+}
+
+// Set up intervals on mount
+onMounted(() => {
+  if (fadeContainer.value) {
+    fadeContainer.value.classList.add("animate-fadeIn");
+  }
+
+  const intervals = {
+    groupOneState: setInterval(() => {
+      switchImageState('groupOne');
+    }, 3000),
+    groupTwoState: setInterval(() => {
+      switchImageState('groupTwo');
+    }, 3000),
+    groupThreeState: setInterval(() => {
+      switchImageState('groupThree');
+    }, 3000),
+
+    groupOneChange: setInterval(() => {
+      nextImages('groupOne');
+    }, 6000),
+    groupTwoChange: setInterval(() => {
+      nextImages('groupTwo');
+    }, 6000),
+    groupThreeChange: setInterval(() => {
+      nextImages('groupThree');
+    }, 6000),
+  };
+
+  // Cleanup intervals on unmount
+  onUnmounted(() => {
+    Object.values(intervals).forEach(clearInterval);
+  });
+});
+</script>
+
 <template>
   <div class="mt-10">
     <div class="flex justify-between">
@@ -57,22 +144,25 @@
 
       <div class="hidden md:flex">
         <div class="flex justify-between relative gap-4">
+          <!-- Group One -->
           <div class="w-[140px]">
-            <img src="/images/image1.svg" class="mb-4" alt="" />
-            <img src="/images/image2.svg" class="mb-4" alt="" />
-            <img src="/images/image3.svg" class="mb-4" alt="" />
+            <div v-for="(image, index) in currentImages.groupOne" :key="'groupOne-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
+              <img :src="image" :class="imageClasses.groupOne[index]" alt="" />
+            </div>
           </div>
 
+          <!-- Group Two -->
           <div class="w-[140px] bottom-10 relative">
-            <img src="/images/image4.svg" class="mb-4" alt="" />
-            <img src="/images/image5.svg" class="mb-4" alt="" />
-            <img src="/images/image6.svg" class="mb-4" alt="" />
+            <div v-for="(image, index) in currentImages.groupTwo" :key="'groupTwo-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
+              <img :src="image" :class="imageClasses.groupTwo[index]" alt="" />
+            </div>
           </div>
 
+          <!-- Group Three -->
           <div class="w-[140px] top-10 relative">
-            <img src="/images/image7.svg" class="mb-4" alt="" />
-            <img src="/images/image8.svg" class="mb-4" alt="" />
-            <img src="/images/image9.svg" class="mb-4" alt="" />
+            <div v-for="(image, index) in currentImages.groupThree" :key="'groupThree-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
+              <img :src="image" :class="imageClasses.groupThree[index]" alt="" />
+            </div>
           </div>
         </div>
       </div>
@@ -80,20 +170,24 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, ref } from "vue";
-
-const fadeContainer = ref<HTMLElement | null>(null);
-
-onMounted(() => {
-  if (fadeContainer.value) {
-    fadeContainer.value.classList.add("animate-fadeIn");
-  }
-});
-</script>
-
 <style scoped>
 .fade-container {
   opacity: 0;
+}
+
+.image-container {
+  overflow: hidden;
+}
+
+.zoom-in {
+  transform: scale(1);
+}
+
+.zoom-out {
+  transform: scale(1.2);
+}
+
+img {
+  transition: transform 0.5s ease-in-out;
 }
 </style>
