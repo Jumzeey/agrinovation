@@ -99,7 +99,7 @@ const goTo = (slug: any) => {
             </div>
 
             <div class="flex gap-5 flex-wrap">
-                <div>
+                <div class="w-[32.2%] mb-6">
                     <CardTwo 
                         img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
                         title="Africa Fish farmer Summit"
@@ -110,7 +110,7 @@ const goTo = (slug: any) => {
                     />
                 </div>
 
-                <div>
+                <div class="w-[32.2%] mb-6">
                     <CardTwo 
                         img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
                         title="Africa Fish farmer Summit"
@@ -121,7 +121,7 @@ const goTo = (slug: any) => {
                     />
                 </div>
 
-                <div>
+                <div class="w-[32.2%] mb-6">
                     <CardTwo 
                         img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
                         title="Africa Fish farmer Summit"

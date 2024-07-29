@@ -39,7 +39,7 @@ const goTo = (slug: any) => {
 
 <template>
     <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/events/bg.png')]">
-        <div class="px-0 md:px-[120px]">
+        <div class="mx-0 md:mx-[120px]">
             <Header type="other" />
         </div>
 
@@ -70,8 +70,8 @@ const goTo = (slug: any) => {
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
-                        <div class="flex gap-5 flex-wrap">
-                            <div>
+                        <div class="flex flex-wrap gap-5">
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
                                     title="Africa Fish farmer Summit"
@@ -83,7 +83,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div>
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
                                     title="Africa Fish farmer Summit"
@@ -95,7 +95,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div>
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
                                     title="Africa Fish farmer Summit"
@@ -107,7 +107,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div>
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg"
                                     title="Africa Fish farmer Summit"
@@ -119,7 +119,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div>
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://www.farmersguide.co.uk/wp-content/uploads/2020/10/LAMMA-004-HI-RES-1.jpg"
                                     title="Africa Fish farmer Summit"
@@ -131,7 +131,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div>
+                            <div class="w-[32.2%] mb-6">
                                 <CardTwo 
                                     img="https://malonefm.com/wp-content/uploads/2022/11/lama-show.png"
                                     title="Africa Fish farmer Summit"
@@ -143,6 +143,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
                         </div>
+
                     </template>
                 </TabItems>
             </div>

@@ -38,7 +38,7 @@ const goTo = (slug: any) => {
 
 <template>
     <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/jobs/bg.png')]">
-        <div class="px-0 md:px-[120px]">
+        <div class="mx-0 md:mx-[120px]">
             <Header type="other" />
         </div>
 

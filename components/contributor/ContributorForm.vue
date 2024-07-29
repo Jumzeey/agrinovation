@@ -2,6 +2,7 @@
 import Modal from "../modal/Modal.vue";
 import TextInput from "../inputs/TextInput.vue";
 import ButtonInput from "../inputs/ButtonInput.vue";
+import Textarea from "../inputs/Textarea.vue";
 
 interface Ipermits {
   show: boolean;
@@ -81,11 +82,10 @@ const emit = defineEmits<{
             </div>
 
             <div class="grid grid-cols">
-                <TextInput
+                <Textarea
                     label="Your Message"
                     :onChange="console.log"
                     important="*"
-                    border
                 />
             </div>
 

@@ -122,7 +122,7 @@ const route = useRoute();
     <div class="mx-10 md:mx-[120px] relative bottom-[96px]">
         <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
             <div>
-                <h3 class="text-[#261B0D] text-2xl font-semibold">Similar Events</h3>
+                <h3 class="text-[#261B0D] text-2xl font-semibold">Similar Jobs</h3>
             </div>
 
             <div>

@@ -21,7 +21,7 @@ const props = defineProps<ICardProps>();
 </script>
 
 <template>
-  <div class="w-full md:w-[380px] h-full rounded-2xl bg-white shadow relative">
+  <div class="w-full h-full rounded-2xl bg-white shadow relative">
     <div class="p-6">
       <div class="w-full h-[220px]">
         <img
