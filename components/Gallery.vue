@@ -9,7 +9,7 @@
       </p>
     </div>
 
-    <div class="flex flex-wrap flex-row gap-4 mb-7">
+    <div class="flex flex-wrap flex-row gap-4 mb-7 justify-center">
       <div class="">
         <img
           src="../public/images/media/media2.png"

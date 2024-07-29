@@ -6,8 +6,10 @@
     </div>
   </div>
 
-  <div class="section bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat py-12 px-8 md:px-[120px]">
-    <Explore />
+  <div class="section bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat py-12">
+    <div class="mx-10 md:mx-[120px]">
+      <Explore />
+    </div>
   </div>
 
   <div class="py-12 mx-10 md:mx-[120px] bg-white">
