@@ -55,7 +55,7 @@ const progress = ref(20)
                 </div>
               </div>
 
-              <div class="">
+              <div class="visible lg:hidden">
                 <div class="mb-2">
                   <ButtonInput :onClick="console.log"> Contact Agripreneur </ButtonInput>
                 </div>
@@ -97,8 +97,8 @@ const progress = ref(20)
           </div>
         </div>
 
-        <div class="w-[300px] hidden lg:flex">
-          <div class="mb-[60px] mt-[22px]">
+        <div class="w-[300px]">
+          <div class="mb-[60px] mt-[22px] hidden lg:flex">
             <div class="flex gap-3 my-3 flex-wrap">
               <Badge class="success">
                 <template v-slot:content> Farming </template>
@@ -122,15 +122,17 @@ const progress = ref(20)
             </div>
           </div>
 
-          <div class="">
-            <p class="pb-3 text-[#CCCCCC] text-sm">Profile Completion</p>
-            <ResearchBar :progress="progress" />
+          <div class="hidden lg:flex">
+            <div class="w-full">
+              <p class="pb-3 text-[#CCCCCC] text-sm">Profile Completion</p>
+              <ResearchBar :progress="progress" />
+            </div>
           </div>
       </div>
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-xl lg:text-2xl font-medium">About VGA Agricprenuer</h3>
@@ -222,7 +224,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[80px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[80px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Team</h3>
@@ -278,7 +280,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[64px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[64px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Media</h3>
@@ -314,7 +316,7 @@ const progress = ref(20)
 
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Job Opening</h3>
@@ -406,7 +408,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Market Places</h3>
@@ -495,7 +497,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Contact</h3>

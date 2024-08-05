@@ -50,7 +50,7 @@ const goTo = (slug: any) => {
       </div>
 
       <div class="mt-[32px]">
-        <div class="w-full lg:w-[650px] m-auto">
+        <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
           <TextInput
             :onChange="console.log"
             label=""

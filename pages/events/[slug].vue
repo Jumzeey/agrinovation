@@ -23,10 +23,10 @@ const goTo = (slug: any) => {
     
     <div class="md:px-[120px]">
       <div
-        class="px-10 py-6 relative bottom-28 overflow-hidden h-full lg:h-[450px]"
+        class="px-10 py-6 relative bottom-28 overflow-hidden h-full md:h-[450px] lg:h-[450px]"
       >
         <div class="">
-          <img src="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg" class="object-cover w-full h-full lg:h-[400px] rounded-3xl" alt="">
+          <img src="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg" class="object-cover w-full h-full md:h-[400px] lg:h-[400px] rounded-3xl" alt="">
         </div>
       </div>
     </div>
@@ -98,8 +98,8 @@ const goTo = (slug: any) => {
               </div>
           </div>
 
-          <div class="flex flex-wrap gap-5 flex-col lg:flex-row">
-            <div class="w-full lg:w-[32.2%] mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-7">
+            <div class="w-full mb-6">
                 <CardTwo 
                     img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
                     title="Africa Fish farmer Summit"
@@ -110,7 +110,7 @@ const goTo = (slug: any) => {
                 />
             </div>
 
-            <div class="w-full lg:w-[32.2%] mb-6">
+            <div class="w-full mb-6">
                 <CardTwo 
                     img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
                     title="Africa Fish farmer Summit"
@@ -121,7 +121,7 @@ const goTo = (slug: any) => {
                 />
             </div>
 
-            <div class="w-full lg:w-[32.2%] mb-6">
+            <div class="w-full mb-6">
                 <CardTwo 
                     img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
                     title="Africa Fish farmer Summit"

@@ -52,7 +52,7 @@ const route = useRoute();
               </div>
             </div>
 
-            <div>
+            <div class="visible lg:hidden">
               <div class="mb-2">
                 <ButtonInput :onClick="console.log">
                   Contact Investor
@@ -112,7 +112,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg"
     >
       <div
         class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between"
@@ -224,7 +224,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[80px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[80px] overflow-hidden px-10 rounded-t-lg"
     >
       <div
         class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between"
@@ -245,7 +245,7 @@ const route = useRoute();
       <div class="">
         <div class="flex flex-col lg:flex-row gap-7 mb-7">
           <div class="w-full sm:w-1/2 lg:w-auto">
-            <div class="w-[214px] mx-auto">
+            <div class="mx-auto">
               <img src="../../public/images/team2.png" class="w-full" alt="" />
               <h3 class="text-[#101828] text-xl font-semibold pb-1 pt-4">
                 Olivia Rhye
@@ -257,7 +257,7 @@ const route = useRoute();
           </div>
 
           <div class="w-full sm:w-1/2 lg:w-auto">
-            <div class="w-[214px] mx-auto">
+            <div class="mx-auto">
               <img src="../../public/images/team1.png" class="w-full" alt="" />
               <h3 class="text-[#101828] text-xl font-semibold pb-1 pt-4">
                 Olivia Rhye
@@ -269,7 +269,7 @@ const route = useRoute();
           </div>
 
           <div class="w-full sm:w-1/2 lg:w-auto">
-            <div class="w-[214px] mx-auto">
+            <div class="mx-auto">
               <img src="../../public/images/team.png" class="w-full" alt="" />
               <h3 class="text-[#101828] text-xl font-semibold pb-1 pt-4">
                 Olivia Rhye
@@ -281,7 +281,7 @@ const route = useRoute();
           </div>
 
           <div class="w-full sm:w-1/2 lg:w-auto">
-            <div class="w-[214px] mx-auto">
+            <div class="mx-auto">
               <img src="../../public/images/team1.png" class="w-full" alt="" />
               <h3 class="text-[#101828] text-xl font-semibold pb-1 pt-4">
                 Olivia Rhye
@@ -293,7 +293,7 @@ const route = useRoute();
           </div>
 
           <div class="w-full sm:w-1/2 lg:w-auto">
-            <div class="w-[214px] mx-auto">
+            <div class="mx-auto">
               <img src="../../public/images/team2.png" class="w-full" alt="" />
               <h3 class="text-[#101828] text-xl font-semibold pb-1 pt-4">
                 Olivia Rhye
@@ -308,7 +308,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[64px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[64px] overflow-hidden px-10 rounded-t-lg"
     >
       <div
         class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between"
@@ -380,7 +380,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg"
     >
       <div
         class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between"
@@ -504,7 +504,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg"
     >
       <div
         class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between"
@@ -595,7 +595,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg mt-5"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg mt-5"
     >
       <div class="flex flex-col items-center py-[96px]">
         <h3 class="pb-5 text-[#17180A] text-4xl font-semibold">

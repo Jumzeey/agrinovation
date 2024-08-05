@@ -82,7 +82,7 @@ const handleChange = (newValue: string) => {
     </div>
 
     <div
-      class="mx-0 lg:mx-10 md:mx-[120px] relative bottom-[96px] overflow-hidden px-10 rounded-t-lg"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] relative bottom-[96px] overflow-hidden px-10 rounded-t-lg"
     >
       <div class="pb-5 mb-5 pt-4">
         <div class="mt-[48px]">
@@ -104,7 +104,7 @@ const handleChange = (newValue: string) => {
             </div>
           </div>
 
-          <div class="flex gap-5 flex-wrap">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
             <div class="rounded-2xl bg-white">
               <img
                 src="../../public/images/agripreneur/market.png"
@@ -115,6 +115,34 @@ const handleChange = (newValue: string) => {
               <div class="px-[23px] pt-[10px] pb-[23px]">
                 <div class="flex justify-between items-center mb-1">
                   <h3 class="text-[#261B0D] text-xl">Red Tomatoes</h3>
+                  <p>$95.00</p>
+                </div>
+                <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+
+                <div class="pt-4 w-[150px]">
+                  <ButtonInput
+                    class="text-sm w-full border rounded-[40px]"
+                    bg="bg-[#fff]"
+                    text="text-[#475467]"
+                    :onClick="() => goTo('red-tomatoes')"
+                  >
+                    Contact seller
+                  </ButtonInput>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl bg-white">
+              <img
+                src="../../public/images/agripreneur/market.png"
+                class="rounded-2xl pb-4 w-full"
+                alt=""
+              />
+
+              <div class="px-[23px] pt-[10px] pb-[23px]">
+                <div class="flex justify-between items-center mb-1">
+                  <h3 class="text-[#261B0D] text-xl">Red Tomatoes</h3>
+
                   <p>$95.00</p>
                 </div>
                 <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>

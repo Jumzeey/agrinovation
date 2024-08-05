@@ -31,7 +31,7 @@ const closeForm = () => {
     
     <div class="md:px-[120px]">
       <div
-        class="px-10 bg-white flex justify-between py-6 relative bottom-28 overflow-hidden rounded-t-lg"
+        class="px-10 bg-white py-6 relative bottom-28 overflow-hidden rounded-t-lg"
       >
         <div class="flex justify-between flex-col lg:flex-row">
           <div class="flex gap-6">
@@ -67,7 +67,6 @@ const closeForm = () => {
               </div>
             </div>
           </div>
-        
 
           <div class="w-[300px]">
               <div class="mb-5 lg:mb-[90px]">
@@ -89,7 +88,7 @@ const closeForm = () => {
       </div>
     </div>
 
-    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
       <div class="w-full py-6">
         <div class="mb-[71px]">
           <p class="text-[#261B0D] font-normal">
