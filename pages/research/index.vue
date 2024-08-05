@@ -72,8 +72,8 @@ const goTo = (slug: any) => {
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
-                        <div class="flex flex-wrap gap-5 flex-col lg:flex-row">
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-7">
+                            <div class="w-full">
                                 <CardTwo
                                     img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
                                     :description="description"
@@ -84,7 +84,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                            <div class="w-full">
                                 <CardTwo 
                                     img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
                                     :description="description"
@@ -95,7 +95,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                            <div class="w-full">
                                 <CardTwo 
                                     img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
                                     :description="description"
@@ -106,7 +106,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                            <div class="w-full">
                                 <CardTwo 
                                     img="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg"
                                     :description="description"
@@ -117,7 +117,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                            <div class="w-full">
                                 <CardTwo 
                                     img="https://www.farmersguide.co.uk/wp-content/uploads/2020/10/LAMMA-004-HI-RES-1.jpg"
                                     :description="description"
@@ -128,7 +128,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-full lg:w-[32.2%] mb-6">
+                            <div class="w-full">
                                 <CardTwo 
                                     img="https://malonefm.com/wp-content/uploads/2022/11/lama-show.png"
                                     :description="description"
