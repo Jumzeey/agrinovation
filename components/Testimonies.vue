@@ -7,7 +7,7 @@
       <h3 class="text-[#101828] text-4xl font-semibold pb-6 pt-4">
         Client’s words
       </h3>
-      <p class="text-[#101828] text-[32px] font-medium">
+      <p class="text-[#101828] text-2xl lg:text-[32px] font-medium">
         We’ve been using Agriventure to put out our every Agric product and
         can’t imagine working without it.
       </p>

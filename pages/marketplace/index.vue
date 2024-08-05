@@ -45,14 +45,14 @@ const goTo = (slug: any) => {
 
     <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
       <div class="text-center">
-        <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">
+        <h3 class="text-[30px] md:text-[60px] lg:text-[60px] text-[#FCFFF6]">
           Up to 60% of all items in <br />
           our <span class="text-[#FEE934]">Market Places</span>
         </h3>
       </div>
 
       <div class="mt-[32px]">
-        <div class="w-[650px] m-auto">
+        <div class="w-full lg:w-[650px] m-auto">
           <TextInput
             :onChange="console.log"
             label=""
@@ -73,11 +73,11 @@ const goTo = (slug: any) => {
       <div class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
         <TabItems :tabs="tabs">
           <template v-slot:tab-0>
-            <div class="grid grid-cols-4 gap-4 mb-7">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -87,9 +87,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -105,7 +105,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -115,9 +115,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -133,7 +133,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -143,9 +143,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -161,7 +161,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -171,9 +171,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -189,7 +189,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -199,9 +199,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -217,7 +217,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -227,9 +227,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -245,7 +245,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -255,9 +255,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"
@@ -273,7 +273,7 @@ const goTo = (slug: any) => {
               <div class="rounded-2xl bg-white">
                 <img
                   src="../../public/images/agripreneur/market.png"
-                  class="rounded-2xl pb-4 w-full"
+                  class="rounded-2xl pb-2 w-full"
                   alt=""
                 />
 
@@ -283,9 +283,9 @@ const goTo = (slug: any) => {
 
                     <p>$95.00</p>
                   </div>
-                  <p class="text-[#261B0D] text-xs pb-4">Red Silettos</p>
+                  <p class="text-[#261B0D] text-xs pb-2">Red Silettos</p>
 
-                  <div class="pt-4 w-[150px]">
+                  <div class="pt-2 w-[150px]">
                     <ButtonInput
                       class="text-sm w-full border rounded-[40px]"
                       bg="bg-[#fff]"

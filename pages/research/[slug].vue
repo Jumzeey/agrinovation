@@ -33,7 +33,7 @@ const closeForm = () => {
       <div
         class="px-10 bg-white flex justify-between py-6 relative bottom-28 overflow-hidden rounded-t-lg"
       >
-        <div class="flex justify-between">
+        <div class="flex justify-between flex-col lg:flex-row">
           <div class="flex gap-6">
             <div>
               <div class="mb-5">
@@ -67,28 +67,29 @@ const closeForm = () => {
               </div>
             </div>
           </div>
-        </div>
+        
 
-        <div class="w-[300px]">
-            <div class="mb-[90px]">
-              <p class="pb-3 text-[#CCCCCC] text-sm">Research Stage:</p>
-              <ResearchBar :progress="progress" />
-            </div>
+          <div class="w-[300px]">
+              <div class="mb-5 lg:mb-[90px]">
+                <p class="pb-3 text-[#CCCCCC] text-sm">Research Stage:</p>
+                <ResearchBar :progress="progress" />
+              </div>
 
-            <div class="flex gap-[14px]">
-              <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" class="text-sm" :onClick="() => becomeContributor()"> Be a contributor </ButtonInput>
-              <ButtonInput bg="bg-[#275927]" text="text-[#fff]" class="text-sm" :onClick="console.log"> Download </ButtonInput>
-            </div>
+              <div class="flex gap-[14px]">
+                <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" class="text-sm" :onClick="() => becomeContributor()"> Be a contributor </ButtonInput>
+                <ButtonInput bg="bg-[#275927]" text="text-[#fff]" class="text-sm" :onClick="console.log"> Download </ButtonInput>
+              </div>
 
-            <ContributorForm
-              :show="contributor"
-              @closeModal="closeForm"
-            />
+              <ContributorForm
+                :show="contributor"
+                @closeModal="closeForm"
+              />
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
       <div class="w-full py-6">
         <div class="mb-[71px]">
           <p class="text-[#261B0D] font-normal">

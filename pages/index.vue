@@ -1,42 +1,42 @@
 <template>
-  <div class="banner bg-custom-gradient h-screen">
-    <div class="mx-0 md:mx-[120px] ">
+  <div class="banner bg-custom-gradient h-[600px] md:h-[680px] lg:h-screen">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px]">
       <Header type="home" />
       <Banner />
     </div>
   </div>
 
   <div class="section bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat py-12">
-    <div class="mx-10 md:mx-[120px]">
+    <div class="mx-10 lg:mx-[120px]">
       <Explore />
     </div>
   </div>
 
-  <div class="py-12 mx-10 md:mx-[120px] bg-white">
+  <div class="py-12 mx-10 lg:mx-[120px] bg-white">
     <OutputChart />
   </div>
 
-  <div class="mx-10 md:mx-[120px] pb-[120px] py-12">
+  <div class="mx-10 lg:mx-[120px] pb-[120px] py-12">
     <AgroInvestment />
   </div>
 
-  <div class="section pt-12 mx-10 md:mx-[120px] pb-[120px]">
+  <div class="section pt-12 mx-10 lg:mx-[120px] pb-[120px]">
     <News />
   </div>
 
-  <div class="bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat px-10 md:px-[120px] pb-[80px] mb-[120px] py-12">
+  <div class="bg-[url('/public/images/bgleaf.svg')] bg-cover bg-no-repeat px-10 lg:px-[120px] pb-[80px] mb-[120px] py-12">
     <Testimonies />
   </div>
 
-  <div class="section pt-12 mx-10 md:mx-[120px] pb-[120px]">
+  <div class="section pt-12 mx-10 lg:mx-[120px] pb-[120px]">
     <Gallery />
   </div>
 
-  <div class="mx-10 md:px-[256px] pb-[63px]">
+  <div class="mx-10 lg:px-[256px] pb-[63px]">
     <Faq />
   </div>
 
-  <div class="bg-[#FCFAF7] mx-10 md:mx-[120px] py-3 rounded-2xl mb-[120px]">
+  <div class="bg-[#FCFAF7] mx-10 lg:mx-[120px] py-3 rounded-2xl mb-[120px]">
     <div class="text-center flex flex-col items-center">
       <div class="w-32 py-8">
         <img src="/images/group.svg" class="w-full" alt="" />
@@ -45,7 +45,7 @@
         <h3 class="pb-2 text-[#101828] text-xl font-medium">
           Still have questions?
         </h3>
-        <p class="text-[#667085] text-md md:text-lg font-normal pb-8">
+        <p class="text-[#667085] text-md lg:text-lg font-normal pb-8">
           Can’t find the answer you’re looking for? Please reach out to our
           friendly team.
         </p>

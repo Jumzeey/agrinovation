@@ -112,8 +112,8 @@ const goTo = (slug: any) => {
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="w-[24%] mb-6">
+                        <div class="lex flex-wrap gap-3 flex-col lg:flex-row">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://www.geotab.com/CMS-Media-production/AU/Solutions/Agribusiness/agribusiness-hero-banner-australia@2x.jpg"
                                     title="VGA Fish Farm"
@@ -126,7 +126,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://media.istockphoto.com/id/506164764/photo/tractor-spraying-soybean-field.jpg?s=612x612&w=0&k=20&c=h27yHr07QNSghYS20iwYBCGjZIa2HlXqrZDkM0ZsYEw="
                                     title="VGA Fish Farm"
@@ -138,7 +138,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://wallpapers.com/images/featured/sustainable-agriculture-t1tte6fs05hrpkyc.jpg"
                                     title="VGA Fish Farm"
@@ -150,7 +150,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://investorplace.com/wp-content/uploads/2020/06/agriculture-stocks.jpg"
                                     title="VGA Fish Farm"
@@ -162,7 +162,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://investorplace.com/wp-content/uploads/2020/07/agriculturestocks1600-768x432.jpg"
                                     title="VGA Fish Farm"
@@ -174,7 +174,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://t4.ftcdn.net/jpg/02/43/52/57/360_F_243525780_r8sdu06FUxVmqvf3YUthU5s9nE0z0lhh.jpg"
                                     title="VGA Fish Farm"
@@ -186,7 +186,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://static.vecteezy.com/system/resources/previews/036/223/422/non_2x/ai-generated-rows-of-young-corn-plants-growing-on-the-field-generative-ai-photo.jpg"
                                     title="VGA Fish Farm"
@@ -198,7 +198,7 @@ const goTo = (slug: any) => {
                                 />
                             </div>
 
-                            <div class="w-[24%] mb-6">
+                            <div class="w-full lg:w-[24%] mb-6">
                                 <Card 
                                     img="https://www.shutterstock.com/image-photo/agricultural-land-green-corn-farm-600nw-1934905055.jpg"
                                     title="VGA Fish Farm"

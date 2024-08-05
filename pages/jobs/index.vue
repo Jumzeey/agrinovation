@@ -44,11 +44,11 @@ const goTo = (slug: any) => {
 
         <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Job</span> to <br>better make your work easy</h3>
+                <h3 class="text-[30px] md:text-[60px] lg:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Job</span> to <br>better make your work easy</h3>
             </div>
 
             <div class="mt-[32px]">
-                <div class="w-[650px] m-auto">
+                <div class="w-full lg:w-[650px] m-auto">
                     <TextInput
                         :onChange="console.log"
                         label=""
@@ -66,11 +66,11 @@ const goTo = (slug: any) => {
         </div>
 
         <div class="">
-            <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
+            <div class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
                         <div class="flex gap-6">
-                            <div class="w-3/6">
+                            <div class="w-full lg:w-3/6">
                                 <div class="rounded-2xl p-6 bg-white mb-6">
                                     <div
                                         class="w-[86px] h-[86px] rounded-3xl flex items-center justify-center bg-white mb-4"
@@ -95,7 +95,7 @@ const goTo = (slug: any) => {
                                             class="text-sm"
                                             bg="bg-[#F4FAF4]"
                                             text="text-[#2B612B]"
-                                            :onClick="console.log"
+                                            :onClick="() => goTo('farm-manager')"
                                             >
                                             See Profile
                                             </ButtonInput>
@@ -165,7 +165,7 @@ const goTo = (slug: any) => {
                                 </div>
                             </div>
 
-                            <div class="w-3/6">
+                            <div class="w-3/6 hidden lg:flex">
                                 <div class="rounded-2xl p-6 bg-white mb-6">
                                     <div class="border-b-2">
                                         <div class="w-[86px] h-[86px] rounded-3xl flex items-center justify-center bg-white mb-4">

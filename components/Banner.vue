@@ -142,7 +142,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="hidden md:flex">
+      <div class="hidden md:hidden lg:flex">
         <div class="flex justify-between relative gap-4">
           <!-- Group One -->
           <div class="w-[140px]">
