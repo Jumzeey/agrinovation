@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Card from "~/components/card/Card.vue";
 import ButtonInput from "~/components/inputs/ButtonInput.vue";
-import SelectInput from "~/components/inputs/SelectInput.vue";
 import TextInput from "~/components/inputs/TextInput.vue";
 import Pagination from "~/components/list/Pagination.vue";
 import TabItems from "~/components/tab/TabItems.vue";

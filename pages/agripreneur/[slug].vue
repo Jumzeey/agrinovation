@@ -314,7 +314,7 @@ const progress = ref(20)
 
     </div>
 
-    <div class="mx-10 md:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[48px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Job Opening</h3>
@@ -406,7 +406,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-10 md:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[32px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Market Places</h3>
@@ -495,7 +495,7 @@ const progress = ref(20)
       </div>
     </div>
 
-    <div class="mx-10 md:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 lg:mx-10 md:mx-[120px] bg-white relative bottom-[16px] overflow-hidden px-10 rounded-t-lg">
       <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
         <div>
           <h3 class="text-black text-2xl font-medium">Contact</h3>

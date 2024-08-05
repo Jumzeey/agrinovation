@@ -1,5 +1,5 @@
 <template>
-  <div class="banner bg-custom-gradient h-[600px] md:h-[680px] lg:h-screen">
+  <div class="banner bg-custom-gradient h-[600px] md:h-screen lg:h-screen">
     <div class="mx-0 md:mx-[120px] lg:mx-[120px]">
       <Header type="home" />
       <Banner />

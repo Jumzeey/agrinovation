@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Badge from "~/components/badge/Badge.vue";
-import MaterialIcon from "~/components/icon/MaterialIcon.vue";
 import ButtonInput from "~/components/inputs/ButtonInput.vue";
 import Counter from "~/components/inputs/Counter.vue";
 
