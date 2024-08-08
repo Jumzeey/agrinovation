@@ -12,13 +12,13 @@
     <BubbleChart/>
   </div>
 
-  <!-- <div class="px-10 md:px-[120px] pb-[120px] py-12">
+  <div class="px-12 md:px-[120px] pb-[120px] py-12">
     <BarChart/>
-  </div> -->
-
-  <div class="py-12 px-10 md:px-[120px] bg-white">
-    <OutputChart />
   </div>
+
+  <!-- <div class="py-12 px-10 md:px-[120px] bg-white">
+    <OutputChart />
+  </div> -->
 
   <div class="px-10 md:px-[120px] pb-[120px] py-12">
     <AgroInvestment />
