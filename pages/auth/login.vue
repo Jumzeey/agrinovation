@@ -8,11 +8,11 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 <template>
     <div class="w-full h-screen flex flex-col md:flex-row">
         <div class="hidden md:flex md:w-[45%] lg:w-[45%] h-full">
-            <img src="../../public/images/login/login.svg" class="object-cover w-full h-full" alt="Login Illustration">
+            <img src="../../public/images/login/login.svg" class="object-cover w-full h-full" alt="Login">
         </div>
 
         <div class="w-full md:w-[55%] flex flex-col justify-center items-center p-8 md:p-16">
-            <div class="w-full max-w-md">
+            <div class="w-full max-w-lg">
                 <div class="mb-8">
                     <h3 class="text-[#1B1818] text-2xl md:text-3xl font-semibold pb-2">Welcome back!</h3>
                     <div class="flex gap-2">

@@ -12,7 +12,7 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
         </div>
 
         <div class="w-full md:w-[55%] lg:w-[55%] flex justify-center items-center overflow-hidden px-8 lg:px-[133px]">
-            <div class="w-full">
+            <div class="w-full max-w-lg">
                 <div class="mb-[32px]">
                     <h3 class="text-[#1B1818] text-[32px] font-semibold pb-2">Forgot Password?</h3>
                     <div class="flex flex-col lg:flex-row gap-2">
