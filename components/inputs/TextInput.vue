@@ -42,12 +42,12 @@ const toggleShowPassword = () => (showPassword.value = !showPassword.value)
       <div class="w-full h-full flex items-center" :class="{ 'flex-row-reverse': !absolute }">
         <input
           :disabled="disabled"
-          class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green_regular"
+          class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green"
           :class="{
             'border border-red focus:outline-red': errorMessage,
-            'focus:outline-green_regular': !errorMessage,
+            'focus:outline-green': !errorMessage,
             'bg-white': whiteBackground,
-            'bg-input_mint': !whiteBackground,
+            'bg-[#fffefe]': !whiteBackground,
             border: border
           }"
           :placeholder="props.placeholder"
@@ -60,7 +60,7 @@ const toggleShowPassword = () => (showPassword.value = !showPassword.value)
         />
         <MaterialIcon
           :absolute="absolute"
-          class="m-6 cursor-pointer hover:scale-105 text-green_regular"
+          class="m-6 cursor-pointer hover:scale-105"
           :class="{ absolute: !absolute }"
           v-if="props.type === 'password'"
           :onClick="toggleShowPassword"

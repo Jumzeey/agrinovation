@@ -107,4 +107,6 @@ const closeForm = () => {
     </div>
 
   </div>
+
+  <Footer />
 </template>

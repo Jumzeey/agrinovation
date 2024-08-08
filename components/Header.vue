@@ -43,9 +43,9 @@
 
             <div class="hidden lg:flex gap-[14px] items-center">
                 
-                <a href="" class="text-[#291B0A]" v-if="props.type === 'home'">Login</a>
-                <a href="" class="text-white" v-else>Login</a>
-                <a class="bg-[#275927] p-3 text-white text-base rounded-md px-3 py-2" href="">Sign up</a>
+                <NuxtLink to="/auth/login" class="text-[#291B0A]" v-if="props.type === 'home'">Login</NuxtLink>
+                <NuxtLink to="/auth/login" class="text-white" v-else>Login</NuxtLink>
+                <NuxtLink to="/auth/signup" class="bg-[#275927] p-3 text-white text-base rounded-md px-3 py-2" href="">Sign up</NuxtLink>
             </div>
         </div>
         <div v-if="menuOpen" class="lg:hidden">

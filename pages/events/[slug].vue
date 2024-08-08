@@ -135,6 +135,7 @@ const goTo = (slug: any) => {
         </div>
       </div>
     </div>
-
   </div>
+
+  <Footer />
 </template>

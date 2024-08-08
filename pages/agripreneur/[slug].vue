@@ -144,7 +144,7 @@ const progress = ref(20)
       </div>
 
       <div class="flex justify-between">
-        <div class="w-full lg:w-[70%]">
+        <div class="w-auto md:w-[70%] lg:w-[70%]">
           <div class="mb-[71px]">
             <p class="text-[#261B0D] font-normal">
               Agricorp is a Nigerian company that provides global exports to
@@ -209,16 +209,18 @@ const progress = ref(20)
         </div>
 
         <div class="hidden md:flex lg:flex md:flex-col lg:flex-col">
-          <div class="mb-4">
-            <ButtonInput :onClick="console.log"> Contact Agripreneur </ButtonInput>
-          </div>
-
-          <div class="mb-4">
-            <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" :onClick="console.log"> Claim Profile </ButtonInput>
-          </div>
-
           <div>
-            <ButtonInput bg="bg-[#fff] border" text="text-[#275927]" :onClick="console.log"> Add Favorite </ButtonInput>
+            <div class="mb-4">
+              <ButtonInput :onClick="console.log"> Contact Agripreneur </ButtonInput>
+            </div>
+
+            <div class="mb-4">
+              <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" :onClick="console.log"> Claim Profile </ButtonInput>
+            </div>
+
+            <div>
+              <ButtonInput bg="bg-[#fff] border" text="text-[#275927]" :onClick="console.log"> Add Favorite </ButtonInput>
+            </div>
           </div>
         </div>
       </div>
@@ -567,4 +569,6 @@ const progress = ref(20)
       </div>
     </div>
   </div>
+
+  <Footer />
 </template>

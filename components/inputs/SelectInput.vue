@@ -40,7 +40,7 @@ const filtered = computed(() => {
 <template>
   <div class="flex flex-col gap-1">
     <label class="font-satoshi text-[#111] text-sm font-medium"
-      >{{ label }} <span v-if="important" class="text-red">*</span></label
+      >{{ label }} <span v-if="important" class="text-[#FF5200]">*</span></label
     >
     <div
       v-if="!!noDataMessage"
@@ -56,8 +56,8 @@ const filtered = computed(() => {
         :placeholder="placeholder"
         class="w-full appearance-none rounded-lg px-4 focus:outline-[#ECF0F4] text-sm pb-4"
         :class="{
-          'border border-red focus:outline-red': errorMessage,
-          'focus:outline-[#ECF0F4] border-none border-[#ECF0F4]': !errorMessage,
+          'border border-red focus:outline-red-400': errorMessage,
+          'focus:outline-[#ECF0F4]  border-[#ECF0F4]': !errorMessage,
           'p-0': noPadding,
           'p-3': !noPadding,
           border: border,

@@ -244,4 +244,6 @@ const handleChange = (newValue: string) => {
       </div>
     </div>
   </div>
+
+  <Footer />
 </template>

@@ -631,4 +631,6 @@ const route = useRoute();
       </div>
     </div>
   </div>
+
+  <Footer />
 </template>
