@@ -29,13 +29,21 @@ const type = ref([
 </script>
 
 <template>
-    <div class="w-full h-screen flex justify-between">
-        <div class="hidden md:w-[45%] lg:w-[45%] lg:flex h-[750px]">
-            <img src="../../public/images/login/signup.svg" class=" object-cover w-full h-[750px]"alt="">
+    <div class="w-full h-full flex justify-between">
+        <div class="bg-[url('/public/images/login/signup.svg')] bg-cover bg-no-repeat hidden md:w-[45%] lg:w-[45%] lg:flex">
         </div>
 
-        <div class="w-full md:w-[55%] lg:w-[55%] flex justify-center items-center overflow-hidden px-8 lg:px-[133px]">
+        <div class="w-full md:w-[55%] lg:w-[55%] flex justify-center items-center overflow-hidden px-8 lg:px-[133px] pb-12">
             <div class="w-full max-w-lg">
+                <div class="mb-5 flex justify-center items-center pt-5">
+                    <div class="w-[90px]">
+                        <NuxtLink to="/" ><img src="../../public/logo/logopng.png" alt=""></NuxtLink>
+                    </div>
+                    <!-- <div class="w-[90px]">
+                        <NuxtLink to="/" ><img src="../../public/logo/logo2.png" alt=""></NuxtLink>
+                    </div> -->
+                </div>
+
                 <div class="mb-[32px]">
                     <h3 class="text-[#1B1818] text-[32px] font-semibold pb-2">Create an Account</h3>
                     <div class="flex gap-2">

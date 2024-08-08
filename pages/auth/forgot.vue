@@ -13,6 +13,15 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 
         <div class="w-full md:w-[55%] lg:w-[55%] flex justify-center items-center overflow-hidden px-8 lg:px-[133px]">
             <div class="w-full max-w-lg">
+                <div class="mb-5 flex justify-center items-center">
+                    <div class="w-[90px]">
+                        <NuxtLink to="/" ><img src="../../public/logo/logopng.png" alt=""></NuxtLink>
+                    </div>
+                    <!-- <div class="w-[90px]">
+                        <NuxtLink to="/" ><img src="../../public/logo/logo2.png" alt=""></NuxtLink>
+                    </div> -->
+                </div>
+                
                 <div class="mb-[32px]">
                     <h3 class="text-[#1B1818] text-[32px] font-semibold pb-2">Forgot Password?</h3>
                     <div class="flex flex-col lg:flex-row gap-2">
@@ -27,7 +36,7 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
                     </div>
 
                     <div class="text-end mb-[32px]">
-                        <NuxtLink to="/auth/reset" class="text-[#FFA500] text-sm font-semibold">Send Password Reset Link</NuxtLink>
+                        <NuxtLink to="/auth/reset" class="text-[#FFA500] text-sm font-semibold">Reset Password</NuxtLink>
                     </div>
 
                     <div>
