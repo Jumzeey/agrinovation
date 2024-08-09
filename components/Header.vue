@@ -3,9 +3,6 @@
     <nav class="pt-4 px-4 lg:px-0">
         <div class="flex items-center justify-between">
             <div class="text-white text-lg font-bold flex items-center gap-2">
-                <div class="w-[75px]">
-                    <NuxtLink to="/" ><img src="../public/logo/logo22.png" alt=""></NuxtLink>
-                </div>
                 <div class="border-r-2 border-[#FDEE34] pe-2 w-[75px]">
                     <NuxtLink to="/" ><img src="../public/logo/logopng.png" alt=""></NuxtLink>
                 </div>
