@@ -30,15 +30,15 @@
       </div>
 
       <div class="mt-[52px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-8 items-center">
-        <!-- Blog Post 1 -->
-        <div class="shadow-md py-3 w-full px-6">
+
+        <div class="shadow-md py-3 w-full px-6 blog-card">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
           <div class="">
             <span class="text-green-500 pb-3">#Fishfarming #Fish</span>
             <h3 class="text-[#101828] text-2xl font-semibold pb-3">
-              How Lagos State is improving Food supplies
+              <NuxtLink to="/">How Lagos State is improving Food supplies</NuxtLink>
             </h3>
             <p class="text-[#667085] text-sm font-medium text-wrap">
               How do you create compelling presentations that wow your
@@ -56,14 +56,14 @@
           </div>
         </div>
 
-        <div class="shadow-md py-3 w-full px-6">
+        <div class="shadow-md py-3 w-full px-6 blog-card">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
           <div class="">
             <span class="text-green-500 pb-3">#Fishfarming #Fish</span>
             <h3 class="text-[#101828] text-2xl font-semibold pb-3">
-              How Lagos State is improving Food supplies
+              <NuxtLink to="/">How Lagos State is improving Food supplies</NuxtLink>
             </h3>
             <p class="text-[#667085] text-sm font-medium text-wrap">
               How do you create compelling presentations that wow your
@@ -81,14 +81,14 @@
           </div>
         </div>
 
-        <div class="shadow-md py-3 w-full px-6">
+        <div class="shadow-md py-3 w-full px-6 blog-card">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
           <div class="">
             <span class="text-green-500 pb-3">#Fishfarming #Fish</span>
             <h3 class="text-[#101828] text-2xl font-semibold pb-3">
-              How Lagos State is improving Food supplies
+              <NuxtLink to="/">How Lagos State is improving Food supplies</NuxtLink>
             </h3>
             <p class="text-[#667085] text-sm font-medium text-wrap">
               How do you create compelling presentations that wow your
@@ -106,14 +106,14 @@
           </div>
         </div>
 
-        <div class="shadow-md py-3 w-full px-6">
+        <div class="shadow-md py-3 w-full px-6 blog-card">
           <div class="flex items-center">
             <img src="/images/blog.png" class="mb-6 w-full" alt="Blog image" />
           </div>
           <div class="">
             <span class="text-green-500 pb-3">#Fishfarming #Fish</span>
             <h3 class="text-[#101828] text-2xl font-semibold pb-3">
-              How Lagos State is improving Food supplies
+              <NuxtLink to="/">How Lagos State is improving Food supplies</NuxtLink>
             </h3>
             <p class="text-[#667085] text-sm font-medium text-wrap">
               How do you create compelling presentations that wow your
@@ -134,3 +134,15 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+</style>
+

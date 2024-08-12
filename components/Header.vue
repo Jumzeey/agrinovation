@@ -21,12 +21,36 @@
             </div>
 
             <div class="hidden lg:flex space-x-4" v-else>
-                <NuxtLink to="/agripreneur" class="text-white hover:text-[#FBE234]">Agripreneur</NuxtLink>
-                <NuxtLink to="/investor" class="text-white hover:text-[#FBE234]">Investors</NuxtLink>
-                <NuxtLink to="/events" class="text-white hover:text-[#FBE234]">Events</NuxtLink>
-                <NuxtLink to="/research" class="text-white hover:text-[#FBE234]">Research</NuxtLink>
-                <NuxtLink to="/jobs" class="text-white hover:text-[#FBE234]">Jobs</NuxtLink>
-                <NuxtLink to="/marketplace" class="text-white hover:text-[#FBE234]">Market Places</NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/agripreneur' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/agripreneur'), 'text-white': !isActive('/agripreneur') }">
+                    Agripreneur
+                </NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/investor' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/investor'), 'text-white': !isActive('/investor') }">
+                    Investors
+                </NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/events' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/events'), 'text-white': !isActive('/events') }">
+                    Events
+                </NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/research' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/research'), 'text-white': !isActive('/research') }">
+                    Research
+                </NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/jobs' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/jobs'), 'text-white': !isActive('/jobs') }">
+                    Jobs
+                </NuxtLink>
+                <NuxtLink 
+                    :to="{ path: '/marketplace' }" 
+                    :class="{ 'text-[#FBE234]': isActive('/marketplace'), 'text-white': !isActive('/marketplace') }">
+                    Market Places
+                </NuxtLink>
             </div>
 
             <div class="lg:hidden">
@@ -71,6 +95,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 
 interface IType {
   type: 'home' | 'other'
@@ -79,8 +104,13 @@ interface IType {
 const props = defineProps<IType>()
 
 const menuOpen = ref(false)
+const route = useRoute()
 
 const toggleMenu = () => {
     menuOpen.value = !menuOpen.value
+}
+
+const isActive = (path: string) => {
+    return route.path === path
 }
 </script>

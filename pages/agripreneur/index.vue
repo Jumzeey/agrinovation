@@ -4,6 +4,7 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 import SelectInput from '~/components/inputs/SelectInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
+import { Agripreneurs } from './data';
 
 const location = ref([
     {
@@ -113,99 +114,15 @@ const goTo = (slug: any) => {
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
-                            <div class="w-full">
+                            <div class="w-full" v-for="data in Agripreneurs" :key="data.id">
                                 <Card 
-                                    img="https://www.geotab.com/CMS-Media-production/AU/Solutions/Agribusiness/agribusiness-hero-banner-australia@2x.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
+                                    :img="data.image"
+                                    :title="data.title"
+                                    :review="data.review"
+                                    :count="data.count"
+                                    :address="data.address"
+                                    :amount="data.amount"
                                     @move="goTo('vga-fish-farm')"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://media.istockphoto.com/id/506164764/photo/tractor-spraying-soybean-field.jpg?s=612x612&w=0&k=20&c=h27yHr07QNSghYS20iwYBCGjZIa2HlXqrZDkM0ZsYEw="
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://wallpapers.com/images/featured/sustainable-agriculture-t1tte6fs05hrpkyc.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://investorplace.com/wp-content/uploads/2020/06/agriculture-stocks.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://investorplace.com/wp-content/uploads/2020/07/agriculturestocks1600-768x432.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://t4.ftcdn.net/jpg/02/43/52/57/360_F_243525780_r8sdu06FUxVmqvf3YUthU5s9nE0z0lhh.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://static.vecteezy.com/system/resources/previews/036/223/422/non_2x/ai-generated-rows-of-young-corn-plants-growing-on-the-field-generative-ai-photo.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <Card 
-                                    img="https://www.shutterstock.com/image-photo/agricultural-land-green-corn-farm-600nw-1934905055.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
                                     centerImage
                                 />
                             </div>
@@ -219,23 +136,23 @@ const goTo = (slug: any) => {
                 <Pagination :totalPage="5" />
             </div>
 
-            <div class="bg-[#FCFAF7] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
+            <div class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
-                <div class="w-32 py-8">
-                    <img src="/images/group.svg" class="w-full" alt="" />
-                </div>
-                <div>
-                    <h3 class="pb-2 text-[#101828] text-xl font-medium">
-                    Still have questions?
-                    </h3>
-                    <p class="text-[#667085] text-md md:text-lg font-normal pb-8">
-                    Can’t find the answer you’re looking for? Please reach out to our
-                    friendly team.
-                    </p>
-                    <button class="bg-[#FFA500] text-white rounded-lg py-[10px] px-3 mb-8">
-                    Get in touch
-                    </button>
-                </div>
+                    <div class="w-32 py-8">
+                        <img src="/images/group.svg" class="w-full" alt="" />
+                    </div>
+                    <div>
+                        <h3 class="pb-2 text-white text-xl font-medium">
+                        Still have questions?
+                        </h3>
+                        <p class="text-white text-md md:text-lg font-normal pb-8">
+                        Can’t find the answer you’re looking for? Please reach out to our
+                        friendly team.
+                        </p>
+                        <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
+                        Get in touch
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
