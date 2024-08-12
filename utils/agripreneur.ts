@@ -71,4 +71,6 @@ export const Agripreneurs = [
         address: "Ibeju Lekki, off Agugungi Road Lagos Nigeria",
         amount: "56m",
     },
-]
+];
+
+
