@@ -50,7 +50,22 @@ function nextImages(group: 'groupOne' | 'groupTwo' | 'groupThree') {
   });
 }
 
-// Set up intervals on mount
+const textOptions = ["Agro-Innovation", "Agro-Opportunities", "Agro-Collaboration"];
+const currentText = ref(textOptions[0]);
+const nextText = ref("");
+const textClass = ref("");
+
+function switchText() {
+  const currentIndex = textOptions.indexOf(currentText.value);
+  nextText.value = textOptions[(currentIndex + 1) % textOptions.length];
+  textClass.value = "slide-up";
+  setTimeout(() => {
+    currentText.value = nextText.value;
+    textClass.value = "slide-down";
+  }, 500);
+}
+
+
 onMounted(() => {
   if (fadeContainer.value) {
     fadeContainer.value.classList.add("animate-fadeIn");
@@ -78,7 +93,8 @@ onMounted(() => {
     }, 6000),
   };
 
-  // Cleanup intervals on unmount
+  setInterval(switchText, 3000);
+
   onUnmounted(() => {
     Object.values(intervals).forEach(clearInterval);
   });
@@ -92,11 +108,11 @@ onMounted(() => {
         class="bg-[url('/public/images/bg.svg')] bg-contain bg-no-repeat p-0 m-0 fade-container"
         ref="fadeContainer"
       >
-        <div class="text-center sm:text-left">
+      <div class="text-center sm:text-left text-container">
           <h3
             class="md:text-[50px] text-[32px] px-7 md:px-0 font-bold text-[#291B0A] pb-8 mt-0 pt-0 sm:text-left"
           >
-            Advancing <span class="text-[#76BF20]">Agrinnovation</span> <br />in
+            Driving <span :class="[textClass, 'text-[#76BF20]']" class="transition-transform">{{ currentText }}</span> <br />in
             Lagos State
           </h3>
         </div>
@@ -113,7 +129,7 @@ onMounted(() => {
           class="flex max-lg:justify-start max-md:justify-center max-sm:justify-center"
         >
           <button
-            class="px-10 py-3 text-[#FFFAFA] bg-[#275927] rounded-md mb-8"
+            class="px-10 py-3 text-[#FFFAFA] bg-[#275927] rounded-md mb-8 hover:cursor-pointer hover:bg-[#78BD1F]"
           >
             Get Started
           </button>
@@ -142,23 +158,20 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="hidden md:flex">
+      <div class="hidden md:hidden lg:flex">
         <div class="flex justify-between relative gap-4">
-          <!-- Group One -->
           <div class="w-[140px]">
             <div v-for="(image, index) in currentImages.groupOne" :key="'groupOne-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
               <img :src="image" :class="imageClasses.groupOne[index]" alt="" />
             </div>
           </div>
 
-          <!-- Group Two -->
           <div class="w-[140px] bottom-10 relative">
             <div v-for="(image, index) in currentImages.groupTwo" :key="'groupTwo-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
               <img :src="image" :class="imageClasses.groupTwo[index]" alt="" />
             </div>
           </div>
 
-          <!-- Group Three -->
           <div class="w-[140px] top-10 relative">
             <div v-for="(image, index) in currentImages.groupThree" :key="'groupThree-' + index" class="image-container mb-4 rounded-tr-[35px] rounded-bl-[35px]">
               <img :src="image" :class="imageClasses.groupThree[index]" alt="" />
@@ -170,7 +183,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .fade-container {
   opacity: 0;
 }
@@ -190,4 +203,43 @@ onMounted(() => {
 img {
   transition: transform 0.5s ease-in-out;
 }
+
+.text-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.text-container span {
+  display: inline-block;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide-up {
+  transform: translateY(-100%);
+}
+
+.slide-down {
+  transform: translateY(0);
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 </style>
+
+

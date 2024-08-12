@@ -10,14 +10,14 @@ const route = useRoute();
     <div
       class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/single.svg')] relative h-[350px]"
     >
-      <div class="px-0 md:px-[120px]">
+      <div class="mx-0 md:mx-[120px]">
         <Header type="other" />
       </div>
     </div>
 
     <div class="md:px-[120px]">
       <div
-        class="px-10 bg-white flex justify-between items-center py-6 relative bottom-28 overflow-hidden rounded-t-lg"
+        class="px-10 bg-white flex flex-col lg:flex-row justify-between lg:items-center py-6 relative bottom-28 overflow-hidden rounded-t-lg"
       >
         <div>
           <div class="flex gap-6 items-center mb-4">
@@ -42,7 +42,7 @@ const route = useRoute();
               Lagos State, Ilaje Local Gov, Off Owode Idi iroko
             </p>
 
-            <div class="flex gap-3 my-3 items-center">
+            <div class="gap-3 my-3 items-center hidden lg:flex">
               <Badge class="success">
                 <template v-slot:content> Farming </template>
               </Badge>
@@ -74,7 +74,7 @@ const route = useRoute();
     </div>
 
     <div
-      class="mx-10 md:mx-[120px] bg-white relative bottom-[96px]  px-10 rounded-t-lg mb-[82px]"
+      class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[96px]  px-10 rounded-t-lg mb-[82px]"
     >
       <div class="py-6">
         <p>Job Summary</p>
@@ -119,10 +119,10 @@ const route = useRoute();
       </div>
     </div>
 
-    <div class="mx-10 md:mx-[120px] relative bottom-[96px]">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] relative bottom-[96px]">
         <div class="pb-5 border-b-[1px] border-[#E4E7EC] mb-5 pt-4 flex items-center justify-between">
             <div>
-                <h3 class="text-[#261B0D] text-2xl font-semibold">Similar Events</h3>
+                <h3 class="text-[#261B0D] text-2xl font-semibold">Similar Jobs</h3>
             </div>
 
             <div>
@@ -130,7 +130,7 @@ const route = useRoute();
             </div>
         </div>
 
-        <div class="flex gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
             <div class="rounded-2xl p-6 bg-white mb-6">
                 <div
                     class="w-[86px] h-[86px] rounded-3xl flex items-center justify-center bg-white mb-4"
@@ -301,4 +301,6 @@ const route = useRoute();
         </div>
     </div>
   </div>
+
+  <Footer />
 </template>

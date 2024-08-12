@@ -41,4 +41,3 @@ const data = [
   { name: 'Dec', total: Math.floor(Math.random() * 2000) + 500 },
 ]
 </script>
-

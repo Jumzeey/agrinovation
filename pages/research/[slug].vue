@@ -24,16 +24,16 @@ const closeForm = () => {
     <div
       class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/single.svg')] relative h-[350px]"
     >
-      <div class="px-0 md:px-[120px]">
+      <div class="mx-0 md:mx-[120px]">
         <Header type="other" />
       </div>
     </div>
     
     <div class="md:px-[120px]">
       <div
-        class="px-10 bg-white flex justify-between py-6 relative bottom-28 overflow-hidden rounded-t-lg"
+        class="px-10 bg-white py-6 relative bottom-28 overflow-hidden rounded-t-lg"
       >
-        <div class="flex justify-between">
+        <div class="flex justify-between flex-col lg:flex-row">
           <div class="flex gap-6">
             <div>
               <div class="mb-5">
@@ -67,28 +67,28 @@ const closeForm = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="w-[300px]">
-            <div class="mb-[90px]">
-              <p class="pb-3 text-[#CCCCCC] text-sm">Research Stage:</p>
-              <ResearchBar :progress="progress" />
-            </div>
+          <div class="w-[300px]">
+              <div class="mb-5 lg:mb-[90px]">
+                <p class="pb-3 text-[#CCCCCC] text-sm">Research Stage:</p>
+                <ResearchBar :progress="progress" />
+              </div>
 
-            <div class="flex gap-[14px]">
-              <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" class="text-sm" :onClick="() => becomeContributor()"> Be a contributor </ButtonInput>
-              <ButtonInput bg="bg-[#275927]" text="text-[#fff]" class="text-sm" :onClick="console.log"> Download </ButtonInput>
-            </div>
+              <div class="flex gap-[14px]">
+                <ButtonInput bg="bg-[#EDF7ED]" text="text-[#275927]" class="text-sm" :onClick="() => becomeContributor()"> Be a contributor </ButtonInput>
+                <ButtonInput bg="bg-[#275927]" text="text-[#fff]" class="text-sm" :onClick="console.log"> Download </ButtonInput>
+              </div>
 
-            <ContributorForm
-              :show="contributor"
-              @closeModal="closeForm"
-            />
+              <ContributorForm
+                :show="contributor"
+                @closeModal="closeForm"
+              />
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="mx-10 md:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
+    <div class="mx-0 md:mx-[120px] lg:mx-[120px] bg-white relative bottom-[96px] overflow-hidden px-10 rounded-t-lg">
       <div class="w-full py-6">
         <div class="mb-[71px]">
           <p class="text-[#261B0D] font-normal">
@@ -107,4 +107,6 @@ const closeForm = () => {
     </div>
 
   </div>
+
+  <Footer />
 </template>

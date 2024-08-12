@@ -4,10 +4,10 @@
       <span class="bg-[#E2EDDE] py-1 px-3 rounded-2xl text-black"
         >Testimonies</span
       >
-      <h3 class="text-[#101828] text-4xl font-semibold pb-6 pt-4">
+      <h3 class="text-white text-4xl font-semibold pb-6 pt-4">
         Client’s words
       </h3>
-      <p class="text-[#101828] text-[32px] font-medium">
+      <p class="text-white text-2xl lg:text-[32px] font-medium px-14">
         We’ve been using Agriventure to put out our every Agric product and
         can’t imagine working without it.
       </p>
@@ -16,8 +16,8 @@
         <div class="mb-3 w-16">
           <img src="../public/images/avatar.png" alt="" />
         </div>
-        <p class="text-[#101828] text-lg font-medium pb-2">Emmanuel J</p>
-        <p class="text-[#667085] text-base font-normal">
+        <p class="text-white text-lg font-medium pb-2">Emmanuel J</p>
+        <p class="text-white text-base font-normal">
           Product Manager, Sisyphus
         </p>
       </div>

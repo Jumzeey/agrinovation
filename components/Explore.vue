@@ -21,7 +21,7 @@
     <div>
       <div class="flex flex-col lg:flex-row justify-between gap-8 mb-8 md:mb-16">
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 border-[#CFCFCD] px-6 py-[31px] hover:border-[#275927] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/users.svg" class="mb-5 w-10" alt="" />
@@ -36,7 +36,7 @@
         </div>
 
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 hover:border-[#275927] border-[#CFCFCD] px-6 py-[31px] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/dollars.svg" class="mb-5 w-10" alt="" />
@@ -51,7 +51,7 @@
         </div>
 
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 hover:border-[#275927] border-[#CFCFCD] px-6 py-[31px] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/net.svg" class="mb-5 w-10" alt="" />
@@ -68,7 +68,7 @@
 
       <div class="flex flex-col lg:flex-row justify-between gap-8">
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 hover:border-[#275927] border-[#CFCFCD] px-6 py-[31px] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/research.svg" class="mb-5 w-10" alt="" />
@@ -83,13 +83,13 @@
         </div>
 
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 hover:border-[#275927] border-[#CFCFCD] px-6 py-[31px] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/job.svg" class="mb-5 w-10" alt="" />
           </div>
           <h3 class="text-[#102310] text-xl font-medium pb-2">
-            Job Oppurtunities
+            Job Opportunities
           </h3>
           <p class="text-[#667085] text-sm font-normal leading-6">
             Track and manage agricultural activities and outputs from farm to
@@ -98,7 +98,7 @@
         </div>
 
         <div
-          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border border-[#CFCFCD] px-6 py-[31px]"
+          class="flex flex-col mb-0 md:mb-8 lg:mb-0 rounded-3xl border-2 border-[#CFCFCD] hover:border-[#275927] px-6 py-[31px] hover:cursor-pointer"
         >
           <div class="flex flex-col w-full">
             <img src="/images/event.svg" class="mb-5 w-10" alt="" />

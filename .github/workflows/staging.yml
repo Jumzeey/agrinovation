@@ -22,7 +22,7 @@ jobs:
         run: |
           npm install  # Install project dependencies
           touch .env.local
-          npm run build  # Build Nuxt.js app
+          npm run generate  # Build Nuxt.js app
 
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
@@ -30,3 +30,4 @@ jobs:
           server: ftp.lasricsciencefair.com
           username: ${{ secrets.staging_username }}
           password: ${{ secrets.staging_password }}
+          local-dir: dist/

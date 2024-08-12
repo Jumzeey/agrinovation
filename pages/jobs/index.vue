@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Card from '~/components/card/Card.vue';
 import ButtonInput from '~/components/inputs/ButtonInput.vue';
-import SelectInput from '~/components/inputs/SelectInput.vue';
 import TextInput from '~/components/inputs/TextInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
@@ -38,17 +36,17 @@ const goTo = (slug: any) => {
 
 <template>
     <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/jobs/bg.png')]">
-        <div class="px-0 md:px-[120px]">
+        <div class="mx-0 md:mx-[120px]">
             <Header type="other" />
         </div>
 
         <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Job</span> to <br>better make your work easy</h3>
+                <h3 class="text-[30px] md:text-[60px] lg:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Job</span> to <br>better make your work easy</h3>
             </div>
 
             <div class="mt-[32px]">
-                <div class="w-[650px] m-auto">
+                <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
                     <TextInput
                         :onChange="console.log"
                         label=""
@@ -66,11 +64,11 @@ const goTo = (slug: any) => {
         </div>
 
         <div class="">
-            <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
+            <div class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <TabItems :tabs="tabs">
                     <template v-slot:tab-0>
                         <div class="flex gap-6">
-                            <div class="w-3/6">
+                            <div class="w-full lg:w-3/6">
                                 <div class="rounded-2xl p-6 bg-white mb-6">
                                     <div
                                         class="w-[86px] h-[86px] rounded-3xl flex items-center justify-center bg-white mb-4"
@@ -95,7 +93,7 @@ const goTo = (slug: any) => {
                                             class="text-sm"
                                             bg="bg-[#F4FAF4]"
                                             text="text-[#2B612B]"
-                                            :onClick="console.log"
+                                            :onClick="() => goTo('farm-manager')"
                                             >
                                             See Profile
                                             </ButtonInput>
@@ -165,7 +163,7 @@ const goTo = (slug: any) => {
                                 </div>
                             </div>
 
-                            <div class="w-3/6">
+                            <div class="w-3/6 hidden lg:flex">
                                 <div class="rounded-2xl p-6 bg-white mb-6">
                                     <div class="border-b-2">
                                         <div class="w-[86px] h-[86px] rounded-3xl flex items-center justify-center bg-white mb-4">
@@ -207,25 +205,27 @@ const goTo = (slug: any) => {
                 <Pagination :totalPage="5" />
             </div>
 
-            <div class="bg-[#FCFAF7] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
+            <div class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
-                <div class="w-32 py-8">
-                    <img src="/images/group.svg" class="w-full" alt="" />
-                </div>
-                <div>
-                    <h3 class="pb-2 text-[#101828] text-xl font-medium">
-                    Still have questions?
-                    </h3>
-                    <p class="text-[#667085] text-md md:text-lg font-normal pb-8">
-                    Can’t find the answer you’re looking for? Please reach out to our
-                    friendly team.
-                    </p>
-                    <button class="bg-[#FFA500] text-white rounded-lg py-[10px] px-3 mb-8">
-                    Get in touch
-                    </button>
-                </div>
+                    <div class="w-32 py-8">
+                        <img src="/images/group.svg" class="w-full" alt="" />
+                    </div>
+                    <div>
+                        <h3 class="pb-2 text-white text-xl font-medium">
+                        Still have questions?
+                        </h3>
+                        <p class="text-white text-md md:text-lg font-normal pb-8">
+                        Can’t find the answer you’re looking for? Please reach out to our
+                        friendly team.
+                        </p>
+                        <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
+                        Get in touch
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <Footer />
 </template>

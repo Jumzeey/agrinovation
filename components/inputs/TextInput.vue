@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import MaterialIcon from '@/components/icon/MaterialIcon.vue'
-import { ref } from 'vue'
-
+import { ref, defineProps, computed, watch } from 'vue'
 
 interface IInputProps {
   label: string
@@ -22,49 +21,62 @@ interface IInputProps {
 
 const props = defineProps<IInputProps>()
 const showPassword = ref(false)
+const inputValue = ref(props.value)
 
-const onChange = (e: Event) => {
-  const target = e.target as HTMLInputElement
-  props.onChange(target.value)
+const onChange = () => {
+  if (inputValue.value !== undefined) {
+    props.onChange(inputValue.value) // Ensure that the value is passed correctly
+  }
+}
+const toggleShowPassword = () => {
+  showPassword.value = !showPassword.value
 }
 
-const toggleShowPassword = () => (showPassword.value = !showPassword.value)
+const inputType = computed(() => {
+  if (props.type === 'password') {
+    return showPassword.value ? 'text' : 'password'
+  }
+  return props.type
+})
 
+// Watch for changes in props.value and update local inputValue
+watch(() => props.value, (newValue) => {
+  inputValue.value = newValue || '' 
+})
 </script>
 
 <template>
   <div class="flex flex-col gap-1">
     <label class="font-satoshi text-[#111] text-sm font-medium">
-        {{ label }} <span class="text-[#FF5200]">{{ important }}</span>
+      {{ label }} <span class="text-[#FF5200]">{{ important }}</span>
     </label>
 
     <div class="w-full h-14">
       <div class="w-full h-full flex items-center" :class="{ 'flex-row-reverse': !absolute }">
         <input
+          v-model="inputValue"
           :disabled="disabled"
-          class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green_regular"
+          class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green"
           :class="{
             'border border-red focus:outline-red': errorMessage,
-            'focus:outline-green_regular': !errorMessage,
+            'focus:outline-green': !errorMessage,
             'bg-white': whiteBackground,
-            'bg-input_mint': !whiteBackground,
+            'bg-[#fffefe]': !whiteBackground,
             border: border
           }"
           :placeholder="props.placeholder"
-          @change="onChange"
           @input="onChange"
-          :value="value"
-          :type="showPassword ? 'text' : type"
-          :min="type === 'date' ? min : undefined"
-          :max="type === 'date' ? max : undefined"
+          :type="inputType"
+          :min="props.type === 'date' ? min : undefined"
+          :max="props.type === 'date' ? max : undefined"
         />
         <MaterialIcon
           :absolute="absolute"
-          class="m-6 cursor-pointer hover:scale-105 text-green_regular"
+          class="m-6 cursor-pointer hover:scale-105"
           :class="{ absolute: !absolute }"
           v-if="props.type === 'password'"
-          :onClick="toggleShowPassword"
-          :icon="!showPassword ? 'visibility' : 'visibility_off'"
+          @click="toggleShowPassword"
+          :icon="showPassword ? 'visibility_off' : 'visibility'"
           outline
         />
         <span v-if="description" class="font-inter text-[#747EA1] text-sm font-thin">{{ description }}</span>
