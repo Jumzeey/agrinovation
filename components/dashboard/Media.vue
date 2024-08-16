@@ -1,0 +1,63 @@
+<template>
+    <div class="bg-white rounded-lg p-4">
+      <div class="border-b flex justify-between items-center pb-3">
+        <div>
+          <p>Media</p>
+        </div>
+        <div class="py-2 px-3 border border-border_col rounded-md cursor-pointer">
+          <p class="text-priText">Add Media</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mt-3 overflow-hidden">
+        <div v-for="(image, index) in displayedImages" :key="index" class="relative w-full h-full rounded-lg overflow-hidden">
+          <transition name="fade" mode="out-in">
+            <img :src="image.src" :alt="image.alt" :key="image.src" class="object-cover w-full h-full" />
+          </transition>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+  </style>
+  
+  <script setup lang="ts">
+  import { ref, onMounted } from 'vue';
+  
+  const images = [
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868268.svg?updatedAt=1723635165450', alt: 'Image 1' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868269.svg?updatedAt=1723635165255', alt: 'Image 2' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868270.svg?updatedAt=1723635164106', alt: 'Image 3' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868271.svg?updatedAt=1723635163817', alt: 'Image 4' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868269.svg?updatedAt=1723635165255', alt: 'Image 5' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868270.svg?updatedAt=1723635164106', alt: 'Image 6' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868268.svg?updatedAt=1723635165450', alt: 'Image 7' },
+    { src: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868271.svg?updatedAt=1723635163817', alt: 'Image 8' },
+    // Add more images as needed
+  ];
+  
+  const displayedImages = ref(images.slice(0, 6)); // Display first 6 images
+  
+  // Function to rotate images randomly
+  const rotateImagesRandomly = () => {
+    setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * displayedImages.value.length);
+      const randomImageIndex = Math.floor(Math.random() * images.length);
+      displayedImages.value[randomIndex] = images[randomImageIndex];
+    }, Math.random() * 4000 + 2000); // Change an image every 2-6 seconds
+  };
+  
+  onMounted(() => {
+    rotateImagesRandomly();
+  });
+  </script>
+  

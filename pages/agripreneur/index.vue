@@ -4,7 +4,7 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 import SelectInput from '~/components/inputs/SelectInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
-import { Agripreneurs } from '~/utils/agripreneur';
+import { Agripreneurs } from '~/data/agripreneur';
 
 const location = ref([
     {

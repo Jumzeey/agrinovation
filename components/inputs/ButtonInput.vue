@@ -26,7 +26,7 @@ const props = defineProps<IButtonProps>()
       'text-white': !props.text,
       [props.text!]: !!props.text
     }"
-    class="py-[10px] px-[16px] rounded-lg flex gap-2 w-full justify-center items-center"
+    class="py-[10px] px-[16px] rounded-lg flex gap-2 w-full justify-center items-center cursor-pointer"
   >
     <template v-if="!!props.loading"> <SpinnerComponent /> </template>
     <template v-else>

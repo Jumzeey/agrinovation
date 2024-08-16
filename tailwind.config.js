@@ -26,7 +26,12 @@ module.exports = {
       colors: {
         bg_color: '#FCFAF7',
         button_color: '#F2E7D9',
+        subText: '#CCCCCC',
+        priText: '#344054',
+        border_col: '#D0D5DD',
         green: '#2B612B',
+        body_bg: '#f8fcf9',
+        primary_green: '#FBE234',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

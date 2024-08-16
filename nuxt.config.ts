@@ -2,6 +2,19 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
+  components: {
+    dirs: [
+      '~/components',
+        {
+          path: '~/components/dashboard/',
+          prefix: 'Dashboard'
+        },
+        {
+          path: '~/components/inputs/',
+          prefix: 'Input'
+        }
+    ]
+  },
   css: ['~/assets/css/main.css'],
 
   postcss: {
@@ -22,5 +35,5 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: './components/ui'
-  }
+  },
 })
