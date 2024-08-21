@@ -16,6 +16,10 @@ export default defineNuxtConfig({
     ]
   },
   css: ['~/assets/css/main.css'],
+  plugins:[
+    '~/plugins/toastification.js',
+  ],
+  
 
   postcss: {
     plugins: {
@@ -36,4 +40,9 @@ export default defineNuxtConfig({
      */
     componentDir: './components/ui'
   },
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_PUBLIC_API_URL ?? 'https://backend.agrinnovationsummit.com/api'
+    }
+  }
 })

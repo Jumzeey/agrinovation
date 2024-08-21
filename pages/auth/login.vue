@@ -1,9 +1,4 @@
-<script setup lang="ts">
-import TextInput from '~/components/inputs/TextInput.vue';
-import ButtonInput from '~/components/inputs/ButtonInput.vue';
 
-
-</script>
 
 <template>
     <div class="w-full h-screen flex flex-col md:flex-row">
@@ -30,11 +25,11 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 
                 <div>
                     <div class="mb-4">
-                        <TextInput label="Email address" :onChange="console.log" border />
+                        <TextInput label="Email address" v-model="email" important="*" border />
                     </div>
 
                     <div class="mb-4">
-                        <TextInput label="Password" type="password" :onChange="console.log" border />
+                        <TextInput label="Password" type="password" v-model="password" important="*" border />
                     </div>
 
                     <div class="text-end mb-8">
@@ -42,7 +37,7 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
                     </div>
 
                     <div>
-                        <ButtonInput :onClick="console.log">Login</ButtonInput>
+                        <ButtonInput :onClick="handleLogin" :loading="loading">Login</ButtonInput>
                     </div>
                 </div>
             </div>
@@ -50,3 +45,43 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
     </div>
 
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useAuth } from '~/composables/useAuth'
+import TextInput from '~/components/inputs/TextInput.vue'
+import ButtonInput from '~/components/inputs/ButtonInput.vue'
+import { useToast } from 'vue-toastification'
+
+// Using the composable
+const { login, loading} = useAuth()
+
+const toast = useToast()
+
+// Local state for form inputs
+const email = ref('')
+const password = ref('')
+
+// Function to validate form inputs
+const validateForm = (): boolean => {
+    if (!email.value.includes('@')) {
+        toast.error('Invalid email address')
+        return false
+    }
+    if (!email.value || !password.value) {
+        toast.error('Please fill in all fields')
+        return false
+    }
+    return true
+}
+
+// Login handler
+const handleLogin = async () => {
+    if (validateForm()) {
+        await login({
+            email: email.value,
+            password: password.value,
+        })
+    }
+}
+</script>

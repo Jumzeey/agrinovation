@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MaterialIcon from '@/components/icon/MaterialIcon.vue'
-import { ref, defineProps, computed, watch } from 'vue'
+import { ref, defineProps, computed, watch, defineEmits } from 'vue'
 
 interface IInputProps {
   label: string
@@ -22,11 +22,12 @@ interface IInputProps {
 const props = defineProps<IInputProps>()
 const showPassword = ref(false)
 const inputValue = ref(props.value)
+const emit = defineEmits(['update:modelValue'])
 
-const onChange = () => {
-  if (inputValue.value !== undefined) {
-    props.onChange(inputValue.value) // Ensure that the value is passed correctly
-  }
+const onChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  inputValue.value = target.value
+  emit('update:modelValue', inputValue.value)
 }
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value
