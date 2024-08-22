@@ -19,8 +19,6 @@ export default defineNuxtConfig({
   plugins:[
     '~/plugins/toastification.js',
   ],
-  
-
   postcss: {
     plugins: {
       tailwindcss: {},

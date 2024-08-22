@@ -1,23 +1,17 @@
-// middleware/auth.ts
-
-import { defineNuxtRouteMiddleware, useRouter } from '#imports'
+import { defineNuxtRouteMiddleware, useRouter, useRoute } from '#imports'
 import { useAuth } from '~/composables/useAuth'
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  const { userType } = useAuth()
+  const { token } = useAuth()
   const router = useRouter()
 
-  if (!userType.value) {
+  if (!token.value && to.path !== '/auth/login') {
+    // Redirect to login only if not already on login page
     return router.push('/auth/login')
   }
 
-  // Redirect based on user type
-  switch (userType.value) {
-    case 'Investor':
-    case 'Agripreneur':
-    case 'Researcher':
-      return router.push('/dashboard')
-    default:
-      return router.push('/auth/login')
+  if (token.value && to.path === '/auth/login') {
+    // Redirect to dashboard if already logged in and trying to access login page
+    return router.push('/dashboard')
   }
 })

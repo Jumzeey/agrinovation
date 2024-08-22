@@ -32,5 +32,9 @@ import { CDN_IMAGES } from "../../assets/cdnImages";
 
 const cdnImages = CDN_IMAGES;
 
+definePageMeta({
+    middleware: 'auth'
+});
+
 
 </script>

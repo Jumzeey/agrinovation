@@ -74,19 +74,16 @@
                 <div class="hidden lg:flex gap-[14px] items-center" v-if="props.type === 'dashboard'">
                     <NuxtLink to="/dashboard" class="text-primary_green hover:text-white">
                         <span class="flex flex-col items-center justify-center space-y-1">
-                            <img :src="cdnImages.userIcon"
-                                alt="" class="w-5 h-5">
+                            <img :src="cdnImages.userIcon" alt="" class="w-5 h-5">
                             <p>Dashboard</p>
                         </span>
 
                     </NuxtLink>
-                    <div onclick="" class=" text-white text-base">
+                    <div @click="logout" class="text-white text-base cursor-pointer">
                         <span class="flex flex-col items-center justify-center space-y-1">
-                            <img :src="cdnImages.logout"
-                                alt="" class="w-5 h-5">
+                            <img :src="cdnImages.logout" alt="" class="w-5 h-5">
                             <p>Logout</p>
                         </span>
-
                     </div>
                 </div>
             </div>
@@ -116,6 +113,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { CDN_IMAGES } from '~/assets/cdnImages';
+import { useAuth } from '~/composables/useAuth'
 
 interface IType {
     type: 'home' | 'other' | 'dashboard'
@@ -124,6 +122,8 @@ interface IType {
 const props = defineProps<IType>()
 
 const cdnImages = CDN_IMAGES;
+
+const { logout } = useAuth()
 
 const menuOpen = ref(false)
 const route = useRoute()
