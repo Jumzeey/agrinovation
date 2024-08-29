@@ -39,5 +39,8 @@ export interface UserData {
 export interface ForgotPasswordData {
   email: string
 }
+export interface ForgotPasswordResponse {
+  message: string
+}
 
   

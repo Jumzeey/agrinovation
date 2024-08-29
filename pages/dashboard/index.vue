@@ -9,10 +9,10 @@
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
             <DashboardInfo />
             <DashboardAbout />
-            <DashboardDocument />
+            <DashboardDocument v-if="userType === 'Agripreneur'"/>
             <DashboardMedia />
-            <DashboardJob />
-            <DashboardMarket />
+            <DashboardJob v-if="userType === 'Agripreneur'"/>
+            <DashboardMarket v-if="userType === 'Agripreneur'"/>
             <DashboardTeam />
             <DashboardContact />
         </div>
@@ -29,12 +29,16 @@
 
 <script setup lang="ts">
 import { CDN_IMAGES } from "../../assets/cdnImages";
+import { useAuth } from '~/composables/useAuth'
 
 const cdnImages = CDN_IMAGES;
 
 definePageMeta({
     middleware: 'auth'
 });
+
+const { userType } = useAuth()
+console.log('the type of user: ', userType.value)
 
 
 </script>

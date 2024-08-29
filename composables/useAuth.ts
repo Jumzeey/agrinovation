@@ -4,8 +4,6 @@ import { useErrorHandler } from "./useErrorHandler";
 import API_PATHS from "~/utils/paths";
 import { useFetch, useRuntimeConfig, useCookie } from "#imports";
 
-
-
 export function useAuth() {
   const loading = ref(false);
   const token = ref<string | null>(null);
@@ -13,13 +11,10 @@ export function useAuth() {
   const { error, handleError, handleSuccess } = useErrorHandler();
   const userType = ref<string | null>(null);
 
-  // Initialize cookies and retrieve the token immediately
-  const tokenCookie = useCookie("authToken", {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
+  const { getCookie, setCookie } = useCookieUtils();
 
-  token.value = tokenCookie.value || null;
+  token.value = getCookie("authToken");
+  userType.value = getCookie("userType");
 
   const config = useRuntimeConfig();
 
@@ -40,7 +35,6 @@ export function useAuth() {
       }
 
       if (data.value?.status) {
-        userType.value = data.value.data.user_type;
         handleSuccess(data.value.message);
         router.push("/auth/login");
       } else {
@@ -70,9 +64,17 @@ export function useAuth() {
         const response = data.value.data;
         userType.value = response.user_type;
         token.value = response.token;
+        console.log("user type: ", userType.value);
 
-        // Store the token in the cookie
-        tokenCookie.value = token.value;
+        // Store the token and userType in cookies
+        setCookie("authToken", token.value, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+        setCookie("userType", userType.value, {
+          path: "/dashboard",
+          maxAge: 60 * 60 * 24 * 7,
+        });
         handleSuccess("Login successful!");
 
         // Check current route before navigating
@@ -91,7 +93,9 @@ export function useAuth() {
 
   const logout = (): void => {
     token.value = null;
-    tokenCookie.value = null; // Clear the token from the cookie
+    userType.value = null;
+    setCookie("authToken", null); // Clear the token from the cookie
+    setCookie("userType", null); // Clear the userType from the cookie
     handleSuccess("Logged out successfully");
     router.push("/"); // Redirect to the home page
   };
@@ -103,6 +107,6 @@ export function useAuth() {
     logout,
     loading,
     error,
-    userType,
+    userType, 
   };
 }

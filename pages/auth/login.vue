@@ -27,7 +27,7 @@
 
                 <div>
                     <div class="mb-4">
-                        <TextInput label="Email address" v-model="email" important="*" border />
+                        <TextInput label="Email address" v-model="email" important="*" type="email" border />
                     </div>
 
                     <div class="mb-4">
