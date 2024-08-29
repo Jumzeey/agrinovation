@@ -5,8 +5,8 @@ import MaterialIcon from './icon/MaterialIcon.vue';
 </script>
 
 <template>
-  <div class="bg-[#17180A]">
-  <div class="px-6 sm:px-8 md:px-[120px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 pt-16 pb-40 gap-8">
+  <div class="bg-[#17180A] w-full lg:px-[120px]">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 pt-16 pb-40 gap-8">
     <div class="mb-10">
       <div class="text-white text-lg font-bold flex items-center gap-2 mb-3">
         <div class="border-r-2 border-[#FDEE34] pe-2 w-[75px]">

@@ -17,11 +17,11 @@
   </div> -->
 
   <div class="px-10 md:px-[120px] pb-[120px] py-12">
-    <BubbleChart/>
+    <BubbleChart />
   </div>
 
   <div class="px-12 md:px-[120px] pb-[120px] py-12">
-    <BarChart/>
+    <BarChart />
   </div>
 
   <!-- <div class="py-12 mx-10 lg:mx-[120px] bg-white">
@@ -36,7 +36,8 @@
     <News />
   </div>
 
-  <div class="bg-[url('/public/images/testimonies.svg')] bg-cover bg-no-repeat px-10 lg:px-[120px] pb-[80px] mb-[120px] py-12">
+  <div
+    class="bg-[url('/public/images/testimonies.svg')] bg-cover bg-no-repeat px-10 lg:px-[120px] pb-[80px] mb-[120px] py-12">
     <Testimonies />
   </div>
 
@@ -67,8 +68,9 @@
       </div>
     </div>
   </div>
-
-  <Footer />
+  <div class="">
+    <Footer />
+  </div>
 </template>
 
 
