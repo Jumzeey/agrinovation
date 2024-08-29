@@ -36,4 +36,8 @@ export interface UserData {
   token: string | null;
 }
 
+export interface ForgotPasswordData {
+  email: string
+}
+
   

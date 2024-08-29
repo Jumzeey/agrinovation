@@ -52,7 +52,8 @@
   
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useToast } from 'vue-toastification'
+import * as pkg from "vue-toastification"
+const { useToast } = pkg
 import TextInput from '~/components/inputs/TextInput.vue'
 import ButtonInput from '~/components/inputs/ButtonInput.vue'
 import SelectInput from '~/components/inputs/SelectInput.vue'
@@ -88,7 +89,7 @@ const validateForm = (): boolean => {
         toast.error('Passwords do not match')
         return false
     }
-    if (!email.value.includes('@')) {
+    if (email.value && !email.value.includes('@')) {
         toast.error('Invalid email address')
         return false
     }

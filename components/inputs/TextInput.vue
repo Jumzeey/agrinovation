@@ -21,7 +21,7 @@ interface IInputProps {
 
 const props = defineProps<IInputProps>()
 const showPassword = ref(false)
-const inputValue = ref(props.value)
+const inputValue = ref(props.value || '')
 const emit = defineEmits(['update:modelValue'])
 
 const onChange = (event: Event) => {
@@ -29,6 +29,7 @@ const onChange = (event: Event) => {
   inputValue.value = target.value
   emit('update:modelValue', inputValue.value)
 }
+
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value
 }
@@ -40,9 +41,14 @@ const inputType = computed(() => {
   return props.type
 })
 
+// Computed property to determine if the border should be red
+const isErrorState = computed(() => {
+  return !!props.important && !inputValue.value
+})
+
 // Watch for changes in props.value and update local inputValue
 watch(() => props.value, (newValue) => {
-  inputValue.value = newValue || '' 
+  inputValue.value = newValue || ''
 })
 </script>
 
@@ -54,32 +60,18 @@ watch(() => props.value, (newValue) => {
 
     <div class="w-full h-14">
       <div class="w-full h-full flex items-center" :class="{ 'flex-row-reverse': !absolute }">
-        <input
-          v-model="inputValue"
-          :disabled="disabled"
-          class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green"
+        <input :value="inputValue" :disabled="disabled" class="w-full h-[50px] rounded-lg px-4 pr-7 focus:outline-green"
           :class="{
-            'border border-red focus:outline-red': errorMessage,
-            'focus:outline-green': !errorMessage,
+            'border border-red focus:outline-red': isErrorState,
+            'focus:outline-green': !isErrorState && !errorMessage,
             'bg-white': whiteBackground,
             'bg-[#fffefe]': !whiteBackground,
             border: border
-          }"
-          :placeholder="props.placeholder"
-          @input="onChange"
-          :type="inputType"
-          :min="props.type === 'date' ? min : undefined"
-          :max="props.type === 'date' ? max : undefined"
-        />
-        <MaterialIcon
-          :absolute="absolute"
-          class="m-6 cursor-pointer hover:scale-105"
-          :class="{ absolute: !absolute }"
-          v-if="props.type === 'password'"
-          @click="toggleShowPassword"
-          :icon="showPassword ? 'visibility_off' : 'visibility'"
-          outline
-        />
+          }" :placeholder="props.placeholder" @input="onChange" :type="inputType"
+          :min="props.type === 'date' ? min : undefined" :max="props.type === 'date' ? max : undefined" />
+        <MaterialIcon :absolute="absolute" class="m-6 cursor-pointer hover:scale-105" :class="{ absolute: !absolute }"
+          v-if="props.type === 'password'" @click="toggleShowPassword"
+          :icon="showPassword ? 'visibility_off' : 'visibility'" outline />
         <span v-if="description" class="font-inter text-[#747EA1] text-sm font-thin">{{ description }}</span>
       </div>
     </div>
