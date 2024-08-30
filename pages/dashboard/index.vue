@@ -9,10 +9,10 @@
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
             <DashboardInfo />
             <DashboardAbout />
-            <DashboardDocument v-if="userType === 'Agripreneur'"/>
+            <DashboardDocument/>
             <DashboardMedia />
-            <DashboardJob v-if="userType === 'Agripreneur'"/>
-            <DashboardMarket v-if="userType === 'Agripreneur'"/>
+            <DashboardJob/>
+            <DashboardMarket/>
             <DashboardTeam />
             <DashboardContact />
         </div>

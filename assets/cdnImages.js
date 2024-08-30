@@ -13,6 +13,8 @@ export const CDN_IMAGES = {
     pdf_logo:'https://ik.imagekit.io/bx7bddg8a/Agrinovation/file%20type%20(1).svg?updatedAt=1723630096198',
     mark_icon: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/file%20upload%20states.svg?updatedAt=1723630095829',
     btn_icon: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Badge%20(1).svg?updatedAt=1723630095764',
-    job_logo: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Layer_1-2.svg?updatedAt=1723801196517'
+    job_logo: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Layer_1-2.svg?updatedAt=1723801196517',
+    edit_about_icon: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Featured%20icon.svg?updatedAt=1725018742917',
+    upload_icon: 'https://ik.imagekit.io/bx7bddg8a/Agrinovation/Upload.svg?updatedAt=1725020870608'
   };
   
