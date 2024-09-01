@@ -3,13 +3,13 @@ import { useErrorHandler } from "./useErrorHandler";
 import API_PATHS from "~/utils/paths";
 import { useFetch, useRuntimeConfig } from "#imports";
 
-export function forgotPassword() {
+export function userProfile() {
   const { error, handleError, handleSuccess } = useErrorHandler();
   const config = useRuntimeConfig();
 
   const loading = ref(false);
 
-  const forgot = async (credentials: ForgotPasswordData): Promise<void> => {
+  const profile = async (credentials: GetProfileData): Promise<void> => {
     loading.value = true;
     try {
       const { data, error, status } = await useFetch<ForgotPasswordResponse>(
@@ -33,7 +33,7 @@ export function forgotPassword() {
   };
 
   return {
-    forgot,
+    profile,
     error,
     loading,
   };

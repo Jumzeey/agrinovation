@@ -60,6 +60,10 @@ import SelectInput from '~/components/inputs/SelectInput.vue'
 import { useAuth } from '~/composables/useAuth'
 import { useFetchUserTypes } from '~/composables/useFetchUserTypes'
 
+definePageMeta({
+    middleware: 'register'
+});
+
 const { signup, loading } = useAuth()
 
 const toast = useToast()
@@ -72,11 +76,11 @@ const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const selectedType = ref('')
-const selectedUserTypeId = ref<number | null>(null)
+const selectedUserTypeId = ref<number>()
 
 // Handle type selection change
 const handleTypeChange = (name: string) => {
-    const selectedTypeObj = userTypes.value.find(type => type.name === name)
+    const selectedTypeObj = userTypes.value?.find(type => type.name === name)
     if (selectedTypeObj) {
         selectedType.value = name
         selectedUserTypeId.value = selectedTypeObj.id
@@ -102,14 +106,16 @@ const validateForm = (): boolean => {
 
 // Handle form submission
 const handleSubmit = async () => {
-    console.log('the values: ', businessName.value, email.value, password.value, confirmPassword.value, selectedType.value)
+    if (!selectedUserTypeId.value) {
+        toast.error('Please select a user type')
+        return
+    }
     if (validateForm()) {
         await signup({
             business_name: businessName.value,
             email: email.value,
             password: password.value,
             password_confirmation: confirmPassword.value,
-            user_type: selectedType.value,
             user_type_id: selectedUserTypeId.value
         })
     }

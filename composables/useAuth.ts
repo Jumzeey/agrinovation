@@ -18,7 +18,7 @@ export function useAuth() {
 
   const config = useRuntimeConfig();
 
-  const signup = async (userData: Record<string, any>): Promise<void> => {
+  const signup = async (credentials: SignUpData): Promise<void> => {
     loading.value = true;
     error.value = null;
 
@@ -27,7 +27,7 @@ export function useAuth() {
         config.public.apiUrl + API_PATHS.AUTH.SIGNUP,
         {
           method: "POST",
-          body: userData,
+          body: credentials,
         }
       );
       if (fetchError) {
@@ -52,7 +52,7 @@ export function useAuth() {
     error.value = null;
 
     try {
-      const { data, error: fetchError } = await useFetch<AuthResponse>(
+      const { data, error: fetchError } = await useFetch<LoginResponse>(
         config.public.apiUrl + API_PATHS.AUTH.LOGIN,
         {
           method: "POST",

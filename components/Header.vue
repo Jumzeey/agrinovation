@@ -61,7 +61,7 @@
                     <input type="text" placeholder="Search here" class="w-[321px] rounded-md px-3 p-2">
                 </div>
 
-                <div class="hidden lg:flex gap-[14px] items-center" v-if="props.type !== 'dashboard'">
+                <div class="hidden lg:flex gap-[14px] items-center" v-if="props.type !== 'dashboard' && !isTokenPresent">
                     <NuxtLink to="/auth/login"
                         class="text-[#291B0A] hover:text-white hover:bg-[#78BD1F] hover:rounded-md hover:px-3 hover:py-2"
                         v-if="props.type === 'home'">Login</NuxtLink>
@@ -71,21 +71,23 @@
                         up</NuxtLink>
                 </div>
 
-                <div class="hidden lg:flex gap-[14px] items-center" v-if="props.type === 'dashboard'">
-                    <NuxtLink to="/dashboard" class="text-primary_green hover:text-white">
+                <div :class="['hidden lg:flex gap-[14px] items-center', isHomePage ? 'text-black' : 'text-white']"
+                    v-if="props.type === 'dashboard' || isTokenPresent">
+                    <NuxtLink to="/dashboard"
+                        :class="[isHomePage ? 'text-black hover:text-[#FBE234]' : 'text-primary_green hover:text-white']">
                         <span class="flex flex-col items-center justify-center space-y-1">
-                            <img :src="cdnImages.userIcon" alt="" class="w-5 h-5">
+                            <img :src="cdnImages.userIcon" alt="" class="w-5 h-5" />
                             <p>Dashboard</p>
                         </span>
-
                     </NuxtLink>
-                    <div @click="logout" class="text-white text-base cursor-pointer">
+                    <div @click="logout" :class="isHomePage ? 'text-black cursor-pointer hover:text-[#FBE234]' : 'text-white cursor-pointer hover:text-[#FBE234]'">
                         <span class="flex flex-col items-center justify-center space-y-1">
-                            <img :src="cdnImages.logout" alt="" class="w-5 h-5">
+                            <img :src="cdnImages.logout"  alt="" class="w-5 h-5" />
                             <p>Logout</p>
                         </span>
                     </div>
                 </div>
+
             </div>
             <div v-if="menuOpen" class="lg:hidden">
                 <div class="flex flex-col items-center" v-if="props.type === 'home'">
@@ -123,9 +125,10 @@ const props = defineProps<IType>()
 
 const cdnImages = CDN_IMAGES;
 
-const { logout } = useAuth()
-
+const { logout, token } = useAuth()
+const isTokenPresent = token?.value?.length > 0
 const menuOpen = ref(false)
+const isHomePage = computed(() => route.path === '/');
 const route = useRoute()
 
 const toggleMenu = () => {

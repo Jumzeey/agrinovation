@@ -55,6 +55,10 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue'
 import * as pkg from "vue-toastification"
 const { useToast } = pkg
 
+definePageMeta({
+    middleware: 'register'
+});
+
 
 // Using the composable
 const { login, loading } = useAuth()

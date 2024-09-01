@@ -6,7 +6,7 @@ import API_PATHS from '~/utils/paths'
 import { type UserType } from '~/utils/types'
 
 export function useFetchUserTypes() {
-  const userTypes = ref<UserType[]>([])
+  const userTypes = ref<UserType[]>([]);
   const { handleError } = useErrorHandler()
   const config = useRuntimeConfig()
 
@@ -21,7 +21,7 @@ export function useFetchUserTypes() {
       }
 
       if (data.value?.status) {
-        userTypes.value = data.value.data || []
+        userTypes.value = data.value.data || [];
       } else {
         handleError(new Error(data.value?.message || 'Failed to load user types'))
       }
