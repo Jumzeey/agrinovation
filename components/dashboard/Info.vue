@@ -84,7 +84,6 @@
 
 <script setup lang="ts">
 import { CDN_IMAGES } from "~/assets/cdnImages";
-import { userProfile } from '~/composables/userProfile';
 
 
 
@@ -101,32 +100,11 @@ const marketPlace = ref<HTMLElement | null>(null);
 const tabs = ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'];
 const activeTab = ref<string>('About');
 
-// Ref to hold profile data
-const profileData = ref({
-    businessName: '',
-    agripreneurType: '',
-    tags: [''],
-});
-
-const fetchProfileData = async () => {
-    const { profile } = userProfile();
-    const data = await profile({ id: 2, type: 3 });
-
-    if (data) {
-
-        profileData.value = {
-            businessName: data.data.name,
-            agripreneurType: data.data.user_type || 'Type of Agripreneur',
-            tags: data.data.tags || ['#Fishfarming', '#Aquatics', '#Farming'],
-        };
-        console.log('Profile Data:', profileData.value);
-
-    }
-};
-
-// Fetch profile data when the component is mounted
-onMounted(() => {
-    fetchProfileData();
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
 });
 
 const getTagStyles = (tag: string) => {

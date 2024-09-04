@@ -7,7 +7,7 @@
     </div>
     <div class="w-full bg-body_bg">
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
-            <DashboardInfo :profileData="profileData" />
+            <DashboardInfo :profileData="profileData" :loading="loading" />
             <DashboardAbout :profileData="profileData" />
             <DashboardDocument :profileData="profileData" />
             <DashboardMedia :profileData="profileData" />
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, unref } from 'vue';
+import { ref, unref } from 'vue';
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { useAuth } from '~/composables/useAuth';
 import { userProfile } from '~/composables/userProfile';
@@ -49,7 +49,7 @@ const profileData = ref({
 const fetchProfileData = async () => {
     const id = unref(user_id);
     const type = unref(user_type_id);
-    const { profile } = userProfile();
+    const { profile, loading } = userProfile();
 
     if (id !== undefined && type !== undefined) {
         const data = await profile({ id, type });
