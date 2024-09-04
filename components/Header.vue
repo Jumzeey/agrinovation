@@ -74,13 +74,13 @@
                 <div :class="['hidden lg:flex gap-[14px] items-center', isHomePage ? 'text-black' : 'text-white']"
                     v-if="props.type === 'dashboard' || isTokenPresent">
                     <NuxtLink to="/dashboard"
-                        :class="[isHomePage ? 'text-black hover:text-[#FBE234]' : 'text-primary_green hover:text-white']">
+                        :class="[isHomePage ? 'text-black hover:text-[#78BD1F]' : 'text-primary_green hover:text-white']">
                         <span class="flex flex-col items-center justify-center space-y-1">
                             <img :src="cdnImages.userIcon" alt="" class="w-5 h-5" />
                             <p>Dashboard</p>
                         </span>
                     </NuxtLink>
-                    <div @click="logout" :class="isHomePage ? 'text-black cursor-pointer hover:text-[#FBE234]' : 'text-white cursor-pointer hover:text-[#FBE234]'">
+                    <div @click="logout" :class="isHomePage ? 'text-black cursor-pointer hover:text-[#78BD1F]' : 'text-white cursor-pointer hover:text-[#FBE234]'">
                         <span class="flex flex-col items-center justify-center space-y-1">
                             <img :src="cdnImages.logout"  alt="" class="w-5 h-5" />
                             <p>Logout</p>

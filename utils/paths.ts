@@ -9,7 +9,7 @@ const API_PATHS = {
   },
   USERS: {
     USERTYPE: "/others/user-types",
-    PROFILE: "/users/profile",
+    PROFILE: "/user/profile",
     UPDATE_PROFILE: "/users/profile/update",
     LIST: "/users",
   },

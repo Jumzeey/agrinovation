@@ -2,8 +2,8 @@
 
 // Base interface for all responses
 export interface BaseResponse<T> {
-  status: boolean;
-  message: string | null;
+  status?: boolean;
+  message?: string | null;
   data: T;
 }
 
@@ -42,6 +42,7 @@ export interface LoginResponse
   extends BaseResponse<{
     user_id: number;
     user_type: "Investor" | "Agripreneur" | "Researcher" | "Others";
+    user_type_id: number;
     status: "active" | "inactive";
     token: string | null;
   }> {}
@@ -62,12 +63,11 @@ export interface ForgotPasswordResponse {
   message: string;
 }
 
-// Get profile data
-export interface GetProfileData {
-  id: string;
+//profile data
+export interface ProfileData {
+  id: number;
+  type: number;
 }
-
-// Example interface for profile response using the generic BaseResponse
 export interface ProfileResponse
   extends BaseResponse<{
     id: number;
@@ -76,5 +76,17 @@ export interface ProfileResponse
     user_type_id: string;
     user_type: string;
     email: string;
+    tags: string[];
     status: string;
+    user_id: number | null;
+    about: string;
+    research_type: string;
+    sector: string;
+    address: string;
+    facebook: string;
+    website: string;
+    instagram: string;
+    twitter: string | null;
   }> {}
+
+

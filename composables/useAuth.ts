@@ -10,11 +10,15 @@ export function useAuth() {
   const router = useRouter();
   const { error, handleError, handleSuccess } = useErrorHandler();
   const userType = ref<string | null>(null);
+  const user_id = ref<number>();
+  const user_type_id = ref<number>();
 
   const { getCookie, setCookie } = useCookieUtils();
 
   token.value = getCookie("authToken");
   userType.value = getCookie("userType");
+  user_id.value = Number(getCookie("userId"));
+  user_type_id.value = Number(getCookie("userTypeId"));
 
   const config = useRuntimeConfig();
 
@@ -64,17 +68,24 @@ export function useAuth() {
         const response = data.value.data;
         userType.value = response.user_type;
         token.value = response.token;
+        user_id.value = response.user_id; 
+        user_type_id.value = response.user_type_id;
         console.log("user type: ", userType.value);
 
         // Store the token and userType in cookies
         setCookie("authToken", token.value, {
           path: "/",
-          maxAge: 60 * 60 * 24 * 7,
         });
         setCookie("userType", userType.value, {
           path: "/dashboard",
-          maxAge: 60 * 60 * 24 * 7,
         });
+        setCookie("userId", user_id.value.toString(), {
+          path: "/dashboard",
+        });
+        setCookie("userTypeId", user_type_id.value?.toString(), {
+          path: "/dashboard",
+        });
+
         handleSuccess("Login successful!");
 
         // Check current route before navigating
@@ -106,7 +117,9 @@ export function useAuth() {
     token,
     logout,
     loading,
+    user_id,
+    user_type_id,
     error,
-    userType, 
+    userType,
   };
 }

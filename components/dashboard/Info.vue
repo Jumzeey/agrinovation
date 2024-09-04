@@ -1,61 +1,57 @@
 <template>
     <div class="h-[260px] p-4  z-20  bg-white gap-3 flex flex-col rounded-lg">
-                <div class="flex justify-between items-center">
-                    <div class="flex gap-5">
-                        <div>
-                            <img :src="CDN_IMAGES.logo_placeholder" alt="" />
-                        </div>
-                        <div class="flex flex-col gap-6">
-                            <div class="gap-4 flex flex-col">
-                                <p class="text-2xl font-medium text-black">Business Name</p>
-                                <p class="text-subText text-base font-normal">Type of Agriprenuer</p>
-                            </div>
-                            <div class="flex justify-between gap-4">
-                                <div class="border border-subText p-1 rounded-md">
-                                    <p class="text-[#202B08]">2024</p>
-                                    <p class="pt-1 text-[#707663]">Founding Year</p>
-                                </div>
-                                <div class="border border-subText p-1 rounded-md">
-                                    <p class="text-[#202B08]">40</p>
-                                    <p class="pt-1 text-[#707663]">Work Force</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-3 text-sm">
-                        <div class="flex">
-                            <span class="rounded-xl px-3 text-[#099137] bg-[#E7F6EC] h-fit m-0">#Fishfarming</span>
-                            <span class="rounded-xl px-3 text-[#FFA500] bg-[#FFFAF0] h-fit m-0">#Aquatics</span>
-                            <span class="rounded-xl px-3 text-[#4285F4] bg-[#ECF3FE] h-fit m-0">#Farming</span>
-                        </div>
-
-                        <div class="flex">
-                            <span class="rounded-xl px-3 text-[#099137] bg-[#E7F6EC] h-fit m-0">#Fishfarming</span>
-                            <span class="rounded-xl px-3 text-[#FFA500] bg-[#FFFAF0] h-fit m-0">#Aquatics</span>
-                            <span class="rounded-xl px-3 text-[#4285F4] bg-[#ECF3FE] h-fit m-0">#Farming</span>
-                        </div>
-                    </div>
+        <div class="flex justify-between items-center">
+            <div class="flex gap-5">
+                <div>
+                    <img :src="CDN_IMAGES.logo_placeholder" alt="" />
                 </div>
-                <div class="flex justify-between items-center w-full py-2 px-4  bg-white">
-                    <!-- Left Section: Tabs -->
-                    <div class="flex border rounded-lg">
-                        <div v-for="tab in tabs" :key="tab"
-                            :class="{ 'tab-item active cursor-pointer': activeTab === tab, 'tab-item cursor-pointer': activeTab !== tab }"
-                            @click="scrollToSection(tab)">
-                            {{ tab }}
-                        </div>
+                <div class="flex flex-col gap-6">
+                    <div class="gap-4 flex flex-col">
+                        <p class="text-2xl font-medium text-black">{{ profileData.businessName || 'Business Name' }}</p>
+                        <p class="text-subText text-base font-normal">{{ profileData.agripreneurType || 'Business type' }}
+                        </p>
                     </div>
-
-                    <!-- Right Section: Profile Completion -->
-                    <div class="flex items-center space-x-2">
-                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div class="h-full bg-green-500 rounded-full" style="width: 10%;"></div>
+                    <div class="flex justify-between gap-4">
+                        <div class="border border-subText p-1 rounded-md">
+                            <p class="text-[#202B08]">2024</p>
+                            <p class="pt-1 text-[#707663]">Founding Year</p>
                         </div>
-                        <span class="text-sm text-gray-600">10%</span>
+                        <div class="border border-subText p-1 rounded-md">
+                            <p class="text-[#202B08]">40</p>
+                            <p class="pt-1 text-[#707663]">Work Force</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="flex flex-col gap-3 text-sm">
+                <div class="flex gap-2">
+                    <span v-for="tag in profileData.tags" :key="tag" :style="getTagStyles(tag)"
+                        class="rounded-xl px-3 h-fit m-0">
+                        {{ tag }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between items-center w-full py-2 px-4  bg-white">
+            <!-- Left Section: Tabs -->
+            <div class="flex border rounded-lg">
+                <div v-for="tab in tabs" :key="tab"
+                    :class="{ 'tab-item active cursor-pointer': activeTab === tab, 'tab-item cursor-pointer': activeTab !== tab }"
+                    @click="scrollToSection(tab)">
+                    {{ tab }}
+                </div>
+            </div>
+
+            <!-- Right Section: Profile Completion -->
+            <div class="flex items-center space-x-2">
+                <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 rounded-full" style="width: 10%;"></div>
+                </div>
+                <span class="text-sm text-gray-600">10%</span>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -88,6 +84,7 @@
 
 <script setup lang="ts">
 import { CDN_IMAGES } from "~/assets/cdnImages";
+import { userProfile } from '~/composables/userProfile';
 
 
 
@@ -103,6 +100,57 @@ const marketPlace = ref<HTMLElement | null>(null);
 
 const tabs = ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'];
 const activeTab = ref<string>('About');
+
+// Ref to hold profile data
+const profileData = ref({
+    businessName: '',
+    agripreneurType: '',
+    tags: [''],
+});
+
+const fetchProfileData = async () => {
+    const { profile } = userProfile();
+    const data = await profile({ id: 2, type: 3 });
+
+    if (data) {
+
+        profileData.value = {
+            businessName: data.data.name,
+            agripreneurType: data.data.user_type || 'Type of Agripreneur',
+            tags: data.data.tags || ['#Fishfarming', '#Aquatics', '#Farming'],
+        };
+        console.log('Profile Data:', profileData.value);
+
+    }
+};
+
+// Fetch profile data when the component is mounted
+onMounted(() => {
+    fetchProfileData();
+});
+
+const getTagStyles = (tag: string) => {
+    // Function to generate a color based on the tag content
+    const generateColor = (tag: string) => {
+        const hash = Array.from(tag).reduce((hash, char) => {
+            return (hash << 5) - hash + char.charCodeAt(0);
+        }, 0);
+
+        // Use the hash to generate a color (for example, convert it to a hex color)
+        const color = `#${((hash & 0x00FFFFFF) >>> 0).toString(16).padStart(6, '0')}`;
+        return color;
+    };
+
+    const textColor = '#ffffff'; // Default text color
+    const bgColor = generateColor(tag); // Generate background color
+
+    return {
+        color: textColor,
+        backgroundColor: bgColor,
+    };
+};
+
+
 
 const scrollToSection = (section: string) => {
     activeTab.value = section; // Update active tab
