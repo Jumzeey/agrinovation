@@ -1,16 +1,17 @@
 import { ref } from "vue";
 import { useErrorHandler } from "./useErrorHandler";
+import { useCookie } from "#imports";
 import API_PATHS from "~/utils/paths";
 
 export function userProfile() {
   const { error, handleError, handleSuccess } = useErrorHandler();
 
   const loading = ref(false);
-  const profileData = ref<ProfileResponse | null>(null);
+  const profileData = ref<ProfileResponse["data"] | null>(null);
 
   const profile = async (
     credentials: ProfileData
-  ): Promise<ProfileResponse | null> => {
+  ): Promise<ProfileResponse["data"] | null> => {
     loading.value = true;
     try {
       const { data, error } = await useFetchInstance<ProfileResponse>(
@@ -22,13 +23,15 @@ export function userProfile() {
       );
 
       if (data.value) {
-        console.log("the profile response: ", data?.value?.data);
-        return data?.value; // Return the profile data
+        console.log("Profile response:", data.value.data);
+        profileData.value = data.value.data; // Update the reactive profileData here
+        handleSuccess("Profile fetched successfully");
+        return profileData.value;
       } else {
-        console.log("the error: ", error.value?.message);
-        handleError(error.value?.data);
+        handleError(error.value);
       }
     } catch (error) {
+      console.log(error);
       handleError(error);
     } finally {
       loading.value = false;
@@ -40,7 +43,6 @@ export function userProfile() {
   return {
     profile,
     profileData,
-    error,
     loading,
   };
 }

@@ -65,8 +65,8 @@ export interface ForgotPasswordResponse {
 
 //profile data
 export interface ProfileData {
-  id: number;
-  type: number;
+  id: number | undefined;
+  type: number | undefined;
 }
 export interface ProfileResponse
   extends BaseResponse<{
@@ -87,6 +87,44 @@ export interface ProfileResponse
     website: string;
     instagram: string;
     twitter: string | null;
+    media: MediaItem[];
+    job_posts: JobPost[];
+    products: Product[]; 
+    news: NewsItem[];
+    team_members: TeamMember[];
   }> {}
 
+
+export interface MediaItem {
+  id: number;
+  media_link: string | null;
+  description: string;
+  image: string;
+}
+
+  export interface JobPost {
+    id: number;
+    title: string;
+    salary_min: string;
+    salary_max: string;
+    workplace_type: string;
+    job_type: string;
+    location: string;
+    description: string;
+    application_deadline: string; // ISO 8601 date string
+    job_status: string;
+    status: string;
+  }
+
+  export interface Product {
+    // Define fields here
+  }
+
+  export interface NewsItem {
+    // Define fields here
+  }
+
+  export interface TeamMember {
+    // Define fields here
+  }
 

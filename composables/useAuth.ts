@@ -68,7 +68,7 @@ export function useAuth() {
         const response = data.value.data;
         userType.value = response.user_type;
         token.value = response.token;
-        user_id.value = response.user_id; 
+        user_id.value = response.user_id;
         user_type_id.value = response.user_type_id;
         console.log("user type: ", userType.value);
 
@@ -105,10 +105,13 @@ export function useAuth() {
   const logout = (): void => {
     token.value = null;
     userType.value = null;
-    setCookie("authToken", null); // Clear the token from the cookie
-    setCookie("userType", null); // Clear the userType from the cookie
+    setCookie("authToken", null);
+    setCookie("userType", null);
+    setCookie("userId", null);
+    setCookie("userTypeId", null);
     handleSuccess("Logged out successfully");
-    router.push("/"); // Redirect to the home page
+    router.push("/");
+    window.location.reload();
   };
 
   return {

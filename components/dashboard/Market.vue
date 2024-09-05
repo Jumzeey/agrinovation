@@ -9,21 +9,27 @@
                     <p class="text-priText">Add Product</p>
                 </button>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                <div v-for="product in productData" :key="product.id" class="bg-white rounded-xl shadow-md">
-                    <img :src="product.imageKey" alt="Product Image" class="w-full h-48 object-cover rounded-t-xl" />
+            <div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4"
+                    v-if="profileData.products.length > 0">
+                    <div v-for="product in profileData.products" :key="product.id" class="bg-white rounded-xl shadow-md">
+                        <img :src="product.image" alt="Product Image" class="w-full h-48 object-cover rounded-t-xl" />
 
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-[#2B2B2B]">{{ product.title }}</h3>
-                        <p class="text-sm text-gray-600">{{ product.description }}</p>
-                        <div class="flex justify-between items-center mt-4">
-                            <span class="text-xl font-semibold text-[#2B2B2B]">${{ product.price.toFixed(2) }}</span>
-                            <button
-                                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm text-[#2B2B2B] hover:bg-gray-100">
-                                Contact Seller
-                            </button>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-[#2B2B2B]">{{ product.name }}</h3>
+                            <p class="text-sm text-gray-600">{{ product.description }}</p>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-xl font-semibold text-[#2B2B2B]">#{{ formatPrice(product.price) }}</span>
+                                <button
+                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm text-[#2B2B2B] hover:bg-gray-100">
+                                    Contact Seller
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div v-else>
+                    <EmptyState />
                 </div>
             </div>
         </div>
@@ -74,5 +80,17 @@ function closeModal() {
 const handleSubmit = () => {
     console.log('submitted')
 }
+
+const formatPrice = (price: any) => {
+    const numericPrice = Number(price);
+    return isNaN(numericPrice) ? '0.00' : numericPrice.toFixed(2);
+}
+
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+});
 </script>
 

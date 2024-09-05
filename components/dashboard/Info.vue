@@ -3,30 +3,39 @@
         <div class="flex justify-between items-center">
             <div class="flex gap-5">
                 <div>
-                    <img :src="CDN_IMAGES.logo_placeholder" alt="" />
+                    <img :src="profileData?.image || CDN_IMAGES.logo_placeholder" alt="" />
                 </div>
                 <div class="flex flex-col gap-6">
                     <div class="gap-4 flex flex-col">
-                        <p class="text-2xl font-medium text-black">{{ profileData.businessName || 'Business Name' }}</p>
-                        <p class="text-subText text-base font-normal">{{ profileData.agripreneurType || 'Business type' }}
+                        <p class="text-2xl font-medium text-black">{{ profileData?.name || 'Business Name' }}</p>
+                        <p class="text-subText text-base font-normal">{{ profileData?.user_type || 'Business type' }}
                         </p>
                     </div>
-                    <div class="flex justify-between gap-4">
+                    <div class="flex justify-between gap-4"
+                        v-if="['Agripreneur', 'Investor'].includes(profileData?.user_type)">
                         <div class="border border-subText p-1 rounded-md">
                             <p class="text-[#202B08]">2024</p>
                             <p class="pt-1 text-[#707663]">Founding Year</p>
                         </div>
                         <div class="border border-subText p-1 rounded-md">
-                            <p class="text-[#202B08]">40</p>
+                            <p class="text-[#202B08]">{{ profileData?.labor_force || 'N/A' }}</p>
                             <p class="pt-1 text-[#707663]">Work Force</p>
                         </div>
+                    </div>
+                    <div class="flex justify-between gap-4" v-else>
+                        <a :href="`mailto:${profileData?.email}`">
+                            <div class="p-1 rounded-md">
+                                <img src="https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868154.svg?updatedAt=1725447867491"
+                                    alt="Email Icon">
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col gap-3 text-sm">
                 <div class="flex gap-2">
-                    <span v-for="tag in profileData.tags" :key="tag" :style="getTagStyles(tag)"
+                    <span v-for="tag in profileData?.tags" :key="tag" :style="getTagStyles(tag)"
                         class="rounded-xl px-3 h-fit m-0">
                         {{ tag }}
                     </span>
@@ -106,6 +115,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+
 
 const getTagStyles = (tag: string) => {
     // Function to generate a color based on the tag content

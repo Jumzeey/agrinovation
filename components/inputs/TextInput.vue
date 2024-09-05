@@ -4,7 +4,7 @@ import { ref, defineProps, computed, watch, defineEmits } from 'vue'
 
 interface IInputProps {
   label: string
-  onChange: (v: string) => void
+  onChange?: (v: string) => void
   type?: string
   placeholder?: string
   important?: string

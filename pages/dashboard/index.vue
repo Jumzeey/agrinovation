@@ -7,12 +7,12 @@
     </div>
     <div class="w-full bg-body_bg">
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
-            <DashboardInfo :profileData="profileData" :loading="loading" />
+            <DashboardInfo :profileData="profileData" />
             <DashboardAbout :profileData="profileData" />
-            <DashboardDocument :profileData="profileData" />
+            <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden"/>
             <DashboardMedia :profileData="profileData" />
-            <DashboardJob :profileData="profileData" />
-            <DashboardMarket :profileData="profileData" />
+            <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"/>
+            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'"/>
             <DashboardTeam :profileData="profileData" />
             <DashboardContact :profileData="profileData" />
         </div>
@@ -22,49 +22,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, unref } from 'vue';
+import { ref, watch } from 'vue';
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { useAuth } from '~/composables/useAuth';
 import { userProfile } from '~/composables/userProfile';
 
+const { profile, profileData, loading } = userProfile();
+
 const cdnImages = CDN_IMAGES;
+
 
 definePageMeta({
     middleware: 'auth'
 });
 
 const { userType, user_id, user_type_id } = useAuth();
-console.log('the type of user: ', userType.value);
-console.log('the id of user: ', user_id.value);
-console.log('the type id of user: ', user_type_id.value);
 
-// State to hold profile data
-const profileData = ref({
-    businessName: '',
-    agripreneurType: '',
-    tags: [''],
-});
 
-// Fetch the profile data when the component is mounted
-const fetchProfileData = async () => {
-    const id = unref(user_id);
-    const type = unref(user_type_id);
-    const { profile, loading } = userProfile();
-
-    if (id !== undefined && type !== undefined) {
-        const data = await profile({ id, type });
-
-        if (data) {
-            profileData.value = {
-                businessName: data.data.name,
-                agripreneurType: data.data.user_type || 'Type of Agripreneur',
-                tags: data.data.tags || ['#Fishfarming', '#Aquatics', '#Farming'],
-            };
+async function fetchProfileData() {
+    if (user_id.value && user_type_id.value) {
+        try {
+            await profile({
+                id: user_id.value,
+                type: user_type_id.value,
+            });
+            console.log('Profile data fetched:', profileData.value);
+        } catch (error) {
+            console.error('Error fetching profile:', error);
         }
     } else {
-        console.error("User ID or Type ID is undefined.");
+        console.error('User ID or Type ID is missing.');
     }
-};
+}
 
+// Call the function when needed
 fetchProfileData();
+
+
+console.log('the data from dashboard index: ', profileData.value)
 </script>
