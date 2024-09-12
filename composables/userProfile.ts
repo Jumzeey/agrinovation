@@ -1,6 +1,5 @@
 import { ref } from "vue";
 import { useErrorHandler } from "./useErrorHandler";
-import { useCookie } from "#imports";
 import API_PATHS from "~/utils/paths";
 
 export function userProfile() {

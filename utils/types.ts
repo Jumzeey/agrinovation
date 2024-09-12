@@ -128,3 +128,39 @@ export interface MediaItem {
     // Define fields here
   }
 
+  export interface SocialMediaLink  {
+    name: string;
+    link: string;
+  };
+
+  export interface UserProfileData {
+    user_id: number;
+    user_type_id: number;
+    about: string;
+    is_registered?: string;
+    proof_of_address?: string;
+    funding_stage?: string;
+    address?: string;
+    farm_size?: string;
+    business_type?: string;
+    produce_type?: string;
+    labor_force?: string;
+    years_of_operation?: number;
+    average_annual_revenue?: number;
+    social_media?: SocialMediaLink[];
+    website?: string;
+    business_phone?: string;
+    business_email?: string;
+    is_available_merger?: boolean;
+    is_available_acquisition?: boolean;
+    investor_type?: string;
+    investment_sector?: string;
+    period_of_investment?: string;
+    social_media_link?: SocialMediaLink[];
+    researcher_type?: string;
+    sector_id?: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+  };
+
