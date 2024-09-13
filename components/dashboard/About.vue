@@ -58,7 +58,7 @@
             <template #content>
                 <div class="grid w-full max-w-sm items-center gap-1.5">
                     <Label for="picture">Agric-Business Logo*</Label>
-                    <Input id="picture" type="file-upload" />
+                    <Input id="picture" type="file-upload" @change="handleFileUpload($event, 'businessLogo')" />
                 </div>
                 <div class="grid w-full gap-1.5">
                     <Label for="message">About Business</Label>
@@ -261,6 +261,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { updateProfileHandler } from '~/composables/useUpdateProfile';
+import { useCookie, useFetch } from "#imports";
 
 import {
     Select,
@@ -299,7 +300,7 @@ const selectedBusinessTypeOption = ref('');
 const selectedProduceOption = ref('');
 const selectedMergeOption = ref('');
 const selectedAcquisitionOption = ref('');
-const businessLogo = ref(null);  
+const businessLogo = ref<File | null>(null); 
 const cacDocument = ref<File | null>(null); 
 const businessDocument = ref<File | null>(null); 
 const foundingYear = ref('');  // Founding Year, shown only if user_type === 'Agripreneur'
@@ -319,13 +320,14 @@ const aboutBusiness = ref('');  // About Business textarea
 const { updateProfile } = updateProfileHandler();
 
 // File upload handler
-const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocument') => {
+const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocument' | 'businessLogo') => {
     const target = event.target as HTMLInputElement;
     const file = target.files ? target.files[0] : null;
 
     if (file) {
         if (fileKey === 'cacDocument') cacDocument.value = file;
         if (fileKey === 'businessDocument') businessDocument.value = file;
+        if (fileKey === 'businessLogo') businessLogo.value = file;
     }
 };
 // Correctly define arrays of objects for the select options
@@ -381,11 +383,16 @@ const acquisitionOptions: Array<{ value: string, label: string }> = [
 ];
 
 const handleSubmit = async () => {
+
+     if (!props.profileData || !props.profileData.user_type_id) {
+        console.error('User type ID is missing or undefined');
+        return;
+    }
     // Create the credentials object
     const formData = new FormData();
 
     // Append each field to FormData
-    formData.append('user_id', props.profileData.id);
+    formData.append('user_id', props.profileData.user_id);
     formData.append('user_type_id', props.profileData.user_type_id);
     formData.append('about', aboutBusiness.value);
     formData.append('is_registered', selectedIsRegisteredOption.value);
@@ -396,6 +403,9 @@ const handleSubmit = async () => {
     }
     if (cacDocument.value) {
         formData.append('cac', cacDocument.value);
+    }
+    if (businessLogo.value) {
+        formData.append('businessLogo', businessLogo.value);
     }
 
     formData.append('funding_stage', selectedFundingStageOption.value || '');
@@ -439,14 +449,35 @@ const handleSubmit = async () => {
         console.log(`${pair[0]}: ${pair[1]}`);
     }
 console.log('the payload: ', formData)
-    // try {
-    //     // Call the updateProfile function with the credentials object
-    //     await updateProfile(formData);
-    // } catch (error) {
-    //     // Handle any errors that may occur
-    //     console.error('Error updating profile:', error);
-    // }
+    try {
+        // Call the updateProfile function with the credentials object
+        await updateProfile(formData);
+    } catch (error) {
+        // Handle any errors that may occur
+        console.error('Error updating profile:', error);
+    }
 };
 
+
+// const handleSubmit = async () => {
+//     const token = useCookie("authToken");
+//     const formData = new FormData();
+
+//     // Add only required fields
+//     formData.append('user_id', props.profileData.id);
+//     formData.append('user_type_id', props.profileData.user_type_id);
+
+//     try {
+//         // Example API call
+//         const response = await useFetchInstance('https://backend.agrinnovationsummit.com/api/user/update/profile', {
+//             method: 'POST',
+//             body: formData,
+//         });
+
+//         console.log(response)
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// };
 
 </script>

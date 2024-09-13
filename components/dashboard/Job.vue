@@ -10,29 +10,34 @@
                 </button>
             </div>
             <div>
-                <div class="pt-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4 p-4"
-                    v-if="profileData.job_posts.length > 0">
-                    <div v-for="job in profileData?.job_posts" :key="job.id"
-                        class="rounded-2xl p-6 pt-10 bg-white lg:w-[270px] w-full  drop-shadow-lg flex flex-col gap-4">
-                        <div class="rounded-3xl bg-white mb-4">
-                            <img :src="CDN_IMAGES.job_logo" alt="Job Logo" />
-                        </div>
-                        <div class="mb-6">
-                            <h3 class="pb-2 text-[#261B0D] text-xl font-semibold">{{ job.title }}</h3>
-                            <p class="pb-2 text-[#261B0D] text-sm">{{ job.workplace_type }}</p>
-                            <p class="text-[#261B0D] text-sm font-medium">{{ job.job_type }}</p>
-                            <p class="text-[#261B0D] text-sm font-medium">{{ job.application_deadline }}</p>
-                        </div>
-                        <div>
-                            <ButtonInput class="text-sm" bg="bg-[#F4FAF4]" text="text-[#2B612B]">
-                                View more
-                            </ButtonInput>
+                <div v-if="loading">Loading job posts...</div>
+                <div v-else-if="error">Failed to load job posts. Please try again later.</div>
+                <div v-else>
+                    <div class="pt-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4 p-4"
+                        v-if="profileData?.job_posts?.length > 0">
+                        <div v-for="job in profileData?.job_posts" :key="job.id"
+                            class="rounded-2xl p-6 pt-10 bg-white lg:w-[270px] w-full  drop-shadow-lg flex flex-col gap-4">
+                            <div class="rounded-3xl bg-white mb-4">
+                                <img :src="CDN_IMAGES.job_logo" alt="Job Logo" />
+                            </div>
+                            <div class="mb-6">
+                                <h3 class="pb-2 text-[#261B0D] text-xl font-semibold">{{ job.title }}</h3>
+                                <p class="pb-2 text-[#261B0D] text-sm">{{ job.workplace_type }}</p>
+                                <p class="text-[#261B0D] text-sm font-medium">{{ job.job_type }}</p>
+                                <p class="text-[#261B0D] text-sm font-medium">{{ job.application_deadline }}</p>
+                            </div>
+                            <div>
+                                <ButtonInput class="text-sm" bg="bg-[#F4FAF4]" text="text-[#2B612B]">
+                                    View more
+                                </ButtonInput>
+                            </div>
                         </div>
                     </div>
+                    <div v-else>
+                        <EmptyState />
+                    </div>
                 </div>
-                <div v-else>
-                    <EmptyState />
-                </div>
+
             </div>
         </div>
         <Modal :shows="showModal" title="Post Job" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
@@ -118,6 +123,14 @@ const props = defineProps({
     profileData: {
         type: Object,
         required: true,
+    },
+    loading: {
+        type: Boolean,
+        default: false,
+    },
+    error: {
+        type: Boolean,
+        default: false,
     },
 });
 

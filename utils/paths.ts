@@ -10,7 +10,7 @@ const API_PATHS = {
   USERS: {
     USERTYPE: "/others/user-types",
     PROFILE: "/user/profile",
-    UPDATE_PROFILE: "/users/profile/update",
+    UPDATE_PROFILE: "/user/update/profile",
     LIST: "/users",
   },
   PRODUCTS: {

@@ -7,14 +7,17 @@
     </div>
     <div class="w-full bg-body_bg">
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
-            <DashboardInfo :profileData="profileData" />
-            <DashboardAbout :profileData="profileData" />
-            <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden"/>
-            <DashboardMedia :profileData="profileData" />
-            <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"/>
-            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'"/>
-            <DashboardTeam :profileData="profileData" />
-            <DashboardContact :profileData="profileData" />
+            <!-- Pass loading and error states to child components -->
+            <DashboardInfo :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardAbout :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden" />
+            <DashboardMedia :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"
+                :loading="loading" :error="error" />
+            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading"
+                :error="error" />
+            <DashboardTeam :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardContact :profileData="profileData" :loading="loading" :error="error" />
         </div>
     </div>
 
@@ -27,17 +30,15 @@ import { CDN_IMAGES } from "../../assets/cdnImages";
 import { useAuth } from '~/composables/useAuth';
 import { userProfile } from '~/composables/userProfile';
 
-const { profile, profileData, loading } = userProfile();
+const { profile, profileData, loading, error } = userProfile(); // Include error handling
 
 const cdnImages = CDN_IMAGES;
-
 
 definePageMeta({
     middleware: 'auth'
 });
 
 const { userType, user_id, user_type_id } = useAuth();
-
 
 async function fetchProfileData() {
     if (user_id.value && user_type_id.value) {
@@ -58,6 +59,5 @@ async function fetchProfileData() {
 // Call the function when needed
 fetchProfileData();
 
-
-console.log('the data from dashboard index: ', profileData.value)
+console.log('The data from dashboard index:', profileData.value);
 </script>

@@ -11,7 +11,7 @@
       </div>
       <div>
         <div>
-          <div v-if="profileData.media.length > 0">
+          <div v-if="profileData?.media?.length > 0">
             <div class="grid grid-cols-3 gap-4 mt-3 overflow-hidden">
               <div v-for="(image, index) in displayedImages" :key="index"
                 class="relative w-full h-full rounded-lg overflow-hidden">
@@ -95,16 +95,14 @@ function handleSubmit() {
 }
 
 const images = computed<Image[]>(() => {
-  // Check if profileData and its media are available
-  if (!props.profileData?.media) return [];
-
-  // Map the media to the Image type
-  return props.profileData?.media?.map((media: MediaItem) => ({
-    id: media.id,
-    src: media.image,
-    description: media.description,
+  if (!props?.profileData || !props?.profileData?.media) return [];
+  return props.profileData.media.map((media: MediaItem) => ({
+    id: media?.id || 0,
+    src: media?.image || "#",
+    description: media?.description || "",
   }));
 });
+
 
 const displayedImages = ref(images.value.slice(0, 6));
 
