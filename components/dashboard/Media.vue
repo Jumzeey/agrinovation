@@ -28,7 +28,7 @@
       </div>
     </div>
     <Modal :shows="showModal" title="Add Media" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
-      @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit">
+      @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit" :loading="loading">
       <template #content>
         <div class="grid grid-cols-1 gap-6">
           <div class="grid w-full items-center gap-1.5">
@@ -66,6 +66,10 @@ import { ref, onMounted } from 'vue';
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { updateMediaHandler } from '~/composables/useUpdateMedia';
+
+
+const { updateMedia, loading } = updateMediaHandler();
 
 const props = defineProps({
   profileData: {
@@ -90,9 +94,7 @@ function closeModal() {
   showModal.value = false;
 }
 
-function handleSubmit() {
-  console.log('submityed')
-}
+
 
 const images = computed<Image[]>(() => {
   if (!props?.profileData || !props?.profileData?.media) return [];
@@ -138,6 +140,23 @@ const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
   if (file) {
     if (fileKey === 'imageFile') imageFile.value = file;
   }
+};
+
+const handleSubmit = async () => {
+  if (!props.profileData || !props.profileData.user_type_id) {
+    console.error('User type ID is missing or undefined');
+    return;
+  }
+  const formData = new FormData();
+
+  formData.append('user_id', props.profileData.user_id);
+  formData.append('description', description.value);
+  formData.append('media_link', link.value);
+   if (imageFile.value) {
+    formData.append('image', imageFile.value);
+  }
+
+  await updateMedia(formData);
 };
 
 </script>
