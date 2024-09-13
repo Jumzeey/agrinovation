@@ -437,7 +437,7 @@ const handleSubmit = async () => {
         formData.append('cac', cacDocument.value);
     }
     if (businessLogo.value) {
-        formData.append('businessLogo', businessLogo.value);
+        formData.append('image', businessLogo.value);
     }
 
     formData.append('funding_stage', selectedFundingStageOption.value?.toString() ?? '');
