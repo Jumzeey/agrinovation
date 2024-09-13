@@ -13,19 +13,12 @@ const API_PATHS = {
     UPDATE_PROFILE: "/user/update/profile",
     LIST: "/users",
   },
-  PRODUCTS: {
-    LIST: "/products",
+  GENERAL: {
+    MEDIA: "/user/media",
     DETAILS: (id: string) => `/products/${id}`,
     CREATE: "/products",
     UPDATE: (id: string) => `/products/${id}`,
     DELETE: (id: string) => `/products/${id}`,
-  },
-  ORDERS: {
-    LIST: "/orders",
-    DETAILS: (id: string) => `/orders/${id}`,
-    CREATE: "/orders",
-    UPDATE: (id: string) => `/orders/${id}`,
-    DELETE: (id: string) => `/orders/${id}`,
   },
 };
 

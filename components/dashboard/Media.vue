@@ -33,15 +33,15 @@
         <div class="grid grid-cols-1 gap-6">
           <div class="grid w-full items-center gap-1.5">
             <Label for="link">Media Link</Label>
-            <Input id="link" type="text" placeholder="link..." />
+            <Input id="link" type="text" placeholder="link..." v-model="link"/>
           </div>
           <div class="grid w-full items-center gap-1.5">
             <Label for="description">Short Description</Label>
-            <Textarea id="description" placeholder="Short description...." />
+            <Textarea id="description" placeholder="Short description...." v-model="description"/>
           </div>
           <div class="grid w-full items-center gap-1.5">
             <Label for="image">Image</Label>
-            <Input id="image" type="file" />
+            <Input id="image" type="file" @change="handleFileUpload($event, 'imageFile')"/>
           </div>
         </div>
       </template>
@@ -125,6 +125,20 @@ watch(images, (newImages) => {
   displayedImages.value = newImages.slice(0, 6);
   console.log('Updated displayed images:', displayedImages.value);
 });
+
+const link = ref('');
+const description = ref('');
+const imageFile = ref<File | null>(null);
+
+// File upload handler
+const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files ? target.files[0] : null;
+
+  if (file) {
+    if (fileKey === 'imageFile') imageFile.value = file;
+  }
+};
 
 </script>
   

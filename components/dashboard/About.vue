@@ -331,9 +331,9 @@ const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocume
     }
 };
 // Correctly define arrays of objects for the select options
-const businessRegistrationOptions: Array<{ value: boolean, label: string }> = [
-    { value: true, label: 'Yes' },
-    { value: false, label: 'No' }
+const businessRegistrationOptions: Array<{ value: number, label: string }> = [
+    { value: 1, label: 'Yes' },
+    { value: 0, label: 'No' }
 ];
 
 const fundingStageOptions: Array<{ value: string, label: string }> = [
@@ -372,14 +372,14 @@ const produceOptions: Array<{ value: string, label: string }> = [
     { value: 'cash-crops', label: 'Cash Crops' }
 ];
 
-const mergeOptions: Array<{ value: string, label: string }> = [
-    { value: 'yes', label: 'Yes' },
-    { value: 'no', label: 'No' }
+const mergeOptions: Array<{ value: number, label: string }> = [
+    { value: 1, label: 'Yes' },
+    { value: 0, label: 'No' }
 ];
 
-const acquisitionOptions: Array<{ value: string, label: string }> = [
-    { value: 'yes', label: 'Yes' },
-    { value: 'no', label: 'No' }
+const acquisitionOptions: Array<{ value: number, label: string }> = [
+    { value: 1, label: 'Yes' },
+    { value: 0, label: 'No' }
 ];
 
 const handleSubmit = async () => {
@@ -428,8 +428,8 @@ const handleSubmit = async () => {
     formData.append('website', websiteLink.value);
     formData.append('business_phone', businessPhone.value);
     formData.append('business_email', email.value);
-    formData.append('is_available_merger', (selectedMergeOption.value === 'yes').toString());
-    formData.append('is_available_acquisition', (selectedAcquisitionOption.value === 'yes').toString());
+    formData.append('is_available_merger', selectedMergeOption.value );
+    formData.append('is_available_acquisition', selectedAcquisitionOption.value);
 
     formData.append('investor_type', '');
     formData.append('investment_sector', '');
