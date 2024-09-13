@@ -34,7 +34,7 @@ export function updateProfileHandler() {
       }
 
       if (data.value?.status) {
-        handleSuccess(data.value);
+        handleSuccess(data?.value?.message);
         window.location.reload();
       } else {
         handleError(fetchError.value?.data);
@@ -49,5 +49,6 @@ export function updateProfileHandler() {
 
   return {
     updateProfile,
+    loading
   };
 }

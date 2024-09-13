@@ -23,8 +23,7 @@ export function userProfile() {
 
       if (data.value) {
         console.log("Profile response:", data.value.data);
-        profileData.value = data.value.data; // Update the reactive profileData here
-        handleSuccess("Profile fetched successfully");
+        profileData.value = data.value.data;
         return profileData.value;
       } else {
         handleError(error.value);

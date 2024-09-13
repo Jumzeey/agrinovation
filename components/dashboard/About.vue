@@ -54,7 +54,7 @@
             </div>
         </div>
         <Modal :shows="showModal" title="Update Profile Information" width="w-3/4" :icon="CDN_IMAGES.edit_about_icon"
-            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit">
+            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit" :loading="loading">
             <template #content>
                 <div class="grid w-full max-w-sm items-center gap-1.5">
                     <Label for="picture">Agric-Business Logo*</Label>
@@ -317,7 +317,7 @@ const email = ref('');
 const aboutBusiness = ref('');  // About Business textarea
 
 
-const { updateProfile } = updateProfileHandler();
+const { updateProfile, loading } = updateProfileHandler();
 
 // File upload handler
 const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocument' | 'businessLogo') => {
@@ -457,27 +457,5 @@ console.log('the payload: ', formData)
         console.error('Error updating profile:', error);
     }
 };
-
-
-// const handleSubmit = async () => {
-//     const token = useCookie("authToken");
-//     const formData = new FormData();
-
-//     // Add only required fields
-//     formData.append('user_id', props.profileData.id);
-//     formData.append('user_type_id', props.profileData.user_type_id);
-
-//     try {
-//         // Example API call
-//         const response = await useFetchInstance('https://backend.agrinnovationsummit.com/api/user/update/profile', {
-//             method: 'POST',
-//             body: formData,
-//         });
-
-//         console.log(response)
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// };
 
 </script>

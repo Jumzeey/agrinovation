@@ -8,16 +8,16 @@
     <div class="w-full bg-body_bg">
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
             <!-- Pass loading and error states to child components -->
-            <DashboardInfo :profileData="profileData" :loading="loading" :error="error" />
-            <DashboardAbout :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardInfo :profileData="profileData" :loading="loading" />
+            <DashboardAbout :profileData="profileData" :loading="loading" />
             <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden" />
-            <DashboardMedia :profileData="profileData" :loading="loading" :error="error" />
+            <DashboardMedia :profileData="profileData" :loading="loading" />
             <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"
-                :loading="loading" :error="error" />
+                :loading="loading" />
             <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading"
-                :error="error" />
-            <DashboardTeam :profileData="profileData" :loading="loading" :error="error" />
-            <DashboardContact :profileData="profileData" :loading="loading" :error="error" />
+                />
+            <DashboardTeam :profileData="profileData" :loading="loading" />
+            <DashboardContact :profileData="profileData" :loading="loading" />
         </div>
     </div>
 
@@ -30,7 +30,7 @@ import { CDN_IMAGES } from "../../assets/cdnImages";
 import { useAuth } from '~/composables/useAuth';
 import { userProfile } from '~/composables/userProfile';
 
-const { profile, profileData, loading, error } = userProfile(); // Include error handling
+const { profile, profileData, loading } = userProfile(); // Include error handling
 
 const cdnImages = CDN_IMAGES;
 
