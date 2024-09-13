@@ -54,7 +54,8 @@
             </div>
         </div>
         <Modal :shows="showModal" title="Update Profile Information" width="w-3/4" :icon="CDN_IMAGES.edit_about_icon"
-            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit" :loading="loading">
+            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit"
+            :loading="loading">
             <template #content>
                 <div class="grid w-full max-w-sm items-center gap-1.5">
                     <Label for="picture">Agric-Business Logo*</Label>
@@ -109,18 +110,18 @@
                     </div>
                     <div class="grid w-full max-w-sm items-center gap-1.5">
                         <Label for="doc">Upload Document *</Label>
-                        <Input id="doc" type="file" @change="handleFileUpload($event, 'businessDocument')"/>
+                        <Input id="doc" type="file" @change="handleFileUpload($event, 'businessDocument')" />
                         <span class="text-infoText text-[12px] font-thin">Pls upload file PDF, DOCX, JPG or PNG (max.
                             800x400px)</span>
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="address">Address</Label>
-                        <Input id="address" type="text" placeholder="Address..." v-model="address"/>
+                        <Input id="address" type="text" placeholder="Address..." v-model="address" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5"
                         v-if="profileData.user_type === 'Agripreneur'">
                         <Label for="address">Founding Year</Label>
-                        <Input id="founding" type="text" placeholder="founding..." v-model="foundingYear"/>
+                        <Input id="founding" type="text" placeholder="founding..." v-model="foundingYear" />
                     </div>
                     <div>
                         <Label for="sector">Sector</Label>
@@ -141,7 +142,7 @@
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="size">Farm Size</Label>
-                        <Input id="size" type="text" placeholder="farm size..." v-model="farmSize"/>
+                        <Input id="size" type="text" placeholder="farm size..." v-model="farmSize" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="businessType">Type Of Business</Label>
@@ -180,7 +181,7 @@
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="labour">Labour Force</Label>
-                        <Input id="labour" type="text" placeholder="Labour..." v-model="labourForce"/>
+                        <Input id="labour" type="text" placeholder="Labour..." v-model="labourForce" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="years">Years of Operation</Label>
@@ -188,23 +189,23 @@
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="revenue">Average Annual Revenue</Label>
-                        <Input id="revenue" type="text" placeholder="type of business..." v-model="averageRevenue"/>
+                        <Input id="revenue" type="text" placeholder="type of business..." v-model="averageRevenue" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="instagram">Instagram Link</Label>
-                        <Input id="instagram" type="text" placeholder="instagram..." v-model="instagramLink"/>
+                        <Input id="instagram" type="text" placeholder="instagram..." v-model="instagramLink" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="twitter">X Link (formerly Twitter)</Label>
-                        <Input id="twitter" type="text" placeholder="twitter..." v-model="twitterLink"/>
+                        <Input id="twitter" type="text" placeholder="twitter..." v-model="twitterLink" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="facebook">Facebook Link</Label>
-                        <Input id="facebook" type="text" placeholder="facebook..." v-model="facebookLink"/>
+                        <Input id="facebook" type="text" placeholder="facebook..." v-model="facebookLink" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="website">Link to Business Website</Label>
-                        <Input id="website" type="text" placeholder="website..." v-model="websiteLink"/>
+                        <Input id="website" type="text" placeholder="website..." v-model="websiteLink" />
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="phine">Business Phone Number</Label>
@@ -212,7 +213,7 @@
                     </div>
                     <div class="grid w-full max-w-[500px] items-center gap-1.5">
                         <Label for="email">Email</Label>
-                        <Input id="email" type="email" placeholder="email..." v-model="email"/>
+                        <Input id="email" type="email" placeholder="email..." v-model="email" />
                     </div>
                     <div class="grid w-full md:max-w-[500px] items-center gap-1.5">
                         <Label for="merge">Available for merge</Label>
@@ -261,7 +262,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { updateProfileHandler } from '~/composables/useUpdateProfile';
-import { useCookie, useFetch } from "#imports";
+import { ref, watchEffect } from 'vue';
 
 import {
     Select,
@@ -277,6 +278,7 @@ const showModal = ref(false);
 
 function openModal() {
     showModal.value = true;
+    populateFormValues();
 }
 
 function closeModal() {
@@ -292,18 +294,18 @@ const props = defineProps({
 
 // Reactive variables
 const address = ref('');
-const selectedIsRegisteredOption = ref('');
-const selectedFundingStageOption = ref('');
+const selectedIsRegisteredOption = ref<number | null>(null);
+const selectedFundingStageOption = ref<number | null>(null);
 const selectedProofOption = ref('');
 const selectedSectorOption = ref('');
 const selectedBusinessTypeOption = ref('');
 const selectedProduceOption = ref('');
-const selectedMergeOption = ref('');
-const selectedAcquisitionOption = ref('');
-const businessLogo = ref<File | null>(null); 
-const cacDocument = ref<File | null>(null); 
-const businessDocument = ref<File | null>(null); 
-const foundingYear = ref('');  // Founding Year, shown only if user_type === 'Agripreneur'
+const selectedMergeOption = ref<number | null>(null);
+const selectedAcquisitionOption = ref<number>();
+const businessLogo = ref<File | null>(null);
+const cacDocument = ref<File | null>(null);
+const businessDocument = ref<File | null>(null);
+const foundingYear = ref('');
 const farmSize = ref('');
 const labourForce = ref('');
 const yearsOfOperation = ref('');
@@ -314,8 +316,7 @@ const facebookLink = ref('');
 const websiteLink = ref('');
 const businessPhone = ref('');
 const email = ref('');
-const aboutBusiness = ref('');  // About Business textarea
-
+const aboutBusiness = ref('');
 
 const { updateProfile, loading } = updateProfileHandler();
 
@@ -330,6 +331,7 @@ const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocume
         if (fileKey === 'businessLogo') businessLogo.value = file;
     }
 };
+
 // Correctly define arrays of objects for the select options
 const businessRegistrationOptions: Array<{ value: number, label: string }> = [
     { value: 1, label: 'Yes' },
@@ -382,22 +384,52 @@ const acquisitionOptions: Array<{ value: number, label: string }> = [
     { value: 0, label: 'No' }
 ];
 
-const handleSubmit = async () => {
+interface SocialMedia {
+    name: string;
+    link: string;
+}
+const populateFormValues = () => {
+    if (props.profileData) {
+        address.value = props.profileData.more?.address || '';
+        selectedIsRegisteredOption.value = props.profileData.more?.is_registered ? 1 : 0;
+        selectedFundingStageOption.value = props.profileData.more?.funding_stage || '';
+        selectedProofOption.value = props.profileData.more?.proof_of_address || '';
+        selectedSectorOption.value = props.profileData.more?.sector || '';
+        selectedBusinessTypeOption.value = props.profileData.more?.business_type || '';
+        selectedProduceOption.value = props.profileData.more?.produce_type || '';
+        selectedMergeOption.value = props.profileData.more?.is_available_merger ? 1 : 0;
+        selectedAcquisitionOption.value = props.profileData.more?.is_available_acquisition ? 1 : 0;
+        businessLogo.value = null; // You may want to set these if you have default file handling
+        cacDocument.value = null; // You may want to set these if you have default file handling
+        businessDocument.value = null; // You may want to set these if you have default file handling
+        foundingYear.value = props.profileData.more?.founding_year || '';
+        farmSize.value = props.profileData.more?.farm_size || '';
+        labourForce.value = props.profileData.more?.labor_force || '';
+        yearsOfOperation.value = props.profileData.more?.years_of_operation || '';
+        averageRevenue.value = props.profileData.more?.average_annual_revenue || '';
+        const socialMediaArray: SocialMedia[] = props.profileData.more?.social_media || [];
+        instagramLink.value = socialMediaArray.find(sm => sm.name === 'Instagram')?.link || '';
+        twitterLink.value = socialMediaArray.find(sm => sm.name === 'Twitter')?.link || '';
+        facebookLink.value = socialMediaArray.find(sm => sm.name === 'Facebook')?.link || '';
+        websiteLink.value = props.profileData.more?.website || '';
+        businessPhone.value = props.profileData.more?.business_phone || '';
+        email.value = props.profileData.more?.business_email || '';
+        aboutBusiness.value = props.profileData.more?.about || '';
+    }
+};
 
-     if (!props.profileData || !props.profileData.user_type_id) {
+const handleSubmit = async () => {
+    if (!props.profileData || !props.profileData.user_type_id) {
         console.error('User type ID is missing or undefined');
         return;
     }
-    // Create the credentials object
     const formData = new FormData();
 
-    // Append each field to FormData
     formData.append('user_id', props.profileData.user_id);
     formData.append('user_type_id', props.profileData.user_type_id);
     formData.append('about', aboutBusiness.value);
-    formData.append('is_registered', selectedIsRegisteredOption.value);
+    formData.append('is_registered', selectedIsRegisteredOption.value?.toString() ?? '');
 
-    // Append files (e.g., CAC Document)
     if (businessDocument.value) {
         formData.append('proof_of_address', businessDocument.value);
     }
@@ -408,7 +440,7 @@ const handleSubmit = async () => {
         formData.append('businessLogo', businessLogo.value);
     }
 
-    formData.append('funding_stage', selectedFundingStageOption.value || '');
+    formData.append('funding_stage', selectedFundingStageOption.value?.toString() ?? '');
     formData.append('address', address.value);
     formData.append('farm_size', farmSize.value);
     formData.append('business_type', selectedBusinessTypeOption.value || '');
@@ -417,7 +449,6 @@ const handleSubmit = async () => {
     formData.append('years_of_operation', (parseInt(yearsOfOperation.value) || 0).toString());
     formData.append('average_annual_revenue', (parseFloat(averageRevenue.value) || 0).toString());
 
-    // Append social media links
     formData.append('social_media[0][name]', 'Instagram');
     formData.append('social_media[0][link]', instagramLink.value);
     formData.append('social_media[1][name]', 'Twitter');
@@ -428,34 +459,12 @@ const handleSubmit = async () => {
     formData.append('website', websiteLink.value);
     formData.append('business_phone', businessPhone.value);
     formData.append('business_email', email.value);
-    formData.append('is_available_merger', selectedMergeOption.value );
-    formData.append('is_available_acquisition', selectedAcquisitionOption.value);
+    formData.append('founding_year', foundingYear.value);
+    formData.append('sector', selectedSectorOption.value || '');
+    formData.append('is_available_merger', selectedMergeOption.value?.toString() ?? '');
+    formData.append('is_available_acquisition', selectedAcquisitionOption.value?.toString() ?? '');
 
-    formData.append('investor_type', '');
-    formData.append('investment_sector', '');
-    formData.append('period_of_investment', '');
-
-    // Additional social media links if any
-    // formData.append('social_media_link', ''); // Add more if needed
-
-    formData.append('researcher_type', '');
-    formData.append('sector_id', selectedSectorOption.value);
-    formData.append('facebook', facebookLink.value);
-    formData.append('instagram', instagramLink.value);
-    formData.append('twitter', twitterLink.value);
-
-    // Log the form data for debugging
-    for (const pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
-    }
-console.log('the payload: ', formData)
-    try {
-        // Call the updateProfile function with the credentials object
-        await updateProfile(formData);
-    } catch (error) {
-        // Handle any errors that may occur
-        console.error('Error updating profile:', error);
-    }
+    await updateProfile(formData);
 };
-
 </script>
+
