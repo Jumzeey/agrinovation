@@ -17,32 +17,23 @@ const props = defineProps<IButtonProps>()
 </script>
 
 <template>
-  <button
-    :disabled="props.disable"
-    v-bind="props"
-    :class="{
-      'bg-green': !props.bg,
-      [props.bg!]: !!props.bg,
-      'text-white': !props.text,
-      [props.text!]: !!props.text
-    }"
-    class="py-[10px] px-[16px] rounded-lg flex gap-2 w-full justify-center items-center cursor-pointer"
-  >
-    <template v-if="!!props.loading"> <SpinnerComponent /> </template>
+  <button :disabled="props.loading" v-bind="props" :class="{
+    'bg-green': !props.bg,
+    [props.bg!]: !!props.bg,
+    'text-white': !props.text,
+    [props.text!]: !!props.text,
+    'cursor-not-allowed': props.loading || props.disable,
+    'pointer-events-none': props.loading || props.disable
+  }" class="py-[10px] px-[16px] rounded-lg flex gap-2 w-full justify-center items-center cursor-pointer">
+    <template v-if="!!props.loading">
+      <SpinnerComponent />
+    </template>
     <template v-else>
-      <MaterialIcon
-        outline
-        v-if="props.icon && props.iconLeft"
-        :icon="props.icon"
-        :class="props.bg"
-      />
-      <div class="text-center font-bold font-inter"><slot></slot></div>
-      <MaterialIcon
-        outline
-        v-if="props.icon && !props.iconLeft"
-        :icon="props.icon"
-        :class="props.bg"
-      />
+      <MaterialIcon outline v-if="props.icon && props.iconLeft" :icon="props.icon" :class="props.bg" />
+      <div class="text-center font-bold font-inter">
+        <slot></slot>
+      </div>
+      <MaterialIcon outline v-if="props.icon && !props.iconLeft" :icon="props.icon" :class="props.bg" />
     </template>
   </button>
 </template>

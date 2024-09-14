@@ -127,6 +127,14 @@ export interface MediaItem {
   export interface TeamMember {
     // Define fields here
   }
+  export interface userProfileDataMore {
+      about: string;
+      funding_stage: string;
+      average_annual_revenue: string;
+      produce_information: string | null;
+      is_available_merger: boolean;
+      is_available_acquisition: boolean;
+  }
 
   export interface SocialMediaLink  {
     name: string;
@@ -134,18 +142,24 @@ export interface MediaItem {
   };
 
   export interface UserProfileData {
-    user_id: number;
-    user_type_id: number;
+    user_id: string;
+    user_type_id: string;
     about: string;
+    name: string;
+    user_type: "Agripreneur" | "Investor" | "Researcher" | "Others";
     is_registered?: string;
     proof_of_address?: string;
     funding_stage?: string;
     address?: string;
+    sector?: string;
+    research_sector?: string;
     farm_size?: string;
+    more?: userProfileDataMore;
     business_type?: string;
     produce_type?: string;
     labor_force?: string;
-    years_of_operation?: number;
+    founding_year?: string;
+    years_of_operation?: string;
     average_annual_revenue?: number;
     social_media?: SocialMediaLink[];
     website?: string;

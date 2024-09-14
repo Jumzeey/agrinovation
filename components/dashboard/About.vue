@@ -18,36 +18,47 @@
                 <div v-else>
                     <EmptyState />
                 </div>
-                <div class="md:flex flex-col gap-7" v-if="['Agripreneur', 'Investor'].includes(profileData?.user_type)">
+                <div class="md:flex flex-col gap-7" v-if="['Agripreneur'].includes(profileData?.user_type)">
                     <div class="space-y-4">
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.founding_icon" alt="" class="p-1">
-                            <p>Founding Stage: {{ profileData?.more?.funding_stage || 'NA' }}</p>
+                            <img :src="CDN_IMAGES.founding_icon" alt="" class="p-1" />
+                            <p>Founding Stage: {{ profileData?.more?.funding_stage || "NA" }}</p>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1">
-                            <p>{{ profileData?.more?.address || 'Location not available' }}</p>
+                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
+                            <p>{{ profileData?.address || "Location not available" }}</p>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.currency_icon" alt="" class="p-1">
-                            <p>Average Annual Revenue: {{ profileData?.more?.average_annual_revenue || 'Not Available' }}
+                            <img :src="CDN_IMAGES.currency_icon" alt="" class="p-1" />
+                            <p>
+                                Average Annual Revenue:
+                                {{ profileData?.more?.average_annual_revenue || "Not Available" }}
                             </p>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.log_icon" alt="" class="p-1">
-                            <p>Produce Information: {{ profileData?.more?.produce_information || 'Information not available'
-                            }}</p>
+                            <img :src="CDN_IMAGES.log_icon" alt="" class="p-1" />
+                            <p>
+                                Produce Information:
+                                {{
+                                    profileData?.more?.produce_information || "Information not available"
+                                }}
+                            </p>
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1">
-                            <p>Available for Acquisition: {{ profileData?.more?.is_available_acquisition ? 'Yes' : 'No' }}
+                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
+                            <p>
+                                Available for Acquisition:
+                                {{ profileData?.more?.is_available_acquisition ? "Yes" : "No" }}
                             </p>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1">
-                            <p>Available for Merger: {{ profileData?.more?.is_available_merger ? 'Yes' : 'No' }}</p>
+                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
+                            <p>
+                                Available for Merger:
+                                {{ profileData?.more?.is_available_merger ? "Yes" : "No" }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -57,198 +68,63 @@
             @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit"
             :loading="loading">
             <template #content>
-                <div class="grid w-full max-w-sm items-center gap-1.5">
-                    <Label for="picture">Agric-Business Logo*</Label>
-                    <Input id="picture" type="file-upload" @change="handleFileUpload($event, 'businessLogo')" />
-                </div>
-                <div class="grid w-full gap-1.5">
-                    <Label for="message">About Business</Label>
-                    <Textarea id="message" placeholder="About your business...." v-model="aboutBusiness" />
-                </div>
-                <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
-                    <div class="w-full">
-                        <Label for="isRegistered">Is your Business Registered</Label>
-                        <!-- Is your Business Registered -->
-                        <Select v-model="selectedIsRegisteredOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Options</SelectLabel>
-                                    <SelectItem v-for="option in businessRegistrationOptions" :key="option.value"
-                                        :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                <div>
+                    <!-- logo fields -->
+                    <div class="grid w-full max-w-sm items-center gap-0.5">
+                        <div v-for="field in userFields" :key="field.id">
+                            <component v-if="field.type === 'file-upload'" :is="'div'">
+                                <Label :for="field.id">{{ field.props.label }}</Label>
+                                <Input :id="field.id" type="file-upload" :accept="field.props.accept"
+                                    v-if="field.type === 'file-upload'"
+                                    @change="(e: Event) => handleFileUpload(e, field.model)" />
+                            </component>
+                        </div>
                     </div>
-                    <div class="grid md:w-[500px] w-full max-w-sm items-center gap-1.5">
-                        <Label for="cac">Upload CAC Document *</Label>
-                        <Input id="cac" type="file" @change="handleFileUpload($event, 'cacDocument')" />
-                        <span class="text-infoText text-[12px] font-thin">Pls upload file PDF, DOCX, JPG or PNG (max.
-                            800x400px)</span>
+
+                    <!-- Textarea fields -->
+                    <div class="grid w-full">
+                        <div v-for="field in userFields" :key="field.id">
+                            <component v-if="field.type === 'Textarea'" :is="'div'">
+                                <Label :for="field.props.id">{{ field.props.label }}</Label>
+                                <Textarea :id="field.props.id" :placeholder="field.props.placeholder"
+                                    v-model="formDataVariables[field.model]" />
+                            </component>
+                        </div>
                     </div>
-                    <div>
-                        <Label for="isRegistered">Proof Of Address</Label>
-                        <!-- Proof of address -->
-                        <Select v-model="selectedProofOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="Type..." />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Type..</SelectLabel>
-                                    <SelectItem v-for="option in proofOfAddressOptions" :key="option.value"
-                                        :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div class="grid w-full max-w-sm items-center gap-1.5">
-                        <Label for="doc">Upload Document *</Label>
-                        <Input id="doc" type="file" @change="handleFileUpload($event, 'businessDocument')" />
-                        <span class="text-infoText text-[12px] font-thin">Pls upload file PDF, DOCX, JPG or PNG (max.
-                            800x400px)</span>
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="address">Address</Label>
-                        <Input id="address" type="text" placeholder="Address..." v-model="address" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5"
-                        v-if="profileData.user_type === 'Agripreneur'">
-                        <Label for="address">Founding Year</Label>
-                        <Input id="founding" type="text" placeholder="founding..." v-model="foundingYear" />
-                    </div>
-                    <div>
-                        <Label for="sector">Sector</Label>
-                        <!-- Sector -->
-                        <Select v-model="selectedSectorOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Options</SelectLabel>
-                                    <SelectItem v-for="option in sectorOptions" :key="option.value" :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="size">Farm Size</Label>
-                        <Input id="size" type="text" placeholder="farm size..." v-model="farmSize" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="businessType">Type Of Business</Label>
-                        <!-- Type of Business -->
-                        <Select v-model="selectedBusinessTypeOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="Type..." />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Type..</SelectLabel>
-                                    <SelectItem v-for="option in typeOfBusinessOptions" :key="option.value"
-                                        :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div>
-                        <Label for="sector">Type Of Produce</Label>
-                        <!-- Type of Produce -->
-                        <Select v-model="selectedProduceOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Options</SelectLabel>
-                                    <SelectItem v-for="option in produceOptions" :key="option.value" :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="labour">Labour Force</Label>
-                        <Input id="labour" type="text" placeholder="Labour..." v-model="labourForce" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="years">Years of Operation</Label>
-                        <Input id="years" type="text" placeholder="years..." v-model="yearsOfOperation" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="revenue">Average Annual Revenue</Label>
-                        <Input id="revenue" type="text" placeholder="type of business..." v-model="averageRevenue" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="instagram">Instagram Link</Label>
-                        <Input id="instagram" type="text" placeholder="instagram..." v-model="instagramLink" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="twitter">X Link (formerly Twitter)</Label>
-                        <Input id="twitter" type="text" placeholder="twitter..." v-model="twitterLink" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="facebook">Facebook Link</Label>
-                        <Input id="facebook" type="text" placeholder="facebook..." v-model="facebookLink" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="website">Link to Business Website</Label>
-                        <Input id="website" type="text" placeholder="website..." v-model="websiteLink" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="phine">Business Phone Number</Label>
-                        <Input id="phone" type="tel" placeholder="phone..." v-model="businessPhone" />
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="email">Email</Label>
-                        <Input id="email" type="email" placeholder="email..." v-model="email" />
-                    </div>
-                    <div class="grid w-full md:max-w-[500px] items-center gap-1.5">
-                        <Label for="merge">Available for merge</Label>
-                        <!-- Available for Merge -->
-                        <Select v-model="selectedMergeOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="select" />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Options</SelectLabel>
-                                    <SelectItem v-for="option in mergeOptions" :key="option.value" :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div class="grid w-full max-w-[500px] items-center gap-1.5">
-                        <Label for="acquisition">Available for Acquisition</Label>
-                        <!-- Available for Acquisition -->
-                        <Select v-model="selectedAcquisitionOption">
-                            <SelectTrigger class="md:w-[500px] w-full">
-                                <SelectValue placeholder="select" />
-                            </SelectTrigger>
-                            <SelectContent class="bg-black text-white">
-                                <SelectGroup>
-                                    <SelectLabel>Options</SelectLabel>
-                                    <SelectItem v-for="option in acquisitionOptions" :key="option.value"
-                                        :value="option.value">
-                                        {{ option.label }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+
+                    <!-- other fields -->
+                    <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <div v-for="field in userFields" :key="field.id">
+                            <component v-if="field.type === 'File' && (field.id !== 'cacDocument' || showCacDocumentField)"
+                                :is="'div'">
+                                <Label :for="field.id">{{ field.props.label }}</Label>
+                                <Input :id="field.id" type="file" :accept="field.props.accept"
+                                    @change="(e: Event) => handleFileUpload(e, field.model)" />
+                            </component>
+
+                            <!-- Handle other types like Select, Input, Textarea -->
+                            <component v-else-if="field.type === 'Select'" :is="Select"
+                                v-model="formDataVariables[field.model]" v-bind="field.props">
+                                <Label :for="field.id">{{ field.props.label }}</Label>
+                                <SelectTrigger class="md:w-[500px] w-full">
+                                    <SelectValue :placeholder="field.props.placeholder" />
+                                </SelectTrigger>
+                                <SelectContent class="bg-black text-white">
+                                    <SelectGroup>
+                                        <SelectLabel>{{ field.props.label }}</SelectLabel>
+                                        <SelectItem v-for="option in field.props.options" :key="option.value"
+                                            :value="option.value">
+                                            {{ option.label }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </component>
+
+                            <component v-if="field.type === 'Input'" :is="'div'">
+                                <Label :for="field.id">{{ field.props.label }}</Label>
+                                <Input :id="field.id" v-bind="field.props" v-model="formDataVariables[field.model]" />
+                            </component>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -258,11 +134,12 @@
 
 <script setup lang="ts">
 import { CDN_IMAGES } from "../../assets/cdnImages";
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { updateProfileHandler } from '~/composables/useUpdateProfile';
-import { ref, watchEffect } from 'vue';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { updateProfileHandler } from "~/composables/useUpdateProfile";
+import { ref, watchEffect } from "vue";
+import { fieldConfigurations } from '@/data/updateProfileFieldsConfiguration';
 
 import {
     Select,
@@ -272,10 +149,55 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
 
+const { updateProfile, loading } = updateProfileHandler();
 const showModal = ref(false);
+const props = defineProps<{
+    profileData: UserProfileData;
+}>();
 
+// Computed property to determine if cacDocument should be shown
+const showCacDocumentField = computed(() => {
+    return formDataVariables?.value?.selectedIsRegisteredOption.value === 0;
+});
+
+// Reactive variables mapped to formData
+const formDataVariables = ref<Record<string, any>>({
+    aboutBusiness: "",
+    address: "",
+    selectedIsRegisteredOption: null,
+    selectedFundingStageOption: "",
+    selectedProofOption: "",
+    selectedSectorOption: "",
+    selectedResearchSectorOption: "",
+    selectedInvestmentSectorOption: "",
+    selectedInvestmentPeriodOption: "",
+    selectedBusinessTypeOption: "",
+    selectedProduceOption: "",
+    selectedMergeOption: null,
+    selectedAcquisitionOption: null,
+    businessLogo: null,
+    cacDocument: null,
+    businessDocument: null,
+    foundingYear: "",
+    farmSize: "",
+    researcherType: "",
+    labourForce: "",
+    yearsOfOperation: "",
+    averageRevenue: "",
+    instagramLink: "",
+    twitterLink: "",
+    facebookLink: "",
+    websiteLink: "",
+    businessPhone: "",
+    email: "",
+});
+
+// Define the field configurations
+const userFields = computed(() => fieldConfigurations[props.profileData.user_type] || []);
+
+// Functions for Modal Handling
 function openModal() {
     showModal.value = true;
     populateFormValues();
@@ -285,186 +207,133 @@ function closeModal() {
     showModal.value = false;
 }
 
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
+// Populate form values from profile data
+const populateFormValues = () => {
+    if (props.profileData) {
+        formDataVariables.value.address = props.profileData?.address || "";
+        formDataVariables.value.selectedIsRegisteredOption = props.profileData?.is_registered ? 1 : 0;
+        formDataVariables.value.selectedFundingStageOption = props.profileData.more?.funding_stage || "";
+        formDataVariables.value.selectedSectorOption = props.profileData?.sector || "";
+        formDataVariables.value.selectedResearchSectorOption = props.profileData?.research_sector || "";
+        formDataVariables.value.selectedInvestmentSectorOption = props.profileData?.investment_sector || "";
+        formDataVariables.value.selectedInvestmentPeriodOption = props.profileData?.period_of_investment || "";
+        formDataVariables.value.selectedBusinessTypeOption = props.profileData?.business_type || "";
+        formDataVariables.value.selectedProduceOption = props.profileData?.produce_type || "";
+        formDataVariables.value.selectedMergeOption = props.profileData.more?.is_available_merger ? 1 : 0;
+        formDataVariables.value.selectedAcquisitionOption = props.profileData.more?.is_available_acquisition
+            ? 1
+            : 0;
+        formDataVariables.value.businessLogo = null;
+        formDataVariables.value.cacDocument = null;
+        formDataVariables.value.businessDocument = null;
+        formDataVariables.value.foundingYear = props.profileData?.founding_year || "";
+        formDataVariables.value.farmSize = props.profileData?.farm_size || "";
+        formDataVariables.value.researcherType = props.profileData?.researcher_type || "";
+        formDataVariables.value.labourForce = props.profileData?.labor_force || "";
+        formDataVariables.value.yearsOfOperation = props.profileData?.years_of_operation || "";
+        formDataVariables.value.averageRevenue = props.profileData.more?.average_annual_revenue || "";
+        const socialMediaArray: SocialMedia[] = props.profileData?.social_media || [];
+        formDataVariables.value.instagramLink =
+            socialMediaArray.find((sm) => sm.name === "Instagram")?.link || "";
+        formDataVariables.value.twitterLink = socialMediaArray.find((sm) => sm.name === "Twitter")?.link || "";
+        formDataVariables.value.facebookLink =
+            socialMediaArray.find((sm) => sm.name === "Facebook")?.link || "";
+        formDataVariables.value.websiteLink = props.profileData?.website || "";
+        formDataVariables.value.businessPhone = props.profileData?.business_phone || "";
+        formDataVariables.value.email = props.profileData?.business_email || "";
+        formDataVariables.value.aboutBusiness = props.profileData.more?.about || "";
+    }
+};
+
+watchEffect(() => {
+    if (props.profileData) {
+        populateFormValues();
+    }
 });
 
-// Reactive variables
-const address = ref('');
-const selectedIsRegisteredOption = ref<number | null>(null);
-const selectedFundingStageOption = ref<number | null>(null);
-const selectedProofOption = ref('');
-const selectedSectorOption = ref('');
-const selectedBusinessTypeOption = ref('');
-const selectedProduceOption = ref('');
-const selectedMergeOption = ref<number | null>(null);
-const selectedAcquisitionOption = ref<number>();
-const businessLogo = ref<File | null>(null);
-const cacDocument = ref<File | null>(null);
-const businessDocument = ref<File | null>(null);
-const foundingYear = ref('');
-const farmSize = ref('');
-const labourForce = ref('');
-const yearsOfOperation = ref('');
-const averageRevenue = ref('');
-const instagramLink = ref('');
-const twitterLink = ref('');
-const facebookLink = ref('');
-const websiteLink = ref('');
-const businessPhone = ref('');
-const email = ref('');
-const aboutBusiness = ref('');
-
-const { updateProfile, loading } = updateProfileHandler();
-
 // File upload handler
-const handleFileUpload = (event: Event, fileKey: 'cacDocument' | 'businessDocument' | 'businessLogo') => {
+const handleFileUpload = (
+    event: Event,
+    fileKey: "cacDocument" | "businessDocument" | "businessLogo"
+) => {
     const target = event.target as HTMLInputElement;
     const file = target.files ? target.files[0] : null;
 
     if (file) {
-        if (fileKey === 'cacDocument') cacDocument.value = file;
-        if (fileKey === 'businessDocument') businessDocument.value = file;
-        if (fileKey === 'businessLogo') businessLogo.value = file;
+        switch (fileKey) {
+            case "cacDocument":
+                formDataVariables.value.cacDocument = file;
+                break;
+            case "businessDocument":
+                formDataVariables.value.businessDocument = file;
+                break;
+            case "businessLogo":
+                formDataVariables.value.businessLogo = file;
+                break;
+            default:
+                console.warn(`Unhandled fileKey: ${fileKey}`);
+        }
     }
+
 };
-
-// Correctly define arrays of objects for the select options
-const businessRegistrationOptions: Array<{ value: number, label: string }> = [
-    { value: 1, label: 'Yes' },
-    { value: 0, label: 'No' }
-];
-
-const fundingStageOptions: Array<{ value: string, label: string }> = [
-    { value: 'pre-seed', label: 'Pre-Seed' },
-    { value: 'seed', label: 'Seed' },
-    { value: 'series-a', label: 'Series A' },
-    { value: 'series-b', label: 'Series B' },
-    { value: 'series-c', label: 'Series C' },
-    { value: 'series-d', label: 'Series D' },
-    { value: 'mezzanine-funding', label: 'Mezzanine Funding' },
-    { value: 'ipo', label: 'IPO' }
-];
-
-const proofOfAddressOptions: Array<{ value: string, label: string }> = [
-    { value: 'electricity-bill', label: 'Electricity Bill' },
-    { value: 'lawma-bill', label: 'LAWMA Bill' },
-];
-
-const sectorOptions: Array<{ value: string, label: string }> = [
-    { value: 'pre-production', label: 'Pre-Production' },
-    { value: 'production', label: 'Production' },
-    { value: 'post-production', label: 'Post-Production' }
-];
-
-const typeOfBusinessOptions: Array<{ value: string, label: string }> = [
-    { value: 'farmer', label: 'Farmer' },
-    { value: 'startup', label: 'StartUp' },
-    { value: 'agro-hub', label: 'Agro-Hub' }
-];
-
-const produceOptions: Array<{ value: string, label: string }> = [
-    { value: 'primary-crops', label: 'Primary Crops' },
-    { value: 'livestocks', label: 'Livestocks' },
-    { value: 'poultry', label: 'Poultry' },
-    { value: 'diary', label: 'Diary' },
-    { value: 'cash-crops', label: 'Cash Crops' }
-];
-
-const mergeOptions: Array<{ value: number, label: string }> = [
-    { value: 1, label: 'Yes' },
-    { value: 0, label: 'No' }
-];
-
-const acquisitionOptions: Array<{ value: number, label: string }> = [
-    { value: 1, label: 'Yes' },
-    { value: 0, label: 'No' }
-];
 
 interface SocialMedia {
     name: string;
     link: string;
 }
-const populateFormValues = () => {
-    if (props.profileData) {
-        address.value = props.profileData.more?.address || '';
-        selectedIsRegisteredOption.value = props.profileData.more?.is_registered ? 1 : 0;
-        selectedFundingStageOption.value = props.profileData.more?.funding_stage || '';
-        selectedProofOption.value = props.profileData.more?.proof_of_address || '';
-        selectedSectorOption.value = props.profileData.more?.sector || '';
-        selectedBusinessTypeOption.value = props.profileData.more?.business_type || '';
-        selectedProduceOption.value = props.profileData.more?.produce_type || '';
-        selectedMergeOption.value = props.profileData.more?.is_available_merger ? 1 : 0;
-        selectedAcquisitionOption.value = props.profileData.more?.is_available_acquisition ? 1 : 0;
-        businessLogo.value = null; // You may want to set these if you have default file handling
-        cacDocument.value = null; // You may want to set these if you have default file handling
-        businessDocument.value = null; // You may want to set these if you have default file handling
-        foundingYear.value = props.profileData.more?.founding_year || '';
-        farmSize.value = props.profileData.more?.farm_size || '';
-        labourForce.value = props.profileData.more?.labor_force || '';
-        yearsOfOperation.value = props.profileData.more?.years_of_operation || '';
-        averageRevenue.value = props.profileData.more?.average_annual_revenue || '';
-        const socialMediaArray: SocialMedia[] = props.profileData.more?.social_media || [];
-        instagramLink.value = socialMediaArray.find(sm => sm.name === 'Instagram')?.link || '';
-        twitterLink.value = socialMediaArray.find(sm => sm.name === 'Twitter')?.link || '';
-        facebookLink.value = socialMediaArray.find(sm => sm.name === 'Facebook')?.link || '';
-        websiteLink.value = props.profileData.more?.website || '';
-        businessPhone.value = props.profileData.more?.business_phone || '';
-        email.value = props.profileData.more?.business_email || '';
-        aboutBusiness.value = props.profileData.more?.about || '';
-    }
-};
 
 const handleSubmit = async () => {
     if (!props.profileData || !props.profileData.user_type_id) {
-        console.error('User type ID is missing or undefined');
+        console.error("User type ID is missing or undefined");
         return;
     }
     const formData = new FormData();
 
-    formData.append('user_id', props.profileData.user_id);
-    formData.append('user_type_id', props.profileData.user_type_id);
-    formData.append('about', aboutBusiness.value);
-    formData.append('is_registered', selectedIsRegisteredOption.value?.toString() ?? '');
+    formData.append("user_id", props.profileData.user_id);
+    formData.append("user_type_id", props.profileData.user_type_id);
+    formData.append("about", formDataVariables?.value?.aboutBusiness);
+    formData.append("is_registered", formDataVariables?.value?.selectedIsRegisteredOption?.toString() ?? "");
+    formData.append("research_sector", formDataVariables?.value?.selectedResearchSectorOption?.toString() ?? "");
+    formData.append("period_of_investment", formDataVariables?.value?.selectedInvestmentPeriodOption?.toString() ?? "");
+    formData.append("investment_sector", formDataVariables?.value?.selectedInvestmentSectorOption?.toString() ?? "");
 
-    if (businessDocument.value) {
-        formData.append('proof_of_address', businessDocument.value);
+    if (formDataVariables.value.businessDocument) {
+        formData.append("proof_of_address", formDataVariables?.value?.businessDocument);
     }
-    if (cacDocument.value) {
-        formData.append('cac', cacDocument.value);
+    if (formDataVariables?.value?.cacDocument) {
+        formData.append("cac", formDataVariables?.value?.cacDocument);
     }
-    if (businessLogo.value) {
-        formData.append('image', businessLogo.value);
+    if (formDataVariables?.value?.businessLogo) {
+        formData.append("image", formDataVariables?.value?.businessLogo);
     }
 
-    formData.append('funding_stage', selectedFundingStageOption.value?.toString() ?? '');
-    formData.append('address', address.value);
-    formData.append('farm_size', farmSize.value);
-    formData.append('business_type', selectedBusinessTypeOption.value || '');
-    formData.append('produce_type', selectedProduceOption.value || '');
-    formData.append('labor_force', labourForce.value);
-    formData.append('years_of_operation', (parseInt(yearsOfOperation.value) || 0).toString());
-    formData.append('average_annual_revenue', (parseFloat(averageRevenue.value) || 0).toString());
+    formData.append("funding_stage", formDataVariables?.value?.selectedFundingStageOption?.toString() ?? "");
+    formData.append("address", formDataVariables?.value?.address);
+    formData.append("farm_size", formDataVariables?.value?.farmSize);
+    formData.append("researcher_type", formDataVariables?.value?.farmSize);
+    formData.append("business_type", formDataVariables?.value?.selectedBusinessTypeOption || "");
+    formData.append("produce_type", formDataVariables?.value?.selectedProduceOption || "");
+    formData.append("labor_force", formDataVariables?.value?.labourForce);
+    formData.append("years_of_operation", formDataVariables?.value?.yearsOfOperation);
+    formData.append("average_annual_revenue", formDataVariables?.value?.averageRevenue.toString());
+    formData.append("social_media[0][name]", "Instagram");
+    formData.append("social_media[0][link]", formDataVariables?.value?.instagramLink);
+    formData.append("social_media[1][name]", "Twitter");
+    formData.append("social_media[1][link]", formDataVariables?.value?.twitterLink);
+    formData.append("social_media[2][name]", "Facebook");
+    formData.append("social_media[2][link]", formDataVariables?.value?.facebookLink);
 
-    formData.append('social_media[0][name]', 'Instagram');
-    formData.append('social_media[0][link]', instagramLink.value);
-    formData.append('social_media[1][name]', 'Twitter');
-    formData.append('social_media[1][link]', twitterLink.value);
-    formData.append('social_media[2][name]', 'Facebook');
-    formData.append('social_media[2][link]', facebookLink.value);
-
-    formData.append('website', websiteLink.value);
-    formData.append('business_phone', businessPhone.value);
-    formData.append('business_email', email.value);
-    formData.append('founding_year', foundingYear.value);
-    formData.append('sector', selectedSectorOption.value || '');
-    formData.append('is_available_merger', selectedMergeOption.value?.toString() ?? '');
-    formData.append('is_available_acquisition', selectedAcquisitionOption.value?.toString() ?? '');
+    formData.append("website", formDataVariables?.value?.websiteLink);
+    formData.append("business_phone", formDataVariables?.value?.businessPhone);
+    formData.append("business_email", formDataVariables?.value?.email);
+    formData.append("founding_year", formDataVariables?.value?.foundingYear);
+    formData.append("sector", formDataVariables?.value?.selectedSectorOption || "");
+    formData.append("is_available_merger", formDataVariables?.value?.selectedMergeOption?.toString() ?? "");
+    formData.append(
+        "is_available_acquisition",
+        formDataVariables?.value?.selectedAcquisitionOption?.toString() ?? ""
+    );
 
     await updateProfile(formData);
 };
 </script>
-

@@ -40,7 +40,7 @@ export function useAuth() {
 
       if (data.value?.status) {
         handleSuccess(data.value.message);
-        router.push("/auth/login");
+        router.push("/auth/verify");
       } else {
         handleError(fetchError.value?.data);
       }
@@ -51,56 +51,58 @@ export function useAuth() {
     }
   };
 
-  const login = async (credentials: LoginData): Promise<void> => {
-    loading.value = true;
-    error.value = null;
+ const login = async (credentials: LoginData): Promise<void> => {
+   loading.value = true;
+   error.value = null;
 
-    try {
-      const { data, error: fetchError } = await useFetch<LoginResponse>(
-        config.public.apiUrl + API_PATHS.AUTH.LOGIN,
-        {
-          method: "POST",
-          body: credentials,
-        }
-      );
+   try {
+     const { data, error: fetchError } = await useFetch<LoginResponse>(
+       config.public.apiUrl + API_PATHS.AUTH.LOGIN,
+       {
+         method: "POST",
+         body: credentials,
+       }
+     );
 
-      if (data.value?.status) {
-        const response = data.value.data;
-        userType.value = response.user_type;
-        token.value = response.token;
-        user_id.value = response.user_id;
-        user_type_id.value = response.user_type_id;
-        console.log("user type: ", userType.value);
+     if (fetchError && fetchError.value) {
+       handleError(fetchError.value?.data);
+     } else if (data.value?.status) {
+       const response = data.value.data;
+       userType.value = response.user_type;
+       token.value = response.token;
+       user_id.value = response.user_id;
+       user_type_id.value = response.user_type_id;
+       console.log("user type: ", userType.value);
 
-        // Store the token and userType in cookies
-        setCookie("authToken", token.value, {
-          path: "/",
-        });
-        setCookie("userType", userType.value, {
-          path: "/dashboard",
-        });
-        setCookie("userId", user_id.value.toString(), {
-          path: "/dashboard",
-        });
-        setCookie("userTypeId", user_type_id.value?.toString(), {
-          path: "/dashboard",
-        });
+       // Store the token and userType in cookies
+       setCookie("authToken", token.value, {
+         path: "/",
+       });
+       setCookie("userType", userType.value, {
+         path: "/dashboard",
+       });
+       setCookie("userId", user_id.value.toString(), {
+         path: "/dashboard",
+       });
+       setCookie("userTypeId", user_type_id.value?.toString(), {
+         path: "/dashboard",
+       });
 
-        handleSuccess("Login successful!");
+       handleSuccess("Login successful!");
 
-        // Check current route before navigating
-        if (router.currentRoute.value.path !== "/dashboard") {
-          router.push("/dashboard");
-        }
-      } else {
-        handleError(fetchError.value?.data);
-      }
-    } catch (err: any) {
-      handleError(err);
-    } finally {
-      loading.value = false;
-    }
-  };
+       // Navigate to dashboard
+       await router.push("/dashboard");
+        window.location.reload();
+     } else {
+       handleError("Login failed. Please check your credentials.");
+     }
+   } catch (err: any) {
+     handleError(err);
+   } finally {
+     loading.value = false;
+   }
+ };
+
 
   const logout = (): void => {
     token.value = null;

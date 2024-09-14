@@ -6,26 +6,27 @@ export function useErrorHandler() {
   const toast = useToast()
 
   const handleError = (err) => {
-    let errorMessage = 'An error occurred'
+  let errorMessage = 'An error occurred';
 
-    if (err.response) {
-      // Handle the specific structure of your error response
-      if (err.errors) {
-        // Extract and combine all detailed error messages
-        const errorDetails = err.errors
-        errorMessage = Object.values(errorDetails)
-          .flat()
-          .join(' ')
-      } else if (err.response.data.message) {
-        errorMessage = err.response.data.message
-      }
-    } else if (err.message) {
-      errorMessage = err.message
+  if (err && err.response) {
+    // Handle the specific structure of your error response
+    if (err.response.errors) {
+      const errorDetails = err.response.errors;
+      errorMessage = Object.values(errorDetails)
+        .flat()
+        .join(' ');
+    } else if (err.response.data && err.response.data.message) {
+      errorMessage = err.response.data.message;
     }
-
-    error.value = errorMessage
-    toast.error(errorMessage) // Show error toast
+  } else if (err && err.message) {
+    errorMessage = err.message;
   }
+
+  console.log("Error handled:", err); // Log the entire error object for debugging
+  error.value = errorMessage;
+  toast.error(errorMessage); // Show error toast
+};
+
 
   const handleSuccess = (message) => {
     toast.success(message) // Show success toast

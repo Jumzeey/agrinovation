@@ -40,6 +40,9 @@ definePageMeta({
 
 const { userType, user_id, user_type_id } = useAuth();
 
+
+
+
 async function fetchProfileData() {
     if (user_id.value && user_type_id.value) {
         try {

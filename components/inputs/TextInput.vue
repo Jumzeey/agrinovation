@@ -17,6 +17,7 @@ interface IInputProps {
   min?: string
   max?: string
   absolute?: boolean
+  showStrength?: boolean // Add the new prop for showing password strength
 }
 
 const props = defineProps<IInputProps>()
@@ -30,6 +31,7 @@ const onChange = (event: Event) => {
   emit('update:modelValue', inputValue.value)
 }
 
+// Toggle password visibility
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value
 }
@@ -50,6 +52,32 @@ const isErrorState = computed(() => {
 watch(() => props.value, (newValue) => {
   inputValue.value = newValue || ''
 })
+
+// Password strength logic
+const passwordStrength = computed(() => {
+  const value = inputValue.value
+  let strength = 0
+
+  if (value.length >= 8) strength += 1 // At least 8 characters
+  if (/[A-Z]/.test(value)) strength += 1 // Contains uppercase letters
+  if (/[a-z]/.test(value)) strength += 1 // Contains lowercase letters
+  if (/\d/.test(value)) strength += 1 // Contains numbers
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) strength += 1 // Contains special characters
+
+  return strength
+})
+
+// Strength bar color based on strength level
+const strengthBarColor = computed(() => {
+  const strength = passwordStrength.value
+  if (strength === 1) return 'bg-red-500'
+  if (strength === 2) return 'bg-orange-400'
+  if (strength === 3) return 'bg-yellow-400'
+  if (strength === 4) return 'bg-green-400'
+  if (strength === 5) return 'bg-green-600'
+  return 'bg-gray-300'
+})
+
 </script>
 
 <template>
@@ -73,6 +101,11 @@ watch(() => props.value, (newValue) => {
           v-if="props.type === 'password'" @click="toggleShowPassword"
           :icon="showPassword ? 'visibility_off' : 'visibility'" outline />
         <span v-if="description" class="font-inter text-[#747EA1] text-sm font-thin">{{ description }}</span>
+      </div>
+
+      <!-- Password strength bar, shown only if type is password and showStrength is true -->
+      <div v-if="props.type === 'password' && props.showStrength" class="w-full h-1 mt-2">
+        <div :class="['h-full rounded-lg mb-3', strengthBarColor]" :style="{ width: (passwordStrength * 20) + '%' }"></div>
       </div>
     </div>
   </div>

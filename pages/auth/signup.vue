@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <TextInput label="Password" type="password" v-model="password" important="*" border />
+                        <TextInput label="Password" type="password" :show-strength="true" v-model="password" important="*" border />
                     </div>
 
                     <div class="mb-[32px]">
