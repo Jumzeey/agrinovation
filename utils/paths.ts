@@ -17,6 +17,7 @@ const API_PATHS = {
     MEDIA: "/user/media",
     JOB: "/user/job",
     PRODUCT: "/user/product",
+    TEAM: "/user/team-member",
     CREATE: "/products",
     UPDATE: (id: string) => `/products/${id}`,
     DELETE: (id: string) => `/products/${id}`,

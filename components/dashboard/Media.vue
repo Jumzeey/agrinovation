@@ -157,7 +157,7 @@ const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
 };
 
 const handleSubmit = async () => {
-  if (!props.profileData || !props.profileData.user_type_id) {
+  if (!props.profileData || !props.profileData.user_id) {
     console.error('User type ID is missing or undefined');
     return;
   }
