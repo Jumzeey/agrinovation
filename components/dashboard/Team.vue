@@ -47,7 +47,7 @@
                         <Label for="about">About</Label>
                         <Input id="about" type="text" placeholder="position..." v-model="about"/>
                     </div>
-                    <div class="grid w-full items-center gap-1.5">
+                    <div class="grid w-full items-center gap-1.5" v-if="profileData.user_type !== 'Researcher'">
                         <Label for="company_name">Company Name</Label>
                         <Input id="company_name" type="text" placeholder="name..." v-model="companyName"/>
                     </div>

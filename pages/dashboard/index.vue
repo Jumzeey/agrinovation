@@ -16,7 +16,8 @@
                 :loading="loading" />
             <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading"
                 />
-            <DashboardTeam :profileData="profileData" :loading="loading" />
+            <DashboardTeam :profileData="profileData" :loading="loading"/>
+            <DashboardNews :profileData="profileData" :loading="loading" v-if="userType === 'Researcher'" />
             <DashboardContact :profileData="profileData" :loading="loading" />
         </div>
     </div>

@@ -52,7 +52,7 @@
         <div class="flex justify-between items-center w-full py-2 px-4  bg-white">
             <!-- Left Section: Tabs -->
             <div class="flex border rounded-lg">
-                <div v-for="tab in tabs" :key="tab"
+                <div v-for="tab in filteredTabs" :key="tab"
                     :class="{ 'tab-item active cursor-pointer': activeTab === tab, 'tab-item cursor-pointer': activeTab !== tab }"
                     @click="scrollToSection(tab)">
                     {{ tab }}
@@ -105,22 +105,40 @@ import { CDN_IMAGES } from "~/assets/cdnImages";
 
 import { ref } from 'vue';
 
+// Define your sections for scrolling
 const about = ref<HTMLElement | null>(null);
 const team = ref<HTMLElement | null>(null);
 const media = ref<HTMLElement | null>(null);
+const news = ref<HTMLElement | null>(null);
 const jobOpening = ref<HTMLElement | null>(null);
 const contact = ref<HTMLElement | null>(null);
 const tag = ref<HTMLElement | null>(null);
 const marketPlace = ref<HTMLElement | null>(null);
 
-const tabs = ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'];
+// Define the userType and tabs mapping
+type UserType = 'researcher' | 'investor' | 'Agripreneur' | 'others'; // Define allowed user types
+
+const tabsByUserType: Record<UserType, string[]> = {
+    researcher: ['About', 'Team', 'Media', 'Contact', 'Tag'],
+    investor: ['About', 'Team', 'Media', 'News', 'Tag', 'Contact'],
+    Agripreneur: ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'],
+    others: ['About', 'Team', 'Media', 'Contact', 'Tag']
+};
+
 const activeTab = ref<string>('About');
 
+// Define your props
 const props = defineProps({
     profileData: {
         type: Object,
         required: true,
     },
+});
+
+// Compute the tabs to display based on user_type
+const filteredTabs = computed(() => {
+    const userType: UserType = props.profileData?.user_type || 'others';
+    return tabsByUserType[userType] || tabsByUserType['others'];
 });
 
 
@@ -157,6 +175,7 @@ const scrollToSection = (section: string) => {
         'Job Opening': jobOpening,
         Contact: contact,
         Tag: tag,
+        News: news,
         'Market Place': marketPlace,
     }[section];
 
