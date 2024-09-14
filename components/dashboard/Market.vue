@@ -10,8 +10,8 @@
                 </button>
             </div>
             <div>
-                <div v-if="loading">Loading products...</div>
-                <div v-else-if="error">Failed to load products. Please try again later.</div>
+                <div v-if="props.loading">Loading products...</div>
+                <div v-else-if="props.error">Failed to load products. Please try again later.</div>
                 <div v-else>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4"
                         v-if="profileData?.products.length > 0">
@@ -40,24 +40,28 @@
             </div>
         </div>
         <Modal :shows="showModal" title="Add Product" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
-            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit">
+            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit" :loading="loading">
             <template #content>
                 <div class="grid grid-cols-1 gap-6">
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="name">Product Name</Label>
-                        <Input id="name" type="text" placeholder="name..." />
+                        <Input id="name" type="text" placeholder="name..." v-model="name"/>
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="unit">Unit Available</Label>
-                        <Input id="unit" type="text" placeholder="unit..." />
+                        <Input id="unit" type="text" placeholder="unit..." v-model="quantity"/>
+                    </div>
+                    <div class="grid w-full items-center gap-1.5">
+                        <Label for="price">Price</Label>
+                        <Input id="price" type="text" placeholder="price..." v-model="price"/>
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="description">Short Description</Label>
-                        <Textarea id="description" placeholder="Short description...." />
+                        <Textarea id="description" placeholder="Short description...." v-model="description"/>
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="image">Image</Label>
-                        <Input id="image" type="file" />
+                        <Input id="image" type="file" @change="handleFileUpload($event, 'imageFile')" />
                         <span class="text-infoText text-[12px] font-thin">Pls upload file PDF, DOCX, JPG or PNG (max.
                             800x400px)</span>
                     </div>
@@ -68,10 +72,10 @@
 </template>
 
 <script setup lang="ts">
-import { productData } from '~/data/products';
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { updateProductHandler } from '~/composables/useUpdateProduct';
 
 const showModal = ref(false);
 
@@ -83,14 +87,28 @@ function closeModal() {
     showModal.value = false;
 }
 
-const handleSubmit = () => {
-    console.log('submitted')
-}
+const { updateProduct, loading } = updateProductHandler();
 
 const formatPrice = (price: any) => {
     const numericPrice = Number(price);
     return isNaN(numericPrice) ? '0.00' : numericPrice.toFixed(2);
 }
+
+const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files ? target.files[0] : null;
+
+    if (file && fileKey === 'imageFile') imageFile.value = file;
+};
+
+
+const link = ref('');
+const description = ref('');
+const name = ref('')
+const quantity = ref('')
+const price = ref('')
+const imageFile = ref<File | null>(null);
+
 
 const props = defineProps({
     profileData: {
@@ -106,5 +124,24 @@ const props = defineProps({
         default: false,
     },
 });
+
+const handleSubmit = async () => {
+    if (!props.profileData || !props.profileData.user_type_id) {
+        console.error('User type ID is missing or undefined');
+        return;
+    }
+    const formData = new FormData();
+
+    formData.append('user_id', props.profileData.user_id);
+    formData.append('description', description.value);
+    formData.append('name', name.value);
+    formData.append('quantity', quantity.value);
+    formData.append('price', price.value);
+    if (imageFile.value) {
+        formData.append('image', imageFile.value);
+    }
+
+    await updateProduct(formData);
+};
 </script>
 

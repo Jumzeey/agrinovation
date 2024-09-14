@@ -103,17 +103,18 @@ export interface MediaItem {
 }
 
   export interface JobPost {
-    id: number;
-    title: string;
+    user_id?: number;
+    id?: number;
+    title?: string;
     salary_min: string;
     salary_max: string;
     workplace_type: string;
-    job_type: string;
-    location: string;
-    description: string;
-    application_deadline: string; // ISO 8601 date string
-    job_status: string;
-    status: string;
+    job_type?: string;
+    location?: string;
+    description?: string;
+    application_deadline?: string; // ISO 8601 date string
+    job_status?: string;
+    status?: string;
   }
 
   export interface Product {

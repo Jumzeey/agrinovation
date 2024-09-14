@@ -32,6 +32,10 @@ export const CDN_IMAGES = {
     "https://ik.imagekit.io/bx7bddg8a/Agrinovation/Featured%20icon.svg?updatedAt=1725018742917",
   upload_icon:
     "https://ik.imagekit.io/bx7bddg8a/Agrinovation/Upload.svg?updatedAt=1725020870608",
+  investment_icon:
+    "https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868216.svg?updatedAt=1726303404983",
+  sector_icon:
+    "https://ik.imagekit.io/bx7bddg8a/Agrinovation/Frame%201618868218.svg?updatedAt=1726303467466",
 } as const;
-  
+
 type CDNImagesKeys = keyof typeof CDN_IMAGES;

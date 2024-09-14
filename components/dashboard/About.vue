@@ -62,6 +62,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="md:flex flex-col gap-7" v-if="['Investor'].includes(profileData?.user_type)">
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.investment_icon" alt="" class="p-1" />
+                            <p>Period of Investment: {{ profileData?.period_of_investment || "NA" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
+                            <p>{{ profileData?.address || "Location not available" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.sector_icon" alt="" class="p-1" />
+                            <p>
+                                Sector Interest:
+                                {{ profileData?.investment_sector || "Not Available" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <Modal :shows="showModal" title="Update Profile Information" width="w-3/4" :icon="CDN_IMAGES.edit_about_icon"
@@ -71,60 +90,20 @@
                 <div>
                     <!-- logo fields -->
                     <div class="grid w-full max-w-sm items-center gap-0.5">
-                        <div v-for="field in userFields" :key="field.id">
-                            <component v-if="field.type === 'file-upload'" :is="'div'">
-                                <Label :for="field.id">{{ field.props.label }}</Label>
-                                <Input :id="field.id" type="file-upload" :accept="field.props.accept"
-                                    v-if="field.type === 'file-upload'"
-                                    @change="(e: Event) => handleFileUpload(e, field.model)" />
-                            </component>
-                        </div>
+                        <FormField :types="['file-upload']" v-for="field in userFields" :key="field.id"
+                                :field="field" :formDataVariables="formDataVariables"  @file-upload="handleFileUpload"/>
                     </div>
 
                     <!-- Textarea fields -->
                     <div class="grid w-full">
-                        <div v-for="field in userFields" :key="field.id">
-                            <component v-if="field.type === 'Textarea'" :is="'div'">
-                                <Label :for="field.props.id">{{ field.props.label }}</Label>
-                                <Textarea :id="field.props.id" :placeholder="field.props.placeholder"
-                                    v-model="formDataVariables[field.model]" />
-                            </component>
-                        </div>
+                        <FormField :types="['Textarea']" v-for="field in userFields" :key="field.id"
+                                :field="field" :formDataVariables="formDataVariables" />
                     </div>
 
                     <!-- other fields -->
                     <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
-                        <div v-for="field in userFields" :key="field.id">
-                            <component v-if="field.type === 'File' && (field.id !== 'cacDocument' || showCacDocumentField)"
-                                :is="'div'">
-                                <Label :for="field.id">{{ field.props.label }}</Label>
-                                <Input :id="field.id" type="file" :accept="field.props.accept"
-                                    @change="(e: Event) => handleFileUpload(e, field.model)" />
-                            </component>
-
-                            <!-- Handle other types like Select, Input, Textarea -->
-                            <component v-else-if="field.type === 'Select'" :is="Select"
-                                v-model="formDataVariables[field.model]" v-bind="field.props">
-                                <Label :for="field.id">{{ field.props.label }}</Label>
-                                <SelectTrigger class="md:w-[500px] w-full">
-                                    <SelectValue :placeholder="field.props.placeholder" />
-                                </SelectTrigger>
-                                <SelectContent class="bg-black text-white">
-                                    <SelectGroup>
-                                        <SelectLabel>{{ field.props.label }}</SelectLabel>
-                                        <SelectItem v-for="option in field.props.options" :key="option.value"
-                                            :value="option.value">
-                                            {{ option.label }}
-                                        </SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </component>
-
-                            <component v-if="field.type === 'Input'" :is="'div'">
-                                <Label :for="field.id">{{ field.props.label }}</Label>
-                                <Input :id="field.id" v-bind="field.props" v-model="formDataVariables[field.model]" />
-                            </component>
-                        </div>
+                        <FormField :types="['Input', 'Select', 'File' ]" v-for="field in userFields" :key="field.id"
+                            :field="field" :formDataVariables="formDataVariables" @file-upload="handleFileUpload"/>
                     </div>
                 </div>
             </template>
@@ -134,22 +113,9 @@
 
 <script setup lang="ts">
 import { CDN_IMAGES } from "../../assets/cdnImages";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { updateProfileHandler } from "~/composables/useUpdateProfile";
 import { ref, watchEffect } from "vue";
 import { fieldConfigurations } from '@/data/updateProfileFieldsConfiguration';
-
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 
 const { updateProfile, loading } = updateProfileHandler();
 const showModal = ref(false);
@@ -251,30 +217,16 @@ watchEffect(() => {
     }
 });
 
-// File upload handler
 const handleFileUpload = (
     event: Event,
-    fileKey: "cacDocument" | "businessDocument" | "businessLogo"
+    fileKey: 'cacDocument' | 'businessDocument' | 'businessLogo'
 ) => {
     const target = event.target as HTMLInputElement;
     const file = target.files ? target.files[0] : null;
 
     if (file) {
-        switch (fileKey) {
-            case "cacDocument":
-                formDataVariables.value.cacDocument = file;
-                break;
-            case "businessDocument":
-                formDataVariables.value.businessDocument = file;
-                break;
-            case "businessLogo":
-                formDataVariables.value.businessLogo = file;
-                break;
-            default:
-                console.warn(`Unhandled fileKey: ${fileKey}`);
-        }
+        formDataVariables.value[fileKey] = file;
     }
-
 };
 
 interface SocialMedia {
