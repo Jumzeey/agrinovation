@@ -14,9 +14,8 @@
             <DashboardMedia :profileData="profileData" :loading="loading" />
             <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"
                 :loading="loading" />
-            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading"
-                />
-            <DashboardTeam :profileData="profileData" :loading="loading"/>
+            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading" />
+            <DashboardTeam :profileData="profileData" :loading="loading" />
             <DashboardNews :profileData="profileData" :loading="loading" v-if="userType === 'Researcher'" />
             <DashboardContact :profileData="profileData" :loading="loading" />
         </div>
@@ -45,19 +44,21 @@ const { userType, user_id, user_type_id } = useAuth();
 
 
 async function fetchProfileData() {
-    if (user_id.value && user_type_id.value) {
-        try {
-            await profile({
-                id: user_id.value,
-                type: user_type_id.value,
-            });
-            console.log('Profile data fetched:', profileData.value);
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-        }
-    } else {
+    if (!user_id.value || !user_type_id.value) {
         console.error('User ID or Type ID is missing.');
+        return;
     }
+
+    try {
+        await profile({
+            id: user_id.value,
+            type: user_type_id.value,
+        });
+        console.log('Profile data fetched:', profileData.value);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+    }
+
 }
 
 // Call the function when needed

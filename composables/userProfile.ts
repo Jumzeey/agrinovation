@@ -12,6 +12,7 @@ export function userProfile() {
     credentials: ProfileData
   ): Promise<ProfileResponse["data"] | null> => {
     loading.value = true;
+    console.log('profile creentialts: ', credentials)
     try {
       const { data, error } = await useFetchInstance<ProfileResponse>(
         API_PATHS.USERS.PROFILE,
