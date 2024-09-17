@@ -128,11 +128,13 @@ onMounted(() => {
         <div
           class="flex max-lg:justify-start max-md:justify-center max-sm:justify-center"
         >
+        <NuxtLink to="/auth/signup">
           <button
             class="px-10 py-3 text-[#FFFAFA] bg-[#275927] rounded-md mb-8 hover:cursor-pointer hover:bg-[#78BD1F]"
           >
             Get Started
           </button>
+        </NuxtLink>
         </div>
 
         <div
