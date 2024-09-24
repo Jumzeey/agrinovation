@@ -113,7 +113,7 @@ export function useAuth() {
     setCookie("userTypeId", null);
     handleSuccess("Logged out successfully");
     router.push("/");
-    window.location.reload();
+    // window.location.reload();
   };
 
   return {

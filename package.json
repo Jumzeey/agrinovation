@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxt/components": "^2.2.1",
+    "@tanstack/vue-query": "^5.56.2",
     "@unovis/ts": "^1.4.2",
     "@unovis/vue": "^1.4.2",
     "@vueuse/core": "^10.11.1",

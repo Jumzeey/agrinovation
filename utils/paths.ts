@@ -22,6 +22,17 @@ const API_PATHS = {
     UPDATE: (id: string) => `/products/${id}`,
     DELETE: (id: string) => `/products/${id}`,
   },
+  OTHERS: {
+    SECTOR: "/others/sectors",
+    PRODUCE_TYPES: "/others/produce-type",
+  },
+  AGRIPRENEUR: {
+    ALL: "/agripreneur",
+    SINGLE: (id: string) => `/agripreneur/single/${id}`,
+  },
+  INVESTOR: {
+    ALL: "/investor",
+  },
 };
 
 export default API_PATHS

@@ -94,6 +94,13 @@ export interface ProfileResponse
     team_members: TeamMember[];
   }> {}
 
+export interface SectorResponse extends BaseResponse<Sector[]> {}
+
+export interface Sector {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 export interface MediaItem {
   id: number;
@@ -179,3 +186,67 @@ export interface MediaItem {
     twitter?: string;
   };
 
+  export interface Agripreneurs {
+    agripreneur_id: number;
+    business_name: string;
+    address: string;
+    team_member_count: number;
+    tags: string[];
+    image: string;
+    banner_image: string;
+  }
+
+export interface SearchAgripreneurData {
+  location: string | null;
+  sector: string | null;
+  scale: string | null;
+  page: number | null;
+}
+
+export interface SearchInvestorData {
+  location: string | null;
+  sector: string | null;
+  scale: string | null;
+  page: number | null
+}
+
+export interface AgripreneurPagination {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+}
+
+export interface InvestorPagination {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+}
+
+export interface AgripreneurResponse
+  extends BaseResponse<{
+    data: Agripreneurs[];
+    pagination: AgripreneurPagination;
+  }> {
+  pagination: AgripreneurPagination;
+}
+
+export interface InvestorResponse
+  extends BaseResponse<{
+    data: any[]; // Replace `any[]` with a more specific type if you know the structure of the agripreneur data
+    pagination: InvestorPagination;
+  }> {}
+
+export interface ProductTypes {
+  id: number;
+  name:string;
+  slug: string
+}
+
+export interface produceTypeList
+  extends BaseResponse<{
+    data: ProductTypes[];
+  }> {}

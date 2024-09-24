@@ -4,27 +4,49 @@ import ButtonInput from '~/components/inputs/ButtonInput.vue';
 import SelectInput from '~/components/inputs/SelectInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
+import { useFetchSectorTypes } from "~/composables/useFetchSector";
+import { userGetInvestor} from "~/composables/useFetchInvestor";
+import { local_government_areas } from "~/data/localGovernment";
+import { farm_scale } from "~/data/scale"
 
-const location = ref([
-    {
-        id: 1,
-        name: "Lekki Ajah"
-    }
-])
+
+const { sectorData } = useFetchSectorTypes();
+const { investor, investorData, loading } = userGetInvestor();
+
+const sectorOptions = computed(() =>
+    sectorData.value ? sectorData.value.map((sector: any) => ({
+        value: sector.id,
+        label: sector.name,
+    })) : []
+);
+
+const scaleOptions = farm_scale.map((sc: string) => ({
+    value: sc,
+    label: sc,
+}));
+
+const locationOptions = local_government_areas.map((lga: string) => ({
+    value: lga,
+    label: lga,
+}));
+
+const location = ref();
+const sector = ref();
+const scale = ref();
 
 const tabs = [
-  {
-    name: 'All Categories'
-  },
-  {
-    name: 'Fish farmer'
-  },
-  {
-    name: 'Crop farmer'
-  },
-  {
-    name: 'Fruit farmer'
-  }
+    {
+        name: 'All Categories'
+    },
+    {
+        name: 'Fish farmer'
+    },
+    {
+        name: 'Crop farmer'
+    },
+    {
+        name: 'Fruit farmer'
+    }
 ]
 
 const router = useRouter()
@@ -32,6 +54,33 @@ const router = useRouter()
 const goTo = (slug: any) => {
     router.push(`/investor/${slug}`)
 }
+
+async function fetchInvestorData() {
+    try {
+        await investor({
+            location: location.value,
+            sector: sector.value,
+            scale: scale.value
+        });
+
+        // Clear the payload after successful fetch
+        location.value = null;
+        sector.value = null;
+        scale.value = null;
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+    }
+
+}
+
+const handleFetchInvestorBtnClick = () => {
+    if (!location.value?.trim() || !sector.value?.trim() || !scale.value?.trim()) {
+        return;
+    }
+    fetchInvestorData()
+}
+
+fetchInvestorData()
 
 </script>
 
@@ -43,7 +92,8 @@ const goTo = (slug: any) => {
 
         <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">List of <span class="text-[#FEE934]">Investor</span> <br>in Lagos State</h3>
+                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">List of <span class="text-[#FEE934]">Investor</span>
+                    <br>in Lagos State</h3>
             </div>
 
             <div class="bg-white rounded-2xl mt-[40px]">
@@ -54,47 +104,24 @@ const goTo = (slug: any) => {
                         </div>
 
                         <div class="lg:flex gap-16 hidden">
+                            <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
+                                :options="locationOptions" v-model="location" />
+
                             <div class="border-r-2 border-red-50 pe-16">
-                                <SelectInput 
-                                    label="Location"
-                                    :onChange="console.log"
-                                    :selected="'name'"
-                                    value="name"
-                                    :name="['name']"
-                                    :items="location"
-                                    placeholder="Lekki Ajah"
-                                    class="w-full mt-1"
-                                />
+                                <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
+                                    :options="sectorOptions" v-model="sector" />
                             </div>
 
                             <div class="border-r-2 border-red-50 pe-16">
-                                <SelectInput 
-                                    label="Agricultural Sector"
-                                    :onChange="console.log"
-                                    :selected="'aa'"
-                                    value="id"
-                                    :name="['name']"
-                                    :items="[{}]"
-                                    placeholder="Self contain"
-                                    class="w-full mt-1"
-                                />
-                            </div>
-
-                            <div class="border-r-2 border-red-50 pe-[215px]">
-                                <SelectInput 
-                                    label="Scale"
-                                    :onChange="console.log"
-                                    :selected="'aa'"
-                                    value="id"
-                                    :name="['name']"
-                                    :items="[{}]"
-                                    placeholder="Large Scale"
-                                    class="w-full mt-1"
-                                />
+                                <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
+                                    :options="scaleOptions" v-model="scale" />
                             </div>
 
                             <div class="my-[12px]">
-                                <ButtonInput iconLeft icon="search" :onClick="console.log"> Search </ButtonInput>
+                                <ButtonInput iconLeft icon="search" @click="handleFetchInvestorBtnClick()"
+                                    :disable="loading">
+                                    Search
+                                </ButtonInput>
                             </div>
                         </div>
                     </div>
@@ -114,100 +141,59 @@ const goTo = (slug: any) => {
                     <template v-slot:tab-0>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://www.geotab.com/CMS-Media-production/AU/Solutions/Agribusiness/agribusiness-hero-banner-australia@2x.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    @move="goTo('vga-fish-farm')"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m"
+                                    @move="goTo('vga-fish-farm')" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://media.istockphoto.com/id/506164764/photo/tractor-spraying-soybean-field.jpg?s=612x612&w=0&k=20&c=h27yHr07QNSghYS20iwYBCGjZIa2HlXqrZDkM0ZsYEw="
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://wallpapers.com/images/featured/sustainable-agriculture-t1tte6fs05hrpkyc.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
-                                    img="https://investorplace.com/wp-content/uploads/2020/06/agriculture-stocks.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                <Card img="https://investorplace.com/wp-content/uploads/2020/06/agriculture-stocks.jpg"
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://investorplace.com/wp-content/uploads/2020/07/agriculturestocks1600-768x432.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://t4.ftcdn.net/jpg/02/43/52/57/360_F_243525780_r8sdu06FUxVmqvf3YUthU5s9nE0z0lhh.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://static.vecteezy.com/system/resources/previews/036/223/422/non_2x/ai-generated-rows-of-young-corn-plants-growing-on-the-field-generative-ai-photo.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
 
                             <div class="w-full">
-                                <Card 
+                                <Card
                                     img="https://www.shutterstock.com/image-photo/agricultural-land-green-corn-farm-600nw-1934905055.jpg"
-                                    title="VGA Fish Farm"
-                                    review="91 Reviews"
-                                    count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria"
-                                    amount="56m"
-                                    centerImage
-                                />
+                                    title="VGA Fish Farm" review="91 Reviews" count="56"
+                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
                             </div>
                         </div>
                     </template>
@@ -218,21 +204,22 @@ const goTo = (slug: any) => {
                 <Pagination :totalPage="5" />
             </div>
 
-            <div class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
+            <div
+                class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
                     <div class="w-32 py-8">
                         <img src="/images/group.svg" class="w-full" alt="" />
                     </div>
                     <div>
                         <h3 class="pb-2 text-white text-xl font-medium">
-                        Still have questions?
+                            Still have questions?
                         </h3>
                         <p class="text-white text-md md:text-lg font-normal pb-8">
-                        Can’t find the answer you’re looking for? Please reach out to our
-                        friendly team.
+                            Can’t find the answer you’re looking for? Please reach out to our
+                            friendly team.
                         </p>
                         <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
-                        Get in touch
+                            Get in touch
                         </button>
                     </div>
                 </div>

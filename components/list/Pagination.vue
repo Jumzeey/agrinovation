@@ -5,6 +5,7 @@ import MaterialIcon from '../icon/MaterialIcon.vue'
 
 const props = defineProps<{
   totalPage: number
+  currentPage: number
 }>()
 
 const emit = defineEmits<{
@@ -14,7 +15,7 @@ const emit = defineEmits<{
 const state = reactive({
   minimum: 1,
   maximum: props.totalPage > 3 ? 3 : props.totalPage,
-  selected: 1
+  selected: props.currentPage
 })
 
 const range = computed(() => {
@@ -33,7 +34,7 @@ watch(props, () => {
     state.minimum = 1
     state.maximum = 3
   }
-  state.selected = 1
+  state.selected = props.currentPage
 })
 
 const next = () => {

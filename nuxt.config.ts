@@ -13,10 +13,14 @@ export default defineNuxtConfig({
         path: "~/components/inputs/",
         prefix: "Input",
       },
+      {
+        path: "~/components/skeleton/",
+        prefix: "Skeleton",
+      },
     ],
   },
   css: ["~/assets/css/main.css"],
-  plugins: ["~/plugins/toastification.client.ts"],
+  plugins: ["~/plugins/toastification.client.ts", "~/plugins/vue-query.client.ts"],
   build: {
     // Use Vite options instead of Rollup options
     transpile: ["vue-toastification"], // Example of specifying dependencies to transpile

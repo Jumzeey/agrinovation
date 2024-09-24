@@ -2,20 +2,19 @@ import { ref } from "vue";
 import { useErrorHandler } from "./useErrorHandler";
 import API_PATHS from "~/utils/paths";
 
-export function userProfile() {
+export function userGetInvestor() {
   const { error, handleError, handleSuccess } = useErrorHandler();
 
   const loading = ref(false);
-  const profileData = ref<ProfileResponse["data"] | null>(null);
+  const investorData = ref<InvestorResponse["data"] | null>(null);
 
-  const profile = async (
-    credentials: ProfileData
-  ): Promise<ProfileResponse["data"] | null> => {
+  const investor = async (
+    credentials: SearchInvestorData
+  ): Promise<any["data"] | null> => {
     loading.value = true;
-    
     try {
-      const { data, error } = await useFetchInstance<ProfileResponse>(
-        API_PATHS.USERS.PROFILE,
+      const { data, error } = await useFetchInstance<InvestorResponse>(
+        API_PATHS.INVESTOR.ALL,
         {
           method: "GET",
           params: credentials,
@@ -23,9 +22,9 @@ export function userProfile() {
       );
 
       if (data.value) {
-        console.log("Profile response:", data.value.data);
-        profileData.value = data.value.data;
-        return profileData.value;
+        investorData.value = data.value.data;
+        handleSuccess("Investors fetched succesfully!");
+        return investorData.value;
       } else {
         handleError(error.value);
       }
@@ -40,8 +39,8 @@ export function userProfile() {
   };
 
   return {
-    profile,
-    profileData,
+    investor,
+    investorData,
     loading,
   };
 }
