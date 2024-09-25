@@ -32,6 +32,11 @@ const API_PATHS = {
   },
   INVESTOR: {
     ALL: "/investor",
+    SINGLE: (id: string) => `/investor/single/${id}`,
+  },
+  EVENT: {
+    ALL: "/events",
+    SINGLE: (id: string) => `/agripreneur/single/${id}`,
   },
 };
 

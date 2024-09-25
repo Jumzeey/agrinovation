@@ -28,9 +28,8 @@ const fetchInvestors = async (
 };
 
 export const useGetInvestors = (params: SearchInvestorData) => {
-  const { handleError, handleSuccess } = useErrorHandler();
 
-  const queryKey = ["agripreneurs", params];
+  const queryKey = ["investors", params];
 
   const query = useQuery<InvestorResponse, Error>({
     queryKey,

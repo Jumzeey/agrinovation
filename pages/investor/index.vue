@@ -72,7 +72,8 @@ const handleTabSelect = (slug: string) => {
         <div class="px-10 md:px-[168px] pb-[100px] pt-[124px] md:pt-0">
             <div class="text-center">
                 <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">List of <span class="text-[#FEE934]">Investor</span>
-                    <br>in Lagos State</h3>
+                    <br>in Lagos State
+                </h3>
             </div>
 
             <div class="bg-white rounded-2xl mt-[40px]">
@@ -83,21 +84,21 @@ const handleTabSelect = (slug: string) => {
                         </div>
 
                         <div class="lg:flex justify-between hidden">
-                                <div class="border-r-2 border-red-50 pe-16">
-                                    <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
-                                        :options="locationOptions" v-model="params.location" />
-                                </div>
-
-                                <div class="border-r-2 border-red-50 pe-16">
-                                    <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
-                                        :options="sectorOptions" v-model="params.sector" />
-                                </div>
-
-                                <div class=" border-red-50 pe-16">
-                                    <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
-                                        :options="scaleOptions" v-model="params.scale" />
-                                </div>
+                            <div class="border-r-2 border-red-50 pe-16">
+                                <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
+                                    :options="locationOptions" v-model="params.location" />
                             </div>
+
+                            <div class="border-r-2 border-red-50 pe-16">
+                                <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
+                                    :options="sectorOptions" v-model="params.sector" />
+                            </div>
+
+                            <div class=" border-red-50 pe-16">
+                                <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
+                                    :options="scaleOptions" v-model="params.scale" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,12 +115,11 @@ const handleTabSelect = (slug: string) => {
                 <TabItems :tabs="produceTypes" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
                     <template v-slot:tab-all>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
-                            <div v-for="investor in investorData?.data" :key="investor.investor_id"
-                                    class="w-full">
-                                    <Card :img="investor.image" :title="investor.name"
-                                        :bg="investor.banner_image" :count="investor.team_member_count"
-                                        :address="investor.address" @move="goTo(investor.investor_id)" centerImage />
-                                </div>
+                            <div v-for="investor in investorData?.data" :key="investor.investor_id" class="w-full">
+                                <Card :img="investor.image" :title="investor.name" :bg="investor.banner_image"
+                                    :count="investor.team_member_count" :address="investor.address"
+                                    @move="goTo(investor.investor_id)" centerImage />
+                            </div>
                         </div>
                     </template>
                 </TabItems>
@@ -133,8 +133,8 @@ const handleTabSelect = (slug: string) => {
             </div>
 
             <div v-if="!isLoading && investorData?.data.length === 0">
-                    <EmptyState message="No investor found in this region." />
-                </div>
+                <EmptyState message="No investor found in this region." />
+            </div>
 
             <div
                 class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">

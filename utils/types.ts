@@ -32,7 +32,7 @@ export interface SignupResponse
 
 export interface AuthResponse extends BaseResponse<UserData> {}
 
-// login 
+// login
 export interface LoginData {
   email: string;
   password: string;
@@ -89,7 +89,7 @@ export interface ProfileResponse
     twitter: string | null;
     media: MediaItem[];
     job_posts: JobPost[];
-    products: Product[]; 
+    products: Product[];
     news: NewsItem[];
     team_members: TeamMember[];
   }> {}
@@ -109,111 +109,127 @@ export interface MediaItem {
   image: string;
 }
 
-  export interface JobPost {
-    user_id?: number;
-    id?: number;
-    title?: string;
-    salary_min: string;
-    salary_max: string;
-    workplace_type: string;
-    job_type?: string;
-    location?: string;
-    description?: string;
-    application_deadline?: string; // ISO 8601 date string
-    job_status?: string;
-    status?: string;
-  }
+export interface JobPost {
+  user_id?: number;
+  id?: number;
+  title?: string;
+  salary_min: string;
+  salary_max: string;
+  workplace_type: string;
+  job_type?: string;
+  location?: string;
+  description?: string;
+  application_deadline?: string; // ISO 8601 date string
+  job_status?: string;
+  status?: string;
+}
 
-  export interface Product {
-    // Define fields here
-  }
+export interface Product {
+  // Define fields here
+}
 
-  export interface NewsItem {
-    // Define fields here
-  }
+export interface NewsItem {
+  // Define fields here
+}
 
-  export interface TeamMember {
-    // Define fields here
-  }
-  export interface userProfileDataMore {
-      about: string;
-      funding_stage: string;
-      average_annual_revenue: string;
-      produce_information: string | null;
-      is_available_merger: boolean;
-      is_available_acquisition: boolean;
-  }
+export interface TeamMember {
+  // Define fields here
+}
+export interface userProfileDataMore {
+  about: string;
+  funding_stage: string;
+  average_annual_revenue: string;
+  produce_information: string | null;
+  is_available_merger: boolean;
+  is_available_acquisition: boolean;
+}
 
-  export interface SocialMediaLink  {
-    name: string;
-    link: string;
-  };
+export interface SocialMediaLink {
+  name: string;
+  link: string;
+}
+export interface Speaker {
+  id: number;
+  name: string;
+  position: string;
+  image: string;
+}
+export interface UserProfileData {
+  user_id: string;
+  user_type_id: string;
+  about: string;
+  name?: string;
+  business_name?: string;
+  user_type: "Agripreneur" | "Investor" | "Researcher" | "Others";
+  is_registered?: string;
+  proof_of_address?: string;
+  funding_stage?: string;
+  address?: string;
+  sector?: string;
+  research_sector?: string;
+  farm_size?: string;
+  more?: userProfileDataMore;
+  business_type?: string;
+  produce_type?: string;
+  labor_force?: string;
+  founding_year?: string;
+  years_of_operation?: string;
+  average_annual_revenue?: number;
+  social_media?: SocialMediaLink[];
+  website?: string;
+  business_phone?: string;
+  business_email?: string;
+  is_available_merger?: boolean;
+  is_available_acquisition?: boolean;
+  investor_type?: string;
+  investment_sector?: string;
+  period_of_investment?: string;
+  social_media_link?: SocialMediaLink[];
+  researcher_type?: string;
+  sector_id?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+}
 
-  export interface UserProfileData {
-    user_id: string;
-    user_type_id: string;
-    about: string;
-    name?: string;
-    business_name?: string
-    user_type: "Agripreneur" | "Investor" | "Researcher" | "Others";
-    is_registered?: string;
-    proof_of_address?: string;
-    funding_stage?: string;
-    address?: string;
-    sector?: string;
-    research_sector?: string;
-    farm_size?: string;
-    more?: userProfileDataMore;
-    business_type?: string;
-    produce_type?: string;
-    labor_force?: string;
-    founding_year?: string;
-    years_of_operation?: string;
-    average_annual_revenue?: number;
-    social_media?: SocialMediaLink[];
-    website?: string;
-    business_phone?: string;
-    business_email?: string;
-    is_available_merger?: boolean;
-    is_available_acquisition?: boolean;
-    investor_type?: string;
-    investment_sector?: string;
-    period_of_investment?: string;
-    social_media_link?: SocialMediaLink[];
-    researcher_type?: string;
-    sector_id?: string;
-    facebook?: string;
-    instagram?: string;
-    twitter?: string;
-  };
-
-  export interface Agripreneurs {
-    agripreneur_id: number;
-    business_name: string;
-    address: string;
-    team_member_count: number;
-    tags: string[];
-    image: string;
-    banner_image: string;
-  }
-  export interface Investors {
-    investor_id: number;
-    name: string;
-    address: string;
-    team_member_count: number;
-    tags: string[];
-    image: string;
-    banner_image: string;
-  }
-  export interface Agripreneurs {
-    agripreneur_id: number;
-    business_name: string;
-    address: string;
-    team_member_count: number;
-    tags: string[];
-    image: string;
-    banner_image: string;
-  }
+export interface Agripreneurs {
+  agripreneur_id: number;
+  business_name: string;
+  address: string;
+  team_member_count: number;
+  tags: string[];
+  image: string;
+  banner_image: string;
+}
+export interface Investors {
+  investor_id: number;
+  name: string;
+  address: string;
+  team_member_count: number;
+  tags: string[];
+  image: string;
+  banner_image: string;
+}
+export interface Agripreneurs {
+  agripreneur_id: number;
+  business_name: string;
+  address: string;
+  team_member_count: number;
+  tags: string[];
+  image: string;
+  banner_image: string;
+}
+export interface Events {
+  id: number;
+  title: string;
+  link: string;
+  start_date: string; 
+  end_date: string;
+  image: string;
+  description: string;
+  created_at: string;
+  speakers: Speaker[];
+}
 
 export interface SearchAgripreneurData {
   location: string | null;
@@ -230,6 +246,10 @@ export interface SearchInvestorData {
   type: string | null;
   page: number | null;
 }
+export interface SearchEventData {
+  search: string | null;
+  page: number | null;
+}
 
 export interface AgripreneurPagination {
   current_page: number;
@@ -240,6 +260,13 @@ export interface AgripreneurPagination {
 }
 
 export interface InvestorPagination {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+}
+export interface EventPagination {
   current_page: number;
   last_page: number;
   per_page: number;
@@ -259,7 +286,12 @@ export interface InvestorResponse {
   data: Investors[];
   pagination: InvestorPagination;
 }
-
+export interface EventResponse {
+  status: boolean;
+  message: string;
+  data: Events[];
+  pagination: EventPagination;
+}
 
 export interface ProduceTypes {
   id: number;
@@ -341,5 +373,20 @@ export interface InvestorDetails {
     products: any[]; // Replace `any` with the appropriate type if you know the structure of products.
     news: any[]; // Replace `any` with the appropriate type if you know the structure of news.
     team_members: any[];
+  };
+}
+export interface EventDetails {
+  status: boolean;
+  message: string;
+  data: {
+    id: number;
+    title: string;
+    link: string;
+    start_date: string; 
+    end_date: string; 
+    image: string;
+    description: string;
+    created_at: string; 
+    speakers: Speaker[];
   };
 }

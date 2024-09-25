@@ -85,7 +85,7 @@ const props = defineProps<ICardProps>();
             text="text-[#2B612B]"
             :onClick="() => emit('move')"
           >
-            See Profile
+            See More
           </ButtonInput>
         </div>
       </div>

@@ -1,40 +1,28 @@
 <script setup lang="ts">
-import Card from '~/components/card/Card.vue';
 import CardTwo from '~/components/card/CardTwo.vue';
-import ButtonInput from '~/components/inputs/ButtonInput.vue';
-import SelectInput from '~/components/inputs/SelectInput.vue';
 import TextInput from '~/components/inputs/TextInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
-import TabItems from '~/components/tab/TabItems.vue';
+import { useGetEvents } from "~/composables/useFetchEvents"
 
-const location = ref([
-    {
-        id: 1,
-        name: "Lekki Ajah"
-    }
-])
 
-const tabs = [
-  {
-    name: 'All Categories'
-  },
-  {
-    name: 'Fish farmer'
-  },
-  {
-    name: 'Crop farmer'
-  },
-  {
-    name: 'Fruit farmer'
-  }
-]
+const params = ref<SearchEventData>({
+    search: null,
+    page: 1,
+});
+
+const currentPage = ref(1);
+
+const { data: eventData, error, isLoading, isError, refetch } = useGetEvents(params.value);
 
 const router = useRouter()
 
-const goTo = (slug: any) => {
-    router.push(`/events/${slug}`)
+const goTo = (id: number) => {
+    router.push(`/events/${id}`)
 }
 
+const handlePageChange = (page: number) => {
+    currentPage.value = page;
+};
 </script>
 
 <template>
@@ -45,17 +33,13 @@ const goTo = (slug: any) => {
 
         <div class="px-10 md:px-[168px] pb-[230px] pt-[124px] md:pt-0">
             <div class="text-center flex flex-wrap">
-                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Be a part of <span class="text-[#FEE934]">Agric-centered</span> in Lagos State</h3>
+                <h3 class="text-[40px] md:text-[60px] text-[#FCFFF6]">Be a part of <span
+                        class="text-[#FEE934]">Agric-centered</span> in Lagos State</h3>
             </div>
 
             <div class="mt-[32px]">
                 <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
-                    <TextInput
-                        :onChange="console.log"
-                        label=""
-                        class="w-full"
-                        placeholder="Search for event..."
-                    />
+                    <TextInput label="" class="w-full" placeholder="Search for event..." v-model="params.search"/>
                 </div>
             </div>
         </div>
@@ -68,105 +52,42 @@ const goTo = (slug: any) => {
 
         <div class="">
             <div class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="tabs">
-                    <template v-slot:tab-0>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('africa-fish-farmer-summit')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
+                    <div v-for="event in eventData?.data" :key="event.id" class="w-full">
 
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://www.farmersguide.co.uk/wp-content/uploads/2020/10/LAMMA-004-HI-RES-1.jpg"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://malonefm.com/wp-content/uploads/2022/11/lama-show.png"
-                                    title="Africa Fish farmer Summit"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                    tags
-                                />
-                            </div>
-                        </div>
-
-                    </template>
-                </TabItems>
+                        <CardTwo :img="event.image" :title="event.title" @move="goTo(event.id)" :date="event.start_date"
+                            bg="bg-[#F4FAF4]" text="text-[#2B612B]" />
+                    </div>
+                </div>
             </div>
 
             <div>
-                <Pagination :totalPage="5" />
+               <div v-if="eventData?.pagination">
+                    <Pagination :currentPage="currentPage" :totalPage="eventData?.pagination.last_page"
+                        @onPageChange="handlePageChange" />
+                </div>
             </div>
 
-            <div class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
+             <div v-if="!isLoading && eventData?.data.length === 0">
+                    <EmptyState message="No events found." />
+                </div>
+
+            <div
+                class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
                     <div class="w-32 py-8">
                         <img src="/images/group.svg" class="w-full" alt="" />
                     </div>
                     <div>
                         <h3 class="pb-2 text-white text-xl font-medium">
-                        Still have questions?
+                            Still have questions?
                         </h3>
                         <p class="text-white text-md md:text-lg font-normal pb-8">
-                        Can’t find the answer you’re looking for? Please reach out to our
-                        friendly team.
+                            Can’t find the answer you’re looking for? Please reach out to our
+                            friendly team.
                         </p>
                         <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
-                        Get in touch
+                            Get in touch
                         </button>
                     </div>
                 </div>

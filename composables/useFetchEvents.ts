@@ -1,45 +1,38 @@
 import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
 
-const fetchAgripreneurs = async (
-  params: SearchAgripreneurData
-): Promise<AgripreneurResponse> => {
-
-  const config = useRuntimeConfig(); 
+const fetchEvents = async (params: SearchEventData): Promise<EventResponse> => {
+  const config = useRuntimeConfig();
   const apiUrl = config.public.apiUrl;
 
   const query = new URLSearchParams({
-    location: params.location ?? "",
-    sector: params.sector ?? "",
-    scale: params.scale ?? "",
-    produce_type: params.type ?? "",
+    search: params.search ?? "",
     page: params.page?.toString() ?? "1",
   });
 
   const response = await fetch(
-    `${apiUrl}${API_PATHS.AGRIPRENEUR.ALL}?${query.toString()}`
+    `${apiUrl}${API_PATHS.EVENT.ALL}?${query.toString()}`
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch agripreneurs");
+    throw new Error("Failed to fetch events");
   }
 
   return response.json();
 };
 
-export const useGetAgripreneur = (params: SearchAgripreneurData) => {
-
+export const useGetEvents = (params: SearchEventData) => {
   const queryKey = ["agripreneurs", params];
 
-  const query = useQuery<AgripreneurResponse, Error>({
+  const query = useQuery<EventResponse, Error>({
     queryKey,
-    queryFn: () => fetchAgripreneurs(params),
+    queryFn: () => fetchEvents(params),
     staleTime: 0,
   });
 
   // Watch query status to handle success and error cases
   if (query.isSuccess) {
-    const successMessage = 'Agripreneurs fetched successfully';
+    const successMessage = "Events fetched successfully";
     console.log("Fetched data:", successMessage);
   }
 
