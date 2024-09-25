@@ -196,6 +196,24 @@ export interface MediaItem {
     image: string;
     banner_image: string;
   }
+  export interface Investors {
+    investor_id: number;
+    name: string;
+    address: string;
+    team_member_count: number;
+    tags: string[];
+    image: string;
+    banner_image: string;
+  }
+  export interface Agripreneurs {
+    agripreneur_id: number;
+    business_name: string;
+    address: string;
+    team_member_count: number;
+    tags: string[];
+    image: string;
+    banner_image: string;
+  }
 
 export interface SearchAgripreneurData {
   location: string | null;
@@ -235,12 +253,13 @@ export interface AgripreneurResponse {
   data: Agripreneurs[];
   pagination: AgripreneurPagination;
 }
+export interface InvestorResponse {
+  status: boolean;
+  message: string;
+  data: Investors[];
+  pagination: InvestorPagination;
+}
 
-export interface InvestorResponse
-  extends BaseResponse<{
-    data: any[]; // Replace `any[]` with a more specific type if you know the structure of the agripreneur data
-    pagination: InvestorPagination;
-  }> {}
 
 export interface ProduceTypes {
   id: number;
@@ -293,5 +312,34 @@ export interface AgripreneurDetails {
     news: any[]; // Replace `any` with the correct type if known
     team_members: any[]; // Replace `any` with the correct type if known
     kyc: any[]; // Replace `any` with the correct type if known
+  };
+}
+export interface InvestorDetails {
+  status: boolean;
+  message: string;
+  data: {
+    user_type: string;
+    investor_id: number;
+    name: string;
+    about: string;
+    location: string;
+    investor_type: string;
+    investment_sector: string;
+    investment_sub_sector: string;
+    period_of_investment: string;
+    years_of_experience: string;
+    investment_portfolio: string;
+    team: string | null;
+    awards: string | null;
+    social_media_link: string | null;
+    image: string;
+    address: string;
+    website: string;
+    banner_image: string;
+    media: any[]; // Replace `any` with the appropriate type if you know the structure of media items.
+    job_posts: any[]; // Replace `any` with the appropriate type if you know the structure of job posts.
+    products: any[]; // Replace `any` with the appropriate type if you know the structure of products.
+    news: any[]; // Replace `any` with the appropriate type if you know the structure of news.
+    team_members: any[];
   };
 }

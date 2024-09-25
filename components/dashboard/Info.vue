@@ -8,7 +8,7 @@
                 <div class="flex flex-col gap-6">
                     <div class="gap-4 flex flex-col">
                         <p class="text-2xl font-medium text-black">
-                            {{ profileData?.name ||
+                            {{ profileData?.name ?  profileData?.name :  profileData?.business_name ||
                                 (profileData?.user_type === 'researcher'
                                     ? 'Researcher Name'
                                     : profileData?.user_type === 'investor'

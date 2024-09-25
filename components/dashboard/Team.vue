@@ -3,10 +3,10 @@
         <div class="bg-white rounded-lg pb-12  p-4">
             <div class="border-b flex justify-between items-center pb-3">
                 <div>
-                    <div v-if="profileData?.user_type === 'Agripreneur' || profileData?.user_type === 'Investor'">
+                    <div v-if="profileData?.user_type === 'agripreneur' || profileData?.user_type === 'investor'">
                         <p>Team</p>
                     </div>
-                    <div v-if="profileData?.user_type === 'Researcher'">
+                    <div v-if="profileData?.user_type === 'researcher'">
                         <p>Collaborators</p>
                     </div>
                     <div v-if="!profileData?.user_type">

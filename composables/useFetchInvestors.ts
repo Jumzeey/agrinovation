@@ -2,11 +2,10 @@ import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
 import { useErrorHandler } from "~/composables/useErrorHandler";
 
-const fetchAgripreneurs = async (
-  params: SearchAgripreneurData
-): Promise<AgripreneurResponse> => {
-
-  const config = useRuntimeConfig(); 
+const fetchInvestors = async (
+  params: SearchInvestorData
+): Promise<InvestorResponse> => {
+  const config = useRuntimeConfig();
   const apiUrl = config.public.apiUrl;
 
   const query = new URLSearchParams({
@@ -18,30 +17,30 @@ const fetchAgripreneurs = async (
   });
 
   const response = await fetch(
-    `${apiUrl}${API_PATHS.AGRIPRENEUR.ALL}?${query.toString()}`
+    `${apiUrl}${API_PATHS.INVESTOR.ALL}?${query.toString()}`
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch agripreneurs");
+    throw new Error("Failed to fetch investors");
   }
 
   return response.json();
 };
 
-export const useGetAgripreneur = (params: SearchAgripreneurData) => {
+export const useGetInvestors = (params: SearchInvestorData) => {
   const { handleError, handleSuccess } = useErrorHandler();
 
   const queryKey = ["agripreneurs", params];
 
-  const query = useQuery<AgripreneurResponse, Error>({
+  const query = useQuery<InvestorResponse, Error>({
     queryKey,
-    queryFn: () => fetchAgripreneurs(params),
+    queryFn: () => fetchInvestors(params),
     staleTime: 0,
   });
 
   // Watch query status to handle success and error cases
   if (query.isSuccess) {
-    const successMessage = 'Agripreneurs fetched successfully';
+    const successMessage = "Investors fetched successfully";
     console.log("Fetched data:", successMessage);
   }
 

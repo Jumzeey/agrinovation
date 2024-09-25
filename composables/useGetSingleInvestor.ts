@@ -2,36 +2,34 @@ import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
 import { useErrorHandler } from "~/composables/useErrorHandler";
 
-const fetchSingleAgripreneur = async (
-  id: string
-): Promise<AgripreneurDetails> => {
+const fetchSingleInvestor = async (id: string): Promise<InvestorDetails> => {
   const config = useRuntimeConfig();
   const apiUrl = config.public.apiUrl;
 
-  const response = await fetch(`${apiUrl}/agripreneur/single?id=${id}`);
+  const response = await fetch(`${apiUrl}/investor/single?id=${id}`);
 
   if (!response.ok) {
-    throw new Error("Failed to fetch agripreneur");
+    throw new Error("Failed to fetch investor");
   }
 
   return response.json();
 };
 
-export const useGetSingleAgripreneur = (id: string) => {
+export const useGetSingleInvestor = (id: string) => {
   const { handleError, handleSuccess } = useErrorHandler();
 
-  const queryKey = ["agripreneur", id];
+  const queryKey = ["investor", id];
 
-  const query = useQuery<AgripreneurDetails, Error>({
+  const query = useQuery<InvestorDetails, Error>({
     queryKey,
-    queryFn: () => fetchSingleAgripreneur(id),
+    queryFn: () => fetchSingleInvestor(id),
     enabled: !!id,
     refetchOnWindowFocus: true,
   });
 
   // Watch query status to handle success and error cases
   if (query.isSuccess) {
-    const successMessage = "Agripreneur fetched successfully";
+    const successMessage = "investor fetched successfully";
     console.log("Fetched data:", successMessage);
   }
 

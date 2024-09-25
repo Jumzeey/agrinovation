@@ -5,13 +5,26 @@ import SelectInput from '~/components/inputs/SelectInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
 import TabItems from '~/components/tab/TabItems.vue';
 import { useFetchSectorTypes } from "~/composables/useFetchSector";
-import { userGetInvestor} from "~/composables/useFetchInvestor";
+import { useFetchProduceTypes } from "~/composables/useFetchProduceTypes"
+import { useGetInvestors } from "~/composables/useFetchInvestors";
 import { local_government_areas } from "~/data/localGovernment";
 import { farm_scale } from "~/data/scale"
 
 
 const { sectorData } = useFetchSectorTypes();
-const { investor, investorData, loading } = userGetInvestor();
+const { data: produceTypes, error: produceError, isLoading: produceLoading } = useFetchProduceTypes();
+
+const params = ref<SearchInvestorData>({
+    location: null,
+    sector: null,
+    scale: null,
+    type: null,
+    page: 1,
+});
+const { data: investorData, error, isLoading, isError, refetch } = useGetInvestors(params.value);
+
+const selectedTab = ref('all');
+const currentPage = ref(1);
 
 const sectorOptions = computed(() =>
     sectorData.value ? sectorData.value.map((sector: any) => ({
@@ -30,24 +43,6 @@ const locationOptions = local_government_areas.map((lga: string) => ({
     label: lga,
 }));
 
-const location = ref();
-const sector = ref();
-const scale = ref();
-
-const tabs = [
-    {
-        name: 'All Categories'
-    },
-    {
-        name: 'Fish farmer'
-    },
-    {
-        name: 'Crop farmer'
-    },
-    {
-        name: 'Fruit farmer'
-    }
-]
 
 const router = useRouter()
 
@@ -55,32 +50,16 @@ const goTo = (slug: any) => {
     router.push(`/investor/${slug}`)
 }
 
-async function fetchInvestorData() {
-    try {
-        await investor({
-            location: location.value,
-            sector: sector.value,
-            scale: scale.value
-        });
+const handlePageChange = (page: number) => {
+    currentPage.value = page;
+};
 
-        // Clear the payload after successful fetch
-        location.value = null;
-        sector.value = null;
-        scale.value = null;
-    } catch (error) {
-        console.error('Error fetching profile:', error);
-    }
-
-}
-
-const handleFetchInvestorBtnClick = () => {
-    if (!location.value?.trim() || !sector.value?.trim() || !scale.value?.trim()) {
-        return;
-    }
-    fetchInvestorData()
-}
-
-fetchInvestorData()
+const handleTabSelect = (slug: string) => {
+    console.log('Tab selected in parent: ', slug);
+    params.value.type = slug === 'all' ? null : slug;
+    selectedTab.value = slug
+    refetch(); // Refetch data with the updated params
+};
 
 </script>
 
@@ -103,27 +82,22 @@ fetchInvestorData()
                             <span class="bg-[#FFFBF5] rounded-lg p-[10px]">Search Investor</span>
                         </div>
 
-                        <div class="lg:flex gap-16 hidden">
-                            <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
-                                :options="locationOptions" v-model="location" />
+                        <div class="lg:flex justify-between hidden">
+                                <div class="border-r-2 border-red-50 pe-16">
+                                    <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
+                                        :options="locationOptions" v-model="params.location" />
+                                </div>
 
-                            <div class="border-r-2 border-red-50 pe-16">
-                                <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
-                                    :options="sectorOptions" v-model="sector" />
-                            </div>
+                                <div class="border-r-2 border-red-50 pe-16">
+                                    <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
+                                        :options="sectorOptions" v-model="params.sector" />
+                                </div>
 
-                            <div class="border-r-2 border-red-50 pe-16">
-                                <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
-                                    :options="scaleOptions" v-model="scale" />
+                                <div class=" border-red-50 pe-16">
+                                    <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
+                                        :options="scaleOptions" v-model="params.scale" />
+                                </div>
                             </div>
-
-                            <div class="my-[12px]">
-                                <ButtonInput iconLeft icon="search" @click="handleFetchInvestorBtnClick()"
-                                    :disable="loading">
-                                    Search
-                                </ButtonInput>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -137,72 +111,30 @@ fetchInvestorData()
 
         <div class="">
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="tabs">
-                    <template v-slot:tab-0>
+                <TabItems :tabs="produceTypes" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
+                    <template v-slot:tab-all>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
-                            <div class="w-full">
-                                <Card
-                                    img="https://www.geotab.com/CMS-Media-production/AU/Solutions/Agribusiness/agribusiness-hero-banner-australia@2x.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m"
-                                    @move="goTo('vga-fish-farm')" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://media.istockphoto.com/id/506164764/photo/tractor-spraying-soybean-field.jpg?s=612x612&w=0&k=20&c=h27yHr07QNSghYS20iwYBCGjZIa2HlXqrZDkM0ZsYEw="
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://wallpapers.com/images/featured/sustainable-agriculture-t1tte6fs05hrpkyc.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card img="https://investorplace.com/wp-content/uploads/2020/06/agriculture-stocks.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://investorplace.com/wp-content/uploads/2020/07/agriculturestocks1600-768x432.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://t4.ftcdn.net/jpg/02/43/52/57/360_F_243525780_r8sdu06FUxVmqvf3YUthU5s9nE0z0lhh.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://static.vecteezy.com/system/resources/previews/036/223/422/non_2x/ai-generated-rows-of-young-corn-plants-growing-on-the-field-generative-ai-photo.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
-
-                            <div class="w-full">
-                                <Card
-                                    img="https://www.shutterstock.com/image-photo/agricultural-land-green-corn-farm-600nw-1934905055.jpg"
-                                    title="VGA Fish Farm" review="91 Reviews" count="56"
-                                    address="Ibeju Lekki, off Agugungi Road Lagos Nigeria" amount="56m" centerImage />
-                            </div>
+                            <div v-for="investor in investorData?.data" :key="investor.investor_id"
+                                    class="w-full">
+                                    <Card :img="investor.image" :title="investor.name"
+                                        :bg="investor.banner_image" :count="investor.team_member_count"
+                                        :address="investor.address" @move="goTo(investor.investor_id)" centerImage />
+                                </div>
                         </div>
                     </template>
                 </TabItems>
             </div>
 
             <div>
-                <Pagination :totalPage="5" />
+                <div v-if="investorData?.pagination">
+                    <Pagination :currentPage="currentPage" :totalPage="investorData?.pagination.last_page"
+                        @onPageChange="handlePageChange" />
+                </div>
             </div>
+
+            <div v-if="!isLoading && investorData?.data.length === 0">
+                    <EmptyState message="No investor found in this region." />
+                </div>
 
             <div
                 class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
