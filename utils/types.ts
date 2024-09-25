@@ -221,9 +221,10 @@ export interface Agripreneurs {
 }
 export interface Events {
   id: number;
+  organiser_name?: string | null;
   title: string;
   link: string;
-  start_date: string; 
+  start_date: string;
   end_date: string;
   image: string;
   description: string;
@@ -381,12 +382,13 @@ export interface EventDetails {
   data: {
     id: number;
     title: string;
+    organiser_name?: string | null;
     link: string;
-    start_date: string; 
-    end_date: string; 
+    start_date: string;
+    end_date: string;
     image: string;
     description: string;
-    created_at: string; 
+    created_at: string;
     speakers: Speaker[];
   };
 }

@@ -54,7 +54,6 @@ const handlePageChange = (page: number) => {
             <div class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
                     <div v-for="event in eventData?.data" :key="event.id" class="w-full">
-
                         <CardTwo :img="event.image" :title="event.title" @move="goTo(event.id)" :date="event.start_date"
                             bg="bg-[#F4FAF4]" text="text-[#2B612B]" />
                     </div>
