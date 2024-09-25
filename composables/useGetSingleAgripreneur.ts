@@ -25,7 +25,8 @@ export const useGetSingleAgripreneur = (id: string) => {
   const query = useQuery<AgripreneurDetails, Error>({
     queryKey,
     queryFn: () => fetchSingleAgripreneur(id),
-    enabled: !!id, // Ensure the query only runs if the id is provided
+    enabled: !!id,
+    refetchOnWindowFocus: true,
   });
 
   // Watch query status to handle success and error cases

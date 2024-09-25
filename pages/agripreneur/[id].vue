@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import MaterialIcon from "~/components/icon/MaterialIcon.vue";
-import ButtonInput from "~/components/inputs/ButtonInput.vue";
-import ResearchBar from "~/components/progressbar/ResearchBar.vue";
+import { computed } from 'vue';
 import { useGetSingleAgripreneur } from "~/composables/useGetSingleAgripreneur";
 
 
@@ -12,13 +10,17 @@ console.log("Fetched ID from route:", id);
 // Fetching agripreneur details based on the slug
 const { data: Data, error, isLoading } = useGetSingleAgripreneur(id as string);
 
-const profileData = Data.value?.data;
+// Inside your <script setup>
+const profileData = computed(() => {
+  return Data.value?.data || null; // Ensure it's reactive and returns null if no data
+});
 
 const progress = ref(20)
 </script>
 
 <template>
   <div class="bg-[#F8FCF8]">
+  <FullScreenLoader v-if="isLoading" />
     <div
       class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/single.svg')] relative h-[350px]"
     >
