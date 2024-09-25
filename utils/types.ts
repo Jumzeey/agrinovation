@@ -153,7 +153,8 @@ export interface MediaItem {
     user_id: string;
     user_type_id: string;
     about: string;
-    name: string;
+    name?: string;
+    business_name?: string
     user_type: "Agripreneur" | "Investor" | "Researcher" | "Others";
     is_registered?: string;
     proof_of_address?: string;
@@ -200,6 +201,7 @@ export interface SearchAgripreneurData {
   location: string | null;
   sector: string | null;
   scale: string | null;
+  type: string | null;
   page: number | null;
 }
 
@@ -207,7 +209,8 @@ export interface SearchInvestorData {
   location: string | null;
   sector: string | null;
   scale: string | null;
-  page: number | null
+  type: string | null;
+  page: number | null;
 }
 
 export interface AgripreneurPagination {
@@ -226,11 +229,10 @@ export interface InvestorPagination {
   next_page_url: string | null;
 }
 
-export interface AgripreneurResponse
-  extends BaseResponse<{
-    data: Agripreneurs[];
-    pagination: AgripreneurPagination;
-  }> {
+export interface AgripreneurResponse {
+  status: boolean;
+  message: string;
+  data: Agripreneurs[];
   pagination: AgripreneurPagination;
 }
 
@@ -240,13 +242,56 @@ export interface InvestorResponse
     pagination: InvestorPagination;
   }> {}
 
-export interface ProductTypes {
+export interface ProduceTypes {
   id: number;
-  name:string;
-  slug: string
+  name: string;
+  slug: string;
 }
 
-export interface produceTypeList
-  extends BaseResponse<{
-    data: ProductTypes[];
-  }> {}
+export interface produceTypeList {
+  status: boolean;
+  message: string;
+  data: ProduceTypes[];
+}
+
+export interface AgripreneurDetails {
+  status: boolean;
+  message: string;
+  data: {
+    agripreneur_id: number;
+    business_name: string;
+    segment_id: string;
+    sub_segment_id: string;
+    address: string;
+    more: {
+      about: string;
+      funding_stage: string;
+      average_annual_revenue: string;
+      produce_information: any; // Replace `any` with the correct type if known
+      is_available_merger: boolean;
+      is_available_acquisition: boolean;
+    };
+    is_registered: string;
+    farm_size: string;
+    founding_year: string;
+    years_of_operation: string;
+    produce_type: string;
+    farming_equipmet: any; // Replace `any` with the correct type if known
+    labor_force: string;
+    water_source: string;
+    inventory: string;
+    social_media: string[]; // Assuming social media is an array of strings
+    image: string;
+    business_type: string;
+    website: string;
+    business_phone: string;
+    business_email: string;
+    banner_image: string;
+    media: any[]; // Replace `any` with the correct type if known
+    job_posts: any[]; // Replace `any` with the correct type if known
+    products: any[]; // Replace `any` with the correct type if known
+    news: any[]; // Replace `any` with the correct type if known
+    team_members: any[]; // Replace `any` with the correct type if known
+    kyc: any[]; // Replace `any` with the correct type if known
+  };
+}

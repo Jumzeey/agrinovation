@@ -2,7 +2,7 @@
     <div class="h-[260px] p-4  z-20  bg-white gap-3 flex flex-col rounded-lg">
         <div class="flex justify-between items-center">
             <div class="flex gap-5">
-                <div>
+                <div class="w-[170px] h-[160px] flex items-center align-middle justify-center rounded border">
                     <img :src="profileData?.image || CDN_IMAGES.logo_placeholder" alt="" />
                 </div>
                 <div class="flex flex-col gap-6">
@@ -15,13 +15,14 @@
                                         ? 'Investor Name'
                                         : 'Business Name') }}
                         </p>
-                        <p class="text-subText text-base font-normal">{{ profileData?.user_type || 'User type' }}
+                        <p class="text-subText text-base font-normal" style="text-transform: capitalize;">{{
+                            profileData?.user_type || 'User type' }}
                         </p>
                     </div>
                     <div class="flex justify-between gap-4"
-                        v-if="['Agripreneur', 'Investor'].includes(profileData?.user_type)">
+                        v-if="['agripreneur', 'investor'].includes(profileData?.user_type)">
                         <div class="border border-subText p-1 rounded-md">
-                            <p class="text-[#202B08]">2024</p>
+                            <p class="text-[#202B08]">{{ profileData?.founding_year || 'N/A' }}</p>
                             <p class="pt-1 text-[#707663]">Founding Year</p>
                         </div>
                         <div class="border border-subText p-1 rounded-md">
@@ -116,12 +117,12 @@ const tag = ref<HTMLElement | null>(null);
 const marketPlace = ref<HTMLElement | null>(null);
 
 // Define the userType and tabs mapping
-type UserType = 'researcher' | 'investor' | 'Agripreneur' | 'others'; // Define allowed user types
+type UserType = 'researcher' | 'investor' | 'agripreneur' | 'others'; // Define allowed user types
 
 const tabsByUserType: Record<UserType, string[]> = {
     researcher: ['About', 'Team', 'Media', 'Contact', 'Tag'],
     investor: ['About', 'Team', 'Media', 'News', 'Tag', 'Contact'],
-    Agripreneur: ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'],
+    agripreneur: ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'],
     others: ['About', 'Team', 'Media', 'Contact', 'Tag']
 };
 

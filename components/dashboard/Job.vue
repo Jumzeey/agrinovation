@@ -5,7 +5,7 @@
                 <div>
                     <p class="">Job Opening</p>
                 </div>
-                <button class="py-2 px-3 border border-border_col rounded-md  cursor-pointer" @click="openModal">
+                <button v-if="showAction" class="py-2 px-3 border border-border_col rounded-md  cursor-pointer" @click="openModal">
                     <p class="text-priText">Add Job</p>
                 </button>
             </div>
@@ -194,6 +194,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    showAction: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const df = new DateFormatter('en-US', {

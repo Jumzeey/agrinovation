@@ -1,51 +1,54 @@
-import { ref } from "vue";
-import { useErrorHandler } from "./useErrorHandler";
+import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
+import { useErrorHandler } from "~/composables/useErrorHandler";
 
-export function useGetAgripreneur() {
-  const { error, handleError, handleSuccess } = useErrorHandler();
+const fetchAgripreneurs = async (
+  params: SearchAgripreneurData
+): Promise<AgripreneurResponse> => {
 
-  const loading = ref(false);
-  const agripreneurData = ref<AgripreneurResponse | null>(null);
-  const pagination = ref<AgripreneurPagination | null>(null);
+  const config = useRuntimeConfig(); 
+  const apiUrl = config.public.apiUrl;
 
-  const agripreneur = async (
-    credentials: SearchAgripreneurData
-  ): Promise<AgripreneurResponse | null> => {
-    loading.value = true;
+  const query = new URLSearchParams({
+    location: params.location ?? "",
+    sector: params.sector ?? "",
+    scale: params.scale ?? "",
+    produce_type: params.type ?? "",
+    page: params.page?.toString() ?? "1",
+  });
 
-    try {
-      const { data, error } = await useFetchInstance<AgripreneurResponse>(
-        API_PATHS.AGRIPRENEUR.ALL,
-        {
-          method: "GET",
-          params: credentials,
-        }
-      );
+  const response = await fetch(
+    `${apiUrl}${API_PATHS.AGRIPRENEUR.ALL}?${query.toString()}`
+  );
 
-      if (data.value) {
-        agripreneurData.value = data.value;
-        pagination.value = data?.value?.pagination || null;
+  if (!response.ok) {
+    throw new Error("Failed to fetch agripreneurs");
+  }
 
-        console.log('pagination data: ', pagination.value)
-        handleSuccess("Agripreneurs fetched successfully!");
-      } else {
-        handleError(error.value);
-      }
-    } catch (error) {
-      console.log(error);
-      handleError(error);
-    } finally {
-      loading.value = false;
-    }
+  return response.json();
+};
 
-    return null;
-  };
+export const useGetAgripreneur = (params: SearchAgripreneurData) => {
+  const { handleError, handleSuccess } = useErrorHandler();
 
-  return {
-    agripreneur,
-    agripreneurData,
-    pagination,
-    loading,
-  };
-}
+  const queryKey = ["agripreneurs", params];
+
+  const query = useQuery<AgripreneurResponse, Error>({
+    queryKey,
+    queryFn: () => fetchAgripreneurs(params),
+    staleTime: 0,
+  });
+
+  // Watch query status to handle success and error cases
+  if (query.isSuccess) {
+    const successMessage = 'Agripreneurs fetched successfully';
+    handleSuccess(successMessage); // Show success toast
+    console.log("Fetched data:", query.data);
+  }
+
+  if (query.isError) {
+    console.log(query.error); // Handle error and show error toast
+  }
+
+  return query;
+};

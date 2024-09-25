@@ -2,7 +2,7 @@
     <div>
         <Label :for="id">{{ label }}</Label>
         <Select :model-value="modelValue" :id="id" @update:modelValue="updateValue">
-            <SelectTrigger class="md:w-[150px] w-full">
+            <SelectTrigger class="md:w-[250px] w-full">
                 <SelectValue :placeholder="placeholder" />
             </SelectTrigger>
             <SelectContent class="bg-black text-white">

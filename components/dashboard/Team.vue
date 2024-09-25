@@ -9,8 +9,12 @@
                     <div v-if="profileData?.user_type === 'Researcher'">
                         <p>Collaborators</p>
                     </div>
+                    <div v-if="!profileData?.user_type">
+                        <p>Team</p>
+                    </div>
                 </div>
-                <button class="py-2 px-3 border border-border_col rounded-md  cursor-pointer" @click="openModal">
+                <button v-if="showAction" class="py-2 px-3 border border-border_col rounded-md cursor-pointer"
+                    @click="openModal">
                     <p class="text-priText">Add member</p>
                 </button>
             </div>
@@ -32,28 +36,29 @@
             </div>
         </div>
         <Modal :shows="showModal" title="Add New Team Member" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
-            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit" :loading="loading">
+            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit"
+            :loading="loading">
             <template #content>
                 <div class="grid grid-cols-1 gap-6">
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="name">Name</Label>
-                        <Input id="name" type="text" placeholder="name..." v-model="name"/>
+                        <Input id="name" type="text" placeholder="name..." v-model="name" />
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="position">Position</Label>
-                        <Input id="position" type="text" placeholder="position..." v-model="position"/>
+                        <Input id="position" type="text" placeholder="position..." v-model="position" />
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="about">About</Label>
-                        <Input id="about" type="text" placeholder="position..." v-model="about"/>
+                        <Input id="about" type="text" placeholder="position..." v-model="about" />
                     </div>
                     <div class="grid w-full items-center gap-1.5" v-if="profileData.user_type !== 'Researcher'">
                         <Label for="company_name">Company Name</Label>
-                        <Input id="company_name" type="text" placeholder="name..." v-model="companyName"/>
+                        <Input id="company_name" type="text" placeholder="name..." v-model="companyName" />
                     </div>
                     <div class="grid w-full items-center gap-1.5">
                         <Label for="image">Image</Label>
-                        <Input id="image" type="file" @change="handleFileUpload($event, 'imageFile')"/>
+                        <Input id="image" type="file" @change="handleFileUpload($event, 'imageFile')" />
                     </div>
                 </div>
             </template>
@@ -72,6 +77,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    showAction: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const { updateTeam, loading } = updateTeamHandler()

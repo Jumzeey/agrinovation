@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     ],
   },
   css: ["~/assets/css/main.css"],
-  plugins: ["~/plugins/toastification.client.ts", "~/plugins/vue-query.client.ts"],
+  plugins: ["~/plugins/toastification.client.ts", "~/plugins/vue-query.ts"],
   build: {
     // Use Vite options instead of Rollup options
     transpile: ["vue-toastification"], // Example of specifying dependencies to transpile

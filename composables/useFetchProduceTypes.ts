@@ -1,42 +1,41 @@
-import { ref } from "vue";
-import { useFetch } from "#imports";
-import { useErrorHandler } from "./useErrorHandler";
+import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
 
-export function useFetchProduceTypes() {
-  const produceTypes = ref<any>();
-  const { handleError } = useErrorHandler();
+const fetchProduceTypes = async (): Promise<ProduceTypes[]> => {
   const config = useRuntimeConfig();
+  const apiUrl = config.public.apiUrl;
 
-  const fetchProduceTypes = async () => {
-    try {
-      const { data, error } = await useFetch<produceTypeList>(
-        config.public.apiUrl + API_PATHS.OTHERS.PRODUCE_TYPES
-      );
+  const response = await fetch(`${apiUrl}${API_PATHS.OTHERS.PRODUCE_TYPES}`);
 
-      if (error.value) {
-        handleError(error.value);
-        return;
-      }
+  if (!response.ok) {
+    throw new Error("Failed to fetch produce types");
+  }
 
-      if (data.value?.status) {
-        console.log("produce types: ", data.value);
-        produceTypes.value = data.value.data || [];
-      } else {
-        handleError(
-          new Error(data.value?.message || "Failed to load user types")
-        );
-      }
-    } catch (err) {
-      handleError(err);
-    }
-  };
+  const data: produceTypeList = await response.json();
 
-  // Fetch user types immediately
-  fetchProduceTypes();
+  if (!data.status) {
+    throw new Error(data.message);
+  }
 
-  return {
-    produceTypes,
-    fetchProduceTypes,
-  };
-}
+  return data.data;
+};
+
+export const useFetchProduceTypes = () => {
+  const queryKey = ["produceTypes"];
+
+  const query = useQuery<ProduceTypes[], Error>({
+    queryKey,
+    queryFn: fetchProduceTypes,
+  });
+
+  // Watch query status to handle success and error cases
+  if (query.isSuccess) {
+    console.log("Fetched data:", query.data);
+  }
+
+  if (query.isError) {
+    console.log(query.error);
+  }
+
+  return query;
+};

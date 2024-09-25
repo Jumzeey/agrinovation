@@ -8,24 +8,23 @@ import { useFetchProduceTypes } from "~/composables/useFetchProduceTypes"
 import { useGetAgripreneur } from "~/composables/useFetchAgripreneur";
 import { local_government_areas } from "~/data/localGovernment";
 import { farm_scale } from "~/data/scale"
-import { watch } from 'vue';
 
 
 const { sectorData } = useFetchSectorTypes();
-const { produceTypes: produceTabs } = useFetchProduceTypes();
-const { agripreneur, agripreneurData, loading, pagination } = useGetAgripreneur();
-const selectedTab = ref('All');
+const { data: produceTypes, error: produceError, isLoading: produceLoading } = useFetchProduceTypes();
+
+const params = ref<SearchAgripreneurData>({
+    location: null,
+    sector: null,
+    scale: null,
+    type: null,
+    page: 1,
+});
+
+const { data: agripreneurData, error, isLoading, isError, refetch } = useGetAgripreneur(params.value);
+
+const selectedTab = ref('all');
 const currentPage = ref(1);
-
-console.log('produce list: ', produceTabs.value)
-
-const agripreneurList = computed<Agripreneurs[]>(() => {
-    return agripreneurData.value?.data ? agripreneurData.value.data : [];
-});
-
-watch(pagination, (newVal) => {
-    console.log('Updated pagination data:', newVal);
-});
 
 const sectorOptions = computed(() =>
     sectorData.value ? sectorData.value.map((sector: any) => ({
@@ -44,50 +43,22 @@ const locationOptions = local_government_areas.map((lga: string) => ({
     label: lga,
 }));
 
-
-
-const location = ref();
-const sector = ref();
-const scale = ref();
-
-const tabs = computed(() => {
-    const produceTabNames = produceTabs.value?.data ? produceTabs.value.data.map((item: { name: string }) => item.name) : [];
-    return ['All', ...produceTabNames];
-});
-
 const router = useRouter();
 
-const goTo = (slug: any) => {
-    router.push(`/agripreneur/${slug}`);
+const goTo = (id: number) => {
+    router.push(`/agripreneur/${id}`);
 };
 
 const handlePageChange = (page: number) => {
     currentPage.value = page;
-    fetchAgripreneurData();
 };
 
-async function fetchAgripreneurData() {
-    try {
-        await agripreneur({
-            location: location.value,
-            sector: sector.value,
-            scale: scale.value,
-            page: currentPage.value,
-        });
-    } catch (error) {
-        console.error('Error fetching profile:', error);
-    }
-
-}
-
-const handleFetchAgripreneurBtnClick = () => {
-    currentPage.value = 1; // Reset to the first page
-    fetchAgripreneurData(); // Fetch data immediately
-    console.log('Data: ', agripreneurData.value); // This will show data after fetching
+const handleTabSelect = (slug: string) => {
+    console.log('Tab selected in parent: ', slug);
+    params.value.type = slug === 'all' ? null : slug; 
+    selectedTab.value = slug
+    refetch(); // Refetch data with the updated params
 };
-
-
-fetchAgripreneurData()
 </script>
 
 <template>
@@ -110,25 +81,20 @@ fetchAgripreneurData()
                             <span class="bg-[#FFFBF5] rounded-lg p-[10px]">Search Agripreneur</span>
                         </div>
 
-                        <div class="lg:flex gap-16 hidden">
-                            <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
-                                :options="locationOptions" v-model="location" />
+                        <div class="lg:flex justify-between hidden">
+                            <div class="border-r-2 border-red-50 pe-16">
+                                <DetailedSearch id="location-select" label="Location" placeholder="Choose an LGA"
+                                    :options="locationOptions" v-model="params.location" />
+                            </div>
 
                             <div class="border-r-2 border-red-50 pe-16">
                                 <DetailedSearch id="sector-select" label="Agricultural Sector" placeholder="Choose a sector"
-                                    :options="sectorOptions" v-model="sector" />
+                                    :options="sectorOptions" v-model="params.sector" />
                             </div>
 
-                            <div class="border-r-2 border-red-50 pe-16">
+                            <div class=" border-red-50 pe-16">
                                 <DetailedSearch id="scale-select" label="Scale" placeholder="Choose a scale"
-                                    :options="scaleOptions" v-model="scale" />
-                            </div>
-
-                            <div class="my-[12px]">
-                                <ButtonInput iconLeft icon="search" @click="handleFetchAgripreneurBtnClick()"
-                                    :disable="loading">
-                                    Search
-                                </ButtonInput>
+                                    :options="scaleOptions" v-model="params.scale" />
                             </div>
                         </div>
                     </div>
@@ -143,28 +109,30 @@ fetchAgripreneurData()
         </div>
 
         <div class="">
-            <div v-if="loading" class="flex items-center">
+            <div v-if="isLoading" class="flex items-center">
                 <NuxtLoadingIndicator />
             </div>
             <div v-else class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="tabs">
-                    <template v-slot:tab-0>
+                <TabItems :tabs="produceTypes" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
+                    <template v-slot:tab-all>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
-                            <div v-for="data in agripreneurList" :key="data.agripreneur_id" class="w-full">
-                                <Card :img="data.image" :title="data.business_name" :bg="data.banner_image"
-                                    :count="data.team_member_count" :address="data.address"
-                                    @move="goTo(data.agripreneur_id)" centerImage />
+                            <div v-for="agripreneur in agripreneurData?.data" :key="agripreneur.agripreneur_id"
+                                class="w-full">
+                                <Card :img="agripreneur.image" :title="agripreneur.business_name"
+                                    :bg="agripreneur.banner_image" :count="agripreneur.team_member_count"
+                                    :address="agripreneur.address" @move="goTo(agripreneur.agripreneur_id)" centerImage />
                             </div>
                         </div>
                     </template>
                 </TabItems>
             </div>
 
-            <div v-if="pagination">
-                <Pagination :currentPage="currentPage" :totalPage="pagination.last_page" @onPageChange="handlePageChange" />
+            <div v-if="agripreneurData?.pagination">
+                <Pagination :currentPage="currentPage" :totalPage="agripreneurData?.pagination.last_page"
+                    @onPageChange="handlePageChange" />
             </div>
 
-            <div v-if="!loading && agripreneurList.length === 0">
+            <div v-if="!isLoading && agripreneurData?.data.length === 0">
                 <EmptyState message="No agripreneurs found in this region." />
             </div>
 
@@ -189,5 +157,4 @@ fetchAgripreneurData()
         </div>
     </div>
 
-    <Footer />
-</template>
+<Footer /></template>

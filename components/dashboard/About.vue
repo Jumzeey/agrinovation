@@ -6,14 +6,27 @@
                     <div>
                         <p class="text-2xl">About {{ profileData?.name }}</p>
                     </div>
-                    <button class="py-2 px-3 border border-border_col rounded-md cursor-pointer" @click="openModal">
+                    <button v-if="showAction" class="py-2 px-3 border border-border_col rounded-md cursor-pointer" @click="openModal">
                         <p class="text-priText">Edit Profile</p>
                     </button>
                 </div>
-                <div v-if="profileData?.more?.about">
-                    <p class="items-start leading-6 text-[#261B0D] font-normal">
-                        {{ profileData?.more?.about }}
-                    </p>
+                <div v-if="profileData?.more?.about" class="flex justify-between w-full">
+                    <div class="w-[650px]">
+                        <p class="items-start leading-6 text-[#261B0D] font-normal">
+                            {{ profileData?.more?.about }}
+                        </p>
+                    </div>
+                    <div v-if="showSubActions" class="flex flex-col gap-4">
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#275927] text-white items-center text-center cursor-pointer">
+                            Claim Account</div>
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
+                            Claim Profile</div>
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full border border-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
+                            Add Favorite</div>
+                    </div>
                 </div>
                 <div v-else>
                     <EmptyState />
@@ -90,20 +103,20 @@
                 <div>
                     <!-- logo fields -->
                     <div class="grid w-full max-w-sm items-center gap-0.5">
-                        <FormField :types="['file-upload']" v-for="field in userFields" :key="field.id"
-                                :field="field" :formDataVariables="formDataVariables"  @file-upload="handleFileUpload"/>
+                        <FormField :types="['file-upload']" v-for="field in userFields" :key="field.id" :field="field"
+                            :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
                     </div>
 
                     <!-- Textarea fields -->
                     <div class="grid w-full">
-                        <FormField :types="['Textarea']" v-for="field in userFields" :key="field.id"
-                                :field="field" :formDataVariables="formDataVariables" />
+                        <FormField :types="['Textarea']" v-for="field in userFields" :key="field.id" :field="field"
+                            :formDataVariables="formDataVariables" />
                     </div>
 
                     <!-- other fields -->
                     <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
-                        <FormField :types="['Input', 'Select', 'File' ]" v-for="field in userFields" :key="field.id"
-                            :field="field" :formDataVariables="formDataVariables" @file-upload="handleFileUpload"/>
+                        <FormField :types="['Input', 'Select', 'File']" v-for="field in userFields" :key="field.id"
+                            :field="field" :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
                     </div>
                 </div>
             </template>
@@ -121,6 +134,8 @@ const { updateProfile, loading } = updateProfileHandler();
 const showModal = ref(false);
 const props = defineProps<{
     profileData: UserProfileData;
+    showSubActions: boolean;
+    showAction: boolean
 }>();
 
 // Computed property to determine if cacDocument should be shown
