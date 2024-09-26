@@ -31,7 +31,7 @@
                 <div v-else>
                     <EmptyState />
                 </div>
-                <div class="md:flex flex-col gap-7" v-if="['Agripreneur'].includes(profileData?.user_type)">
+                <div class="md:flex flex-col gap-7" v-if="['agripreneur'].includes(profileData?.user_type)">
                     <div class="space-y-4">
                         <div class="flex gap-4 items-center">
                             <img :src="CDN_IMAGES.founding_icon" alt="" class="p-1" />
