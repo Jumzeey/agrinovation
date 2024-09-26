@@ -38,6 +38,10 @@ const API_PATHS = {
     ALL: "/events",
     SINGLE: (id: string) => `/agripreneur/single/${id}`,
   },
+  RESEARCHER: {
+    ALL: "/research",
+    SINGLE: (id: string) => `/research/single/${id}`,
+  },
 };
 
 export default API_PATHS

@@ -24,7 +24,7 @@ const goTo = (id: number) => {
 
 // Inside your <script setup>
 const eventData = computed(() => {
-  return Data.value?.data || null; // Ensure it's reactive and returns null if no data
+  return Data.value?.data || null;
 });
 
 const routeId = computed(() => {
@@ -42,6 +42,7 @@ const formattedStartDate = computed(() => {
 
 <template>
   <div class="bg-[#F8FCF8]">
+    <FullScreenLoader v-if="isLoading" />
     <div class="w-full bg-cover bg-no-repeat bg-[url('/public/images/agripreneur/single.svg')] relative h-[350px]">
       <div class="mx-0 md:mx-[120px]">
         <Header type="other" />
@@ -134,7 +135,7 @@ const formattedStartDate = computed(() => {
           </div>
 
           <div v-if="filteredEvents.length === 0">
-            <EmptyState message="No event available except this one!" />
+            <EmptyState message="No events available except this one!" />
           </div>
         </div>
       </div>

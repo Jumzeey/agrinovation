@@ -39,7 +39,7 @@ const handlePageChange = (page: number) => {
 
             <div class="mt-[32px]">
                 <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
-                    <TextInput label="" class="w-full" placeholder="Search for event..." v-model="params.search"/>
+                    <TextInput label="" class="w-full" placeholder="Search for event..." v-model="params.search" />
                 </div>
             </div>
         </div>
@@ -61,15 +61,15 @@ const handlePageChange = (page: number) => {
             </div>
 
             <div>
-               <div v-if="eventData?.pagination">
+                <div v-if="eventData?.pagination">
                     <Pagination :currentPage="currentPage" :totalPage="eventData?.pagination.last_page"
                         @onPageChange="handlePageChange" />
                 </div>
             </div>
 
-             <div v-if="!isLoading && eventData?.data.length === 0">
-                    <EmptyState message="No events found." />
-                </div>
+            <div v-if="!isLoading && eventData?.data.length === 0">
+                <EmptyState message="No events found." />
+            </div>
 
             <div
                 class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">

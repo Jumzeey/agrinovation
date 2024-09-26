@@ -1,42 +1,28 @@
 <script setup lang="ts">
-import Card from '~/components/card/Card.vue';
 import CardTwo from '~/components/card/CardTwo.vue';
-import ButtonInput from '~/components/inputs/ButtonInput.vue';
-import SelectInput from '~/components/inputs/SelectInput.vue';
 import TextInput from '~/components/inputs/TextInput.vue';
 import Pagination from '~/components/list/Pagination.vue';
-import TabItems from '~/components/tab/TabItems.vue';
+import { useGetResearches } from "~/composables/useFetchResearch"
 
-const location = ref([
-    {
-        id: 1,
-        name: "Lekki Ajah"
-    }
-])
 
-const description = ref('Africa Fish farmerInfluence of Leaf Extract of Lantana camara Integrated with Maize-based Coating Summit')
+const params = ref<SearchResearchData>({
+    search: null,
+    page: 1,
+});
 
-const tabs = [
-  {
-    name: 'All Categories'
-  },
-  {
-    name: 'Fish farmer'
-  },
-  {
-    name: 'Crop farmer'
-  },
-  {
-    name: 'Fruit farmer'
-  }
-]
+const currentPage = ref(1);
+
+const { data: researchData, error, isLoading, isError, refetch } = useGetResearches(params.value);
 
 const router = useRouter()
 
-const goTo = (slug: any) => {
-    router.push(`/research/${slug}`)
+const goTo = (id: number) => {
+    router.push(`/research/${id}`)
 }
 
+const handlePageChange = (page: number) => {
+    currentPage.value = page;
+};
 </script>
 
 <template>
@@ -47,17 +33,13 @@ const goTo = (slug: any) => {
 
         <div class="px-10 md:px-[168px] pb-[230px] pt-[124px] md:pt-0">
             <div class="text-center">
-                <h3 class="text-[30px] md:text-[60px] lg:text-[60px] text-[#FCFFF6]">Access <span class="text-[#FEE934]">Agricultural Research</span> to <br>better make your work easy</h3>
+                <h3 class="text-[30px] md:text-[60px] lg:text-[60px] text-[#FCFFF6]">Access <span
+                        class="text-[#FEE934]">Agricultural Research</span> to <br>better make your work easy</h3>
             </div>
 
             <div class="mt-[32px]">
                 <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
-                    <TextInput
-                        :onChange="console.log"
-                        label=""
-                        class="w-full"
-                        placeholder="Search for event..."
-                    />
+                    <TextInput :onChange="console.log" label="" class="w-full" placeholder="Search for event..." v-model="params.search"/>
                 </div>
             </div>
         </div>
@@ -70,98 +52,41 @@ const goTo = (slug: any) => {
 
         <div class="">
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="tabs">
-                    <template v-slot:tab-0>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-7">
-                            <div class="w-full">
-                                <CardTwo
-                                    img="https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg"
-                                    :description="description"
-                                    @move="goTo('africa-fish-farmer-summit')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://frenchrivieraparties.com/wp-content/uploads/2018/08/French-Riviera-Parties-1-1.jpg"
-                                    :description="description"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://billetto.co.uk/blog/wp-content/uploads/2019/10/matty-adame-nLUb9GThIcg-unsplash-e1568377747157-1024x563.jpg"
-                                    :description="description"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://www.moroccoworldnews.com/wp-content/uploads/2023/10/sara-2023-ocp-africa-determined-to-help-unlock-cote-divoires-agriculture-potential-800x533.jpg"
-                                    :description="description"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://www.farmersguide.co.uk/wp-content/uploads/2020/10/LAMMA-004-HI-RES-1.jpg"
-                                    :description="description"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-
-                            <div class="w-full">
-                                <CardTwo 
-                                    img="https://malonefm.com/wp-content/uploads/2022/11/lama-show.png"
-                                    :description="description"
-                                    @move="goTo('vga-fish-farm')"
-                                    date="15-July-2024"
-                                    bg="bg-[#F4FAF4]"
-                                    text="text-[#2B612B]"
-                                />
-                            </div>
-                        </div>
-                    </template>
-                </TabItems>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-7">
+                    <div v-for="research in researchData?.data" :key="research.id" class="w-full">
+                        <CardTwo :img="research.image" :description="research.description || 'Description'" :title="research.title  || 'Title'"
+                            @move="goTo(research.id)" :date="research.start_date || 'Start Date'" bg="bg-[#F4FAF4]" text="text-[#2B612B]" />
+                    </div>
+                </div>
             </div>
 
             <div>
-                <Pagination :totalPage="5" />
+                <div v-if="researchData?.pagination">
+                    <Pagination :currentPage="currentPage" :totalPage="researchData?.pagination.last_page"
+                        @onPageChange="handlePageChange" />
+                </div>
             </div>
 
-            <div class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
+            <div v-if="!isLoading && researchData?.data.length === 0">
+                <EmptyState message="No research found." />
+            </div>
+
+            <div
+                class="bg-gradient-to-r from-[#275927] to-[#FDED33] mx-310 md:mx-[120px] py-3 rounded-2xl mb-[94px] mt-10 md:mt-[141px]">
                 <div class="text-center flex flex-col items-center">
                     <div class="w-32 py-8">
                         <img src="/images/group.svg" class="w-full" alt="" />
                     </div>
                     <div>
                         <h3 class="pb-2 text-white text-xl font-medium">
-                        Still have questions?
+                            Still have questions?
                         </h3>
                         <p class="text-white text-md md:text-lg font-normal pb-8">
-                        Can’t find the answer you’re looking for? Please reach out to our
-                        friendly team.
+                            Can’t find the answer you’re looking for? Please reach out to our
+                            friendly team.
                         </p>
                         <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
-                        Get in touch
+                            Get in touch
                         </button>
                     </div>
                 </div>

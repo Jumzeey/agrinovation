@@ -251,6 +251,10 @@ export interface SearchEventData {
   search: string | null;
   page: number | null;
 }
+export interface SearchResearchData {
+  search: string | null;
+  page: number | null;
+}
 
 export interface AgripreneurPagination {
   current_page: number;
@@ -268,6 +272,13 @@ export interface InvestorPagination {
   next_page_url: string | null;
 }
 export interface EventPagination {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+}
+export interface ResearchPagination {
   current_page: number;
   last_page: number;
   per_page: number;
@@ -292,6 +303,12 @@ export interface EventResponse {
   message: string;
   data: Events[];
   pagination: EventPagination;
+}
+export interface ResearchResponse {
+  status: boolean;
+  message: string;
+  data: Events[];
+  pagination: ResearchPagination;
 }
 
 export interface ProduceTypes {
@@ -390,5 +407,21 @@ export interface EventDetails {
     description: string;
     created_at: string;
     speakers: Speaker[];
+  };
+}
+export interface ResearchDetails {
+  status: boolean;
+  message: string;
+  data: {
+    id: number;
+    user_id: number;
+    topic: string;
+    description: string;
+    tag: string | null;
+    image: string;
+    link: string;
+    research_stage: string;
+    collaborators: any[] | null;
+    sector: string | null;
   };
 }

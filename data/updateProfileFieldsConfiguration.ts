@@ -479,6 +479,6 @@ export const fieldConfigurations: Record<
       },
       model: "researchDetails",
     },
-    // Add more fields for Researcher here...
+    // Add more fields for Others here...
   ],
 };
