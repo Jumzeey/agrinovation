@@ -53,7 +53,7 @@ console.log('The data from dashboard index:', profileData.value);
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
             <!-- Pass loading and error states to child components -->
             <DashboardInfo :profileData="profileData" :loading="loading" />
-            <DashboardAbout :profileData="profileData" :loading="loading" showSubActions="false" showAction="true"/>
+            <DashboardAbout :profileData="profileData" :loading="loading" showAction="true"/>
             <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden" />
             <DashboardMedia :profileData="profileData" :loading="loading" showAction="true"/>
             <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"

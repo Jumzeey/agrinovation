@@ -14,7 +14,7 @@ import {
 } from "./businessOptions";
 
 export const fieldConfigurations: Record<
-  "agripreneur" | "investor" | "researcher" | "Others",
+  "agripreneur" | "investor" | "researcher" | "others",
   Array<any>
 > = {
   agripreneur: [
@@ -468,7 +468,7 @@ export const fieldConfigurations: Record<
     },
     // Add more fields for Researcher here...
   ],
-  Others: [
+  others: [
     {
       id: "researchDetails",
       type: "Textarea",

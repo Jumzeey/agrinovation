@@ -13,7 +13,7 @@
                 <div v-if="profileData?.more?.about" class="flex justify-between w-full">
                     <div class="w-[650px]">
                         <p class="items-start leading-6 text-[#261B0D] font-normal">
-                            {{ profileData?.more?.about }}
+                            {{ profileData?.more?.about? profileData?.more?.about : profileData?.about }}
                         </p>
                     </div>
                     <div v-if="showSubActions" class="flex flex-col gap-4">
