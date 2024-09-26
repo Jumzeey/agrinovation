@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex flex-col gap-7" v-if="['Investor'].includes(profileData?.user_type)">
+                <div class="md:flex flex-col gap-7" v-if="['investor'].includes(profileData?.user_type)">
                     <div class="space-y-4">
                         <div class="flex gap-4 items-center">
                             <img :src="CDN_IMAGES.investment_icon" alt="" class="p-1" />
