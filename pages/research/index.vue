@@ -39,7 +39,7 @@ const handlePageChange = (page: number) => {
 
             <div class="mt-[32px]">
                 <div class="w-full md:w-[650px] lg:w-[650px] m-auto">
-                    <TextInput :onChange="console.log" label="" class="w-full" placeholder="Search for event..." v-model="params.search"/>
+                    <TextInput :onChange="console.log" label="" class="w-full" placeholder="Search for research..." v-model="params.search"/>
                 </div>
             </div>
         </div>

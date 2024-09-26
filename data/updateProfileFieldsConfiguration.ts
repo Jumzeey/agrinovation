@@ -14,10 +14,10 @@ import {
 } from "./businessOptions";
 
 export const fieldConfigurations: Record<
-  "Agripreneur" | "Investor" | "Researcher" | "Others",
+  "agripreneur" | "investor" | "researcher" | "Others",
   Array<any>
 > = {
-  Agripreneur: [
+  agripreneur: [
     {
       id: "businessLogo",
       type: "file-upload",
@@ -253,7 +253,7 @@ export const fieldConfigurations: Record<
       model: "selectedAcquisitionOption",
     },
   ],
-  Investor: [
+  investor: [
     {
       id: "businessLogo",
       type: "file-upload",
@@ -373,7 +373,7 @@ export const fieldConfigurations: Record<
     },
     // Add more fields for Investor here...
   ],
-  Researcher: [
+  researcher: [
     {
       id: "businessLogo",
       type: "file-upload",

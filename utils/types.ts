@@ -27,7 +27,7 @@ export interface SignUpData {
 export interface SignupResponse
   extends BaseResponse<{
     user_id: number;
-    user_type: "Investor" | "Agripreneur" | "Researcher" | "Others";
+    user_type: "investor" | "agripreneur" | "researcher" | "others";
   }> {}
 
 export interface AuthResponse extends BaseResponse<UserData> {}
@@ -41,7 +41,7 @@ export interface LoginData {
 export interface LoginResponse
   extends BaseResponse<{
     user_id: number;
-    user_type: "Investor" | "Agripreneur" | "Researcher" | "Others";
+    user_type: "investor" | "agripreneur" | "researcher" | "others";
     user_type_id: number;
     status: "active" | "inactive";
     token: string | null;
@@ -49,7 +49,7 @@ export interface LoginResponse
 
 export interface UserData {
   user_id: number;
-  user_type: "Investor" | "Agripreneur" | "Researcher" | "Others";
+  user_type: "investor" | "agripreneur" | "researcher" | "others";
   status: "active" | "inactive";
   token: string | null;
 }
@@ -119,7 +119,7 @@ export interface JobPost {
   job_type?: string;
   location?: string;
   description?: string;
-  application_deadline?: string; // ISO 8601 date string
+  application_deadline?: string; 
   job_status?: string;
   status?: string;
 }
@@ -160,7 +160,7 @@ export interface UserProfileData {
   about: string;
   name?: string;
   business_name?: string;
-  user_type: "Agripreneur" | "Investor" | "Researcher" | "Others";
+  user_type: "agripreneur" | "investor" | "researcher" | "others";
   is_registered?: string;
   proof_of_address?: string;
   funding_stage?: string;
@@ -336,7 +336,7 @@ export interface AgripreneurDetails {
       about: string;
       funding_stage: string;
       average_annual_revenue: string;
-      produce_information: any; // Replace `any` with the correct type if known
+      produce_information: any; 
       is_available_merger: boolean;
       is_available_acquisition: boolean;
     };
@@ -345,23 +345,23 @@ export interface AgripreneurDetails {
     founding_year: string;
     years_of_operation: string;
     produce_type: string;
-    farming_equipmet: any; // Replace `any` with the correct type if known
+    farming_equipmet: any; 
     labor_force: string;
     water_source: string;
     inventory: string;
-    social_media: string[]; // Assuming social media is an array of strings
+    social_media: string[]; 
     image: string;
     business_type: string;
     website: string;
     business_phone: string;
     business_email: string;
     banner_image: string;
-    media: any[]; // Replace `any` with the correct type if known
-    job_posts: any[]; // Replace `any` with the correct type if known
-    products: any[]; // Replace `any` with the correct type if known
-    news: any[]; // Replace `any` with the correct type if known
-    team_members: any[]; // Replace `any` with the correct type if known
-    kyc: any[]; // Replace `any` with the correct type if known
+    media: any[];
+    job_posts: any[];
+    products: any[];
+    news: any[];
+    team_members: any[];
+    kyc: any[]; 
   };
 }
 export interface InvestorDetails {
@@ -386,10 +386,10 @@ export interface InvestorDetails {
     address: string;
     website: string;
     banner_image: string;
-    media: any[]; // Replace `any` with the appropriate type if you know the structure of media items.
-    job_posts: any[]; // Replace `any` with the appropriate type if you know the structure of job posts.
-    products: any[]; // Replace `any` with the appropriate type if you know the structure of products.
-    news: any[]; // Replace `any` with the appropriate type if you know the structure of news.
+    media: any[]; 
+    job_posts: any[];
+    products: any[];
+    news: any[];
     team_members: any[];
   };
 }
