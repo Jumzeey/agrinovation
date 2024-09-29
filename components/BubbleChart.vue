@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h1 class="text-[#101828] text-xl font-semibold pb-1">
-      Output of Agricpreneur in Lagos
+      Output of Agripreneur in Lagos
     </h1>
     <p class="text-[#667085] text-sm font-medium">
       Sorted by the quantity of products per tonnes

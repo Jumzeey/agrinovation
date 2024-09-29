@@ -1,130 +1,115 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useErrorHandler } from "./useErrorHandler";
+import { useCookie, useRuntimeConfig } from "#imports";
 import API_PATHS from "~/utils/paths";
-import { useFetch, useRuntimeConfig, useCookie } from "#imports";
+
+// Define types for the login response
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+interface LoginResponseData {
+  user_id: number;
+  user_type_id: number;
+  user_type: string;
+  status: string;
+  token: string;
+}
+
+interface LoginResponse {
+  status: boolean;
+  message: string | null;
+  data: LoginResponseData;
+}
 
 export function useAuth() {
-  const loading = ref(false);
-  const token = ref<string | null>(null);
   const router = useRouter();
-  const { error, handleError, handleSuccess } = useErrorHandler();
-  const userType = ref<string | null>(null);
-  const user_id = ref<number>();
-  const user_type_id = ref<number>();
+  const { handleError, handleSuccess } = useErrorHandler();
+  const queryClient = useQueryClient();
 
-  const { getCookie, setCookie } = useCookieUtils();
-
-  token.value = getCookie("authToken");
-  userType.value = getCookie("userType");
-  user_id.value = Number(getCookie("userId"));
-  user_type_id.value = Number(getCookie("userTypeId"));
+ const token = ref<string | null>(useCookie("authToken").value ?? null);
+ const userType = ref<string | null>(useCookie("userType").value ?? null);
+  const user_id = ref<number | null>(Number(useCookie("userId").value));
+  const user_type_id = ref<number | null>(
+    Number(useCookie("userTypeId").value)
+  );
 
   const config = useRuntimeConfig();
 
-  const signup = async (credentials: SignUpData): Promise<void> => {
-    loading.value = true;
-    error.value = null;
-
-    try {
-      const { data, error: fetchError } = await useFetch<SignupResponse>(
-        config.public.apiUrl + API_PATHS.AUTH.SIGNUP,
+  // Vue Query Mutation for login
+  const loginMutation = useMutation<LoginResponseData, Error, LoginData>({
+    mutationFn: async (credentials: LoginData): Promise<LoginResponseData> => {
+      const response = await fetch(
+        `${config.public.apiUrl}${API_PATHS.AUTH.LOGIN}`,
         {
           method: "POST",
-          body: credentials,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
         }
       );
-      if (fetchError) {
-        console.log(fetchError.value?.data);
+
+      if (!response.ok) {
+        throw new Error("Failed to log in");
       }
 
-      if (data.value?.status) {
-        handleSuccess(data.value.message);
-        router.push("/auth/verify");
-      } else {
-        handleError(fetchError.value?.data);
+      const result: LoginResponse = await response.json();
+      if (!result.status || !result.data) {
+        throw new Error(result.message || "Login failed");
       }
-    } catch (err: any) {
-      handleError(err);
-    } finally {
-      loading.value = false;
-    }
-  };
 
- const login = async (credentials: LoginData): Promise<void> => {
-   loading.value = true;
-   error.value = null;
+      return result.data;
+    },
+    onSuccess: (data: LoginResponseData) => {
+      // Set the token and user info in cookies
+      token.value = data.token;
+      userType.value = data.user_type;
+      user_id.value = data.user_id;
+      user_type_id.value = data.user_type_id;
 
-   try {
-     const { data, error: fetchError } = await useFetch<LoginResponse>(
-       config.public.apiUrl + API_PATHS.AUTH.LOGIN,
-       {
-         method: "POST",
-         body: credentials,
-       }
-     );
+      useCookie("authToken").value = token.value;
+      useCookie("userType").value = userType.value;
+      useCookie("userId").value = user_id.value?.toString();
+      useCookie("userTypeId").value = user_type_id.value?.toString();
 
-     if (fetchError && fetchError.value) {
-       handleError(fetchError.value?.data);
-     } else if (data.value?.status) {
-       const response = data.value.data;
-       userType.value = response.user_type;
-       token.value = response.token;
-       user_id.value = response.user_id;
-       user_type_id.value = response.user_type_id;
-       console.log("user type: ", userType.value);
-
-       // Store the token and userType in cookies
-       setCookie("authToken", token.value, {
-         path: "/",
-       });
-       setCookie("userType", userType.value, {
-         path: "/dashboard",
-       });
-       setCookie("userId", user_id.value.toString(), {
-         path: "/dashboard",
-       });
-       setCookie("userTypeId", user_type_id.value?.toString(), {
-         path: "/dashboard",
+      // Invalidate the user profile query to refetch fresh data
+       queryClient.invalidateQueries({
+         queryKey: ["userProfile"],
        });
 
-       handleSuccess("Login successful!");
-
-       // Navigate to dashboard
-       await router.push("/dashboard");
-        window.location.reload();
-     } else {
-       handleError("Login failed. Please check your credentials.");
-     }
-   } catch (err: any) {
-     handleError(err);
-   } finally {
-     loading.value = false;
-   }
- };
-
+      handleSuccess("Login successful!");
+      router.push("/dashboard");
+    },
+    onError: (error: Error) => {
+      console.log(error.message);
+    },
+  });
 
   const logout = (): void => {
+    // Clear token and user data from cookies
     token.value = null;
     userType.value = null;
-    setCookie("authToken", null);
-    setCookie("userType", null);
-    setCookie("userId", null);
-    setCookie("userTypeId", null);
+    useCookie("authToken").value = null;
+    useCookie("userType").value = null;
+    useCookie("userId").value = null;
+    useCookie("userTypeId").value = null;
+
     handleSuccess("Logged out successfully");
+    queryClient.invalidateQueries(); // Invalidate all queries after logout
     router.push("/");
-    // window.location.reload();
   };
 
   return {
-    signup,
-    login,
-    token,
+    login: loginMutation.mutate,
     logout,
-    loading,
+    token,
+    loading: loginMutation.isPending,
     user_id,
     user_type_id,
-    error,
     userType,
   };
 }

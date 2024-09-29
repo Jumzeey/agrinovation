@@ -64,12 +64,14 @@ export interface ForgotPasswordResponse {
 }
 
 //profile data
-export interface ProfileData {
+export interface ProfileCredentials {
   id: number | undefined;
   type: number | undefined;
 }
-export interface ProfileResponse
-  extends BaseResponse<{
+export interface ProfileResponse {
+  status: boolean;
+  message: string;
+  data: {
     id: number;
     uuid: string;
     name: string;
@@ -92,7 +94,8 @@ export interface ProfileResponse
     products: Product[];
     news: NewsItem[];
     team_members: TeamMember[];
-  }> {}
+  };
+}
 
 export interface SectorResponse extends BaseResponse<Sector[]> {}
 
@@ -210,12 +213,17 @@ export interface Investors {
   image: string;
   banner_image: string;
 }
-export interface Agripreneurs {
-  agripreneur_id: number;
-  business_name: string;
-  address: string;
-  team_member_count: number;
-  tags: string[];
+export interface Researchers {
+  id: number;
+  user_id: number;
+  topic: string;
+  description: string;
+  link: string;
+  research_stage: string;
+  collaborators: any[] | null;
+  start_date: string;
+  sector: string | null;
+  tag: string[];
   image: string;
   banner_image: string;
 }
@@ -230,6 +238,21 @@ export interface Events {
   description: string;
   created_at: string;
   speakers: Speaker[];
+}
+
+export interface Jobs {
+  id: number;
+  title: string;
+  slug: string;
+  salary_min: string;
+  salary_max: string;
+  workplace_type: "remote" | "onsite" | "hybrid";
+  job_type: string;
+  location: string;
+  description: string;
+  application_deadline: string;
+  job_status: string;
+  status: string;
 }
 
 export interface SearchAgripreneurData {
@@ -285,6 +308,13 @@ export interface ResearchPagination {
   prev_page_url: string | null;
   next_page_url: string | null;
 }
+export interface JobsPagination {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+}
 
 export interface AgripreneurResponse {
   status: boolean;
@@ -307,8 +337,15 @@ export interface EventResponse {
 export interface ResearchResponse {
   status: boolean;
   message: string;
-  data: Events[];
+  data: Researchers[];
   pagination: ResearchPagination;
+}
+
+export interface JobsResponse {
+  status: boolean;
+  message: string;
+  data: Jobs[];
+   pagination: JobsPagination;
 }
 
 export interface ProduceTypes {

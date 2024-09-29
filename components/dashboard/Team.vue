@@ -1,3 +1,68 @@
+<script setup lang="ts">
+import { CDN_IMAGES } from "../../assets/cdnImages";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { updateTeamHandler } from "~/composables/useUpdateTeam";
+
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+    showAction: {
+        type: Boolean,
+        default: false,
+    }
+});
+
+const { updateTeam, loading } = updateTeamHandler()
+
+const showModal = ref(false);
+
+function openModal() {
+    showModal.value = true;
+}
+
+function closeModal() {
+    showModal.value = false;
+}
+
+
+
+const name = ref('')
+const position = ref('')
+const about = ref('')
+const companyName = ref('')
+const imageFile = ref<File | null>(null);
+
+const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files ? target.files[0] : null;
+
+    if (file && fileKey === 'imageFile') imageFile.value = file;
+};
+
+const handleSubmit = async () => {
+    if (!props.profileData || !props.profileData.user_id) {
+        console.error('User type ID is missing or undefined');
+        return;
+    }
+    const formData = new FormData();
+
+    formData.append('user_id', props.profileData.user_id);
+    formData.append('user_type_id', props.profileData.user_type_id);
+    formData.append('name', name.value);
+    formData.append('position', position.value);
+    formData.append('company_name', companyName.value);
+    formData.append('about', about.value);
+    if (imageFile.value) {
+        formData.append('image', imageFile.value);
+    }
+
+    await updateTeam(formData);
+};
+</script>
+
 <template>
     <div>
         <div class="bg-white rounded-lg pb-12  p-4">
@@ -66,67 +131,3 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { CDN_IMAGES } from "../../assets/cdnImages";
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { updateTeamHandler } from "~/composables/useUpdateTeam";
-
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
-    showAction: {
-        type: Boolean,
-        default: false,
-    }
-});
-
-const { updateTeam, loading } = updateTeamHandler()
-
-const showModal = ref(false);
-
-function openModal() {
-    showModal.value = true;
-}
-
-function closeModal() {
-    showModal.value = false;
-}
-
-
-
-const name = ref('')
-const position = ref('')
-const about = ref('')
-const companyName = ref('')
-const imageFile = ref<File | null>(null);
-
-const handleFileUpload = (event: Event, fileKey: 'imageFile') => {
-    const target = event.target as HTMLInputElement;
-    const file = target.files ? target.files[0] : null;
-
-    if (file && fileKey === 'imageFile') imageFile.value = file;
-};
-
-const handleSubmit = async () => {
-    if (!props.profileData || !props.profileData.user_id) {
-        console.error('User type ID is missing or undefined');
-        return;
-    }
-    const formData = new FormData();
-
-    formData.append('user_id', props.profileData.user_id);
-    formData.append('user_type_id', props.profileData.user_type_id);
-    formData.append('name', name.value);
-    formData.append('position', position.value);
-    formData.append('company_name', companyName.value);
-    formData.append('about', about.value);
-    if (imageFile.value) {
-        formData.append('image', imageFile.value);
-    }
-
-    await updateTeam(formData);
-};
-</script>

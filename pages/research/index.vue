@@ -12,7 +12,11 @@ const params = ref<SearchResearchData>({
 
 const currentPage = ref(1);
 
-const { data: researchData, error, isLoading, isError, refetch } = useGetResearches(params.value);
+const { data: Data, error, isLoading, isError, refetch } = useGetResearches(params.value);
+
+const researchData = computed(() => {
+    return Data?.value || null;
+});
 
 const router = useRouter()
 
@@ -54,7 +58,7 @@ const handlePageChange = (page: number) => {
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-7">
                     <div v-for="research in researchData?.data" :key="research.id" class="w-full">
-                        <CardTwo :img="research.image" :description="research.description || 'Description'" :title="research.title  || 'Title'"
+                        <CardTwo :img="research.image" :description="research.description || 'Description'" :title="research.topic  || 'Title'"
                             @move="goTo(research.id)" :date="research.start_date || 'Start Date'" bg="bg-[#F4FAF4]" text="text-[#2B612B]" />
                     </div>
                 </div>

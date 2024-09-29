@@ -2,49 +2,29 @@
 import { ref, watch } from 'vue';
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { useAuth } from '~/composables/useAuth';
-import { userProfile } from '~/composables/userProfile';
+import { useUserProfile } from '~/composables/userProfile';
 
-const { profile, profileData, loading } = userProfile(); // Include error handling
+const { userType, user_id, user_type_id } = useAuth();
+
+const { data: profileData, error, isLoading, refetch } = useUserProfile();
 
 const cdnImages = CDN_IMAGES;
 
 definePageMeta({
-    middleware: 'auth'
+  middleware: 'auth'
 });
 
-const { userType, user_id, user_type_id } = useAuth();
-
-
-
-
-async function fetchProfileData() {
-    if (!user_id.value || !user_type_id.value) {
-        console.error('User ID or Type ID is missing.');
-        return;
-    }
-
-    try {
-        await profile({
-            id: user_id.value,
-            type: user_type_id.value,
-        });
-        console.log('Profile data fetched:', profileData.value);
-    } catch (error) {
-        console.error('Error fetching profile:', error);
-    }
-
-}
-
-// Call the function when needed
-fetchProfileData();
-
-
-console.log('The data from dashboard index:', profileData.value);
+watch([user_id, user_type_id], () => {
+  if (user_id.value && user_type_id.value) {
+    refetch();
+  }
+});
 </script>
 
 <template>
     <div :style="{ backgroundImage: `url(${cdnImages.dashboard_backgroundImage})` }"
         class="w-full bg-cover h-[350px] relative">
+        <FullScreenLoader v-if="isLoading" />
         <div class="mx-0 md:mx-[120px] -z-10">
             <Header type="dashboard" />
         </div>
@@ -52,16 +32,16 @@ console.log('The data from dashboard index:', profileData.value);
     <div class="w-full bg-body_bg">
         <div class="mx-0 md:mx-[120px] relative flex flex-col gap-3 -top-24">
             <!-- Pass loading and error states to child components -->
-            <DashboardInfo :profileData="profileData" :loading="loading" />
-            <DashboardAbout :profileData="profileData" :loading="loading" showAction="true"/>
+            <DashboardInfo :profileData="profileData" :loading="isLoading" />
+            <DashboardAbout :profileData="profileData" :loading="isLoading" showAction="true"/>
             <DashboardDocument :profileData="profileData" v-if="userType === 'Agripreneur'" class="hidden" />
-            <DashboardMedia :profileData="profileData" :loading="loading" showAction="true"/>
+            <DashboardMedia :profileData="profileData" :loading="isLoading" showAction="true"/>
             <DashboardJob :profileData="profileData" v-if="userType === 'Agripreneur' || userType === 'Investor'"
-                :loading="loading" showAction="true"/>
-            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="loading" showAction="true"/>
-            <DashboardTeam :profileData="profileData" :loading="loading" showAction="true"/>
-            <DashboardNews :profileData="profileData" :loading="loading" v-if="userType === 'Researcher'" />
-            <DashboardContact :profileData="profileData" :loading="loading" />
+                :loading="isLoading" showAction="true"/>
+            <DashboardMarket :profileData="profileData" v-if="userType === 'Agripreneur'" :loading="isLoading" showAction="true"/>
+            <DashboardTeam :profileData="profileData" :loading="isLoading" showAction="true"/>
+            <DashboardNews :profileData="profileData" :loading="isLoading" v-if="userType === 'Researcher'" />
+            <DashboardContact :profileData="profileData" :loading="isLoading" />
         </div>
     </div>
 

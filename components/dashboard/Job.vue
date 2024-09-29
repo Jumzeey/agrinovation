@@ -1,3 +1,100 @@
+<script setup lang="ts">
+import { CDN_IMAGES } from "../../assets/cdnImages";
+import ButtonInput from '~/components/inputs/ButtonInput.vue';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Calendar } from '@/components/ui/calendar'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { updateJobHandler } from "~/composables/useUpdateJobs"
+
+import { CalendarDate, DateFormatter } from '@internationalized/date'
+import { toDate } from 'radix-vue/date'
+import { Calendar as CalendarIcon } from 'lucide-vue-next'
+import { cn } from '@/lib/utils';
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
+
+const showModal = ref(false);
+
+function openModal() {
+    showModal.value = true;
+}
+
+function closeModal() {
+    showModal.value = false;
+}
+
+const { updateJob, loading } = updateJobHandler();
+
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+    loading: {
+        type: Boolean,
+        default: false,
+    },
+    error: {
+        type: Boolean,
+        default: false,
+    },
+    showAction: {
+        type: Boolean,
+        default: false,
+    }
+});
+
+const df = new DateFormatter('en-US', {
+    dateStyle: 'long',
+})
+
+// Function to format date as dd-month-year (e.g., 15-July-2024)
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+};
+
+
+const title = ref('')
+const salary_min = ref('')
+const salary_max = ref('')
+const selectedWorkplaceType = ref<string>('')
+const selectedJobType = ref<string>('')
+const location = ref('')
+const description = ref('')
+const application_deadline = ref<CalendarDate | null>(null);
+
+const handleSubmit = async () => {
+    if (!props.profileData || !props.profileData.user_id) {
+        console.error('User type ID is missing or undefined');
+        return;
+    }
+    await updateJob({
+        user_id: props.profileData.user_id,
+        title: title.value,
+        salary_min: salary_min.value,
+        salary_max: salary_max.value,
+        workplace_type: selectedWorkplaceType.value,
+        job_type: selectedJobType.value,
+        location: location.value,
+        description: description.value,
+        application_deadline: application_deadline.value ? application_deadline.value.toString() : '',
+    })
+};
+
+</script>
+
 <template>
     <div>
         <div class="bg-white rounded-lg pb-12  p-4">
@@ -144,99 +241,3 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { CDN_IMAGES } from "../../assets/cdnImages";
-import ButtonInput from '~/components/inputs/ButtonInput.vue';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { updateJobHandler } from "~/composables/useUpdateJobs"
-
-import { CalendarDate, DateFormatter } from '@internationalized/date'
-import { toDate } from 'radix-vue/date'
-import { Calendar as CalendarIcon } from 'lucide-vue-next'
-import { cn } from '@/lib/utils';
-
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-
-const showModal = ref(false);
-
-function openModal() {
-    showModal.value = true;
-}
-
-function closeModal() {
-    showModal.value = false;
-}
-
-const { updateJob, loading } = updateJobHandler();
-
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
-    loading: {
-        type: Boolean,
-        default: false,
-    },
-    error: {
-        type: Boolean,
-        default: false,
-    },
-    showAction: {
-        type: Boolean,
-        default: false,
-    }
-});
-
-const df = new DateFormatter('en-US', {
-    dateStyle: 'long',
-})
-
-// Function to format date as dd-month-year (e.g., 15-July-2024)
-const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-    return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
-};
-
-
-const title = ref('')
-const salary_min = ref('')
-const salary_max = ref('')
-const selectedWorkplaceType = ref<string>('')
-const selectedJobType = ref<string>('')
-const location = ref('')
-const description = ref('')
-const application_deadline = ref<CalendarDate | null>(null);
-
-const handleSubmit = async () => {
-    if (!props.profileData || !props.profileData.user_id) {
-        console.error('User type ID is missing or undefined');
-        return;
-    }
-    await updateJob({
-        user_id: props.profileData.user_id,
-        title: title.value,
-        salary_min: salary_min.value,
-        salary_max: salary_max.value,
-        workplace_type: selectedWorkplaceType.value,
-        job_type: selectedJobType.value,
-        location: location.value,
-        description: description.value,
-        application_deadline: application_deadline.value ? application_deadline.value.toString() : '',
-    })
-};
-
-</script>

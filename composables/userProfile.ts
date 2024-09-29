@@ -1,47 +1,64 @@
-import { ref } from "vue";
-import { useErrorHandler } from "./useErrorHandler";
+import { useQuery } from "@tanstack/vue-query";
 import API_PATHS from "~/utils/paths";
+import { useErrorHandler } from "./useErrorHandler";
+import { useCookie, useRuntimeConfig } from "#imports";
+import type { ProfileCredentials } from "~/utils/types";
 
-export function userProfile() {
-  const { error, handleError, handleSuccess } = useErrorHandler();
+const fetchUserProfile = async (): Promise<ProfileResponse | null> => {
+  const config = useRuntimeConfig();
+  const apiUrl = config.public.apiUrl;
 
-  const loading = ref(false);
-  const profileData = ref<ProfileResponse["data"] | null>(null);
+  // Fetch the auth token from the cookie
+  const token = useCookie("authToken").value;
 
-  const profile = async (
-    credentials: ProfileData
-  ): Promise<ProfileResponse["data"] | null> => {
-    loading.value = true;
-    
-    try {
-      const { data, error } = await useFetchInstance<ProfileResponse>(
-        API_PATHS.USERS.PROFILE,
-        {
-          method: "GET",
-          params: credentials,
-        }
-      );
+  const user_id = useCookie("userId").value;
+  const user_type_id = useCookie("userTypeId").value;
 
-      if (data.value) {
-        console.log("Profile response:", data.value.data);
-        profileData.value = data.value.data;
-        return profileData.value;
-      } else {
-        handleError(error.value);
-      }
-    } catch (error) {
-      console.log(error);
-      handleError(error);
-    } finally {
-      loading.value = false;
+  if (!user_id || !user_type_id) {
+    throw new Error("User credentials missing");
+  }
+
+  const query = new URLSearchParams({
+    id: user_id,
+    type: user_type_id,
+  }).toString();
+
+  const response = await fetch(`${apiUrl}${API_PATHS.USERS.PROFILE}?${query}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (!navigator.onLine) {
+      throw new Error("No network connection");
     }
+    throw new Error("Failed to fetch profile data");
+  }
 
-    return null; // Return null if no data is available
-  };
+  const data = await response.json();
+  return data?.data || null; // Ensure to return only the data property
+};
 
-  return {
-    profile,
-    profileData,
-    loading,
-  };
-}
+export const useUserProfile = () => {
+
+  const query = useQuery<ProfileResponse | null, Error>({
+    queryKey: ["userProfile"],
+    queryFn: fetchUserProfile,
+    staleTime: 0,
+    enabled: !!useCookie("authToken").value,
+    refetchOnWindowFocus: true,
+  });
+
+  // Watch query status to handle success and error cases
+  if (query.isSuccess) {
+    console.log("Profile fetched successfully");
+  }
+
+  if (query.isError) {
+    console.log(query.error);
+  }
+
+  return query;
+};

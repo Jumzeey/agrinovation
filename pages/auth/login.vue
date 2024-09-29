@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="w-full h-screen flex flex-col md:flex-row">
         <div
@@ -10,11 +8,8 @@
             <div class="w-full max-w-lg">
                 <div class="mb-5 flex justify-center items-center">
                     <div class="w-[90px]">
-                        <NuxtLink to="/"><img src="../../public/logo/logopng.png" alt=""></NuxtLink>
+                        <NuxtLink to="/"><img src="../../public/logo/logopng.png" alt="" /></NuxtLink>
                     </div>
-                    <!-- <div class="w-[90px]">
-                        <NuxtLink to="/" ><img src="../../public/logo/logo2.png" alt=""></NuxtLink>
-                    </div> -->
                 </div>
                 <div class="mb-8">
                     <h3 class="text-[#1B1818] text-2xl md:text-3xl font-semibold pb-2">Welcome back!</h3>
@@ -48,47 +43,49 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuth } from '~/composables/useAuth'
-import TextInput from '~/components/inputs/TextInput.vue'
-import ButtonInput from '~/components/inputs/ButtonInput.vue'
-import * as pkg from "vue-toastification"
-const { useToast } = pkg
+import { ref } from 'vue';
+import { useAuth } from '~/composables/useAuth';
+import TextInput from '~/components/inputs/TextInput.vue';
+import ButtonInput from '~/components/inputs/ButtonInput.vue';
+import { useToast } from 'vue-toastification';
 
 definePageMeta({
-    middleware: 'register'
+    middleware: 'register',
 });
 
-
 // Using the composable
-const { login, loading } = useAuth()
-
-const toast = useToast()
+const { login, loading } = useAuth();
+const toast = useToast();
 
 // Local state for form inputs
-const email = ref('')
-const password = ref('')
+const email = ref('');
+const password = ref('');
 
 // Function to validate form inputs
 const validateForm = (): boolean => {
     if (!email.value.includes('@')) {
-        toast.error('Invalid email address')
-        return false
+        toast.error('Invalid email address');
+        return false;
     }
     if (!email.value || !password.value) {
-        toast.error('Please fill in all fields')
-        return false
+        toast.error('Please fill in all fields');
+        return false;
     }
-    return true
-}
+    return true;
+};
 
 // Login handler
 const handleLogin = async () => {
     if (validateForm()) {
-        await login({
-            email: email.value,
-            password: password.value,
-        })
+        try {
+            await login({
+                email: email.value,
+                password: password.value,
+            });
+        } catch (error) {
+            // Handle any errors from the login function
+            toast.error(error instanceof Error ? error.message : 'Login failed');
+        }
     }
-}
+};
 </script>

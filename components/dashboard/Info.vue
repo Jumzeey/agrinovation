@@ -1,3 +1,88 @@
+<script setup lang="ts">
+import { CDN_IMAGES } from "~/assets/cdnImages";
+import { ref } from 'vue';
+
+// Define your sections for scrolling
+const about = ref<HTMLElement | null>(null);
+const team = ref<HTMLElement | null>(null);
+const media = ref<HTMLElement | null>(null);
+const news = ref<HTMLElement | null>(null);
+const jobOpening = ref<HTMLElement | null>(null);
+const contact = ref<HTMLElement | null>(null);
+const tag = ref<HTMLElement | null>(null);
+const marketPlace = ref<HTMLElement | null>(null);
+
+// Define the userType and tabs mapping
+type UserType = 'researcher' | 'investor' | 'agripreneur' | 'others'; // Define allowed user types
+
+const tabsByUserType: Record<UserType, string[]> = {
+    researcher: ['About', 'Team', 'Media', 'Contact', 'Tag'],
+    investor: ['About', 'Team', 'Media', 'News', 'Tag', 'Contact'],
+    agripreneur: ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'],
+    others: ['About', 'Team', 'Media', 'Contact', 'Tag']
+};
+
+const activeTab = ref<string>('About');
+
+// Define your props
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+});
+
+// Compute the tabs to display based on user_type
+const filteredTabs = computed(() => {
+    const userType: UserType = props.profileData?.user_type || 'others';
+    return tabsByUserType[userType] || tabsByUserType['others'];
+});
+
+
+
+const getTagStyles = (tag: string) => {
+    // Function to generate a color based on the tag content
+    const generateColor = (tag: string) => {
+        const hash = Array.from(tag).reduce((hash, char) => {
+            return (hash << 5) - hash + char.charCodeAt(0);
+        }, 0);
+
+        // Use the hash to generate a color (for example, convert it to a hex color)
+        const color = `#${((hash & 0x00FFFFFF) >>> 0).toString(16).padStart(6, '0')}`;
+        return color;
+    };
+
+    const textColor = '#ffffff'; // Default text color
+    const bgColor = generateColor(tag); // Generate background color
+
+    return {
+        color: textColor,
+        backgroundColor: bgColor,
+    };
+};
+
+
+
+const scrollToSection = (section: string) => {
+    activeTab.value = section; // Update active tab
+    const sectionRef = {
+        About: about,
+        Team: team,
+        Media: media,
+        'Job Opening': jobOpening,
+        Contact: contact,
+        Tag: tag,
+        News: news,
+        'Market Place': marketPlace,
+    }[section];
+
+    sectionRef?.value?.scrollIntoView({
+        behavior: 'smooth',
+    });
+};
+</script>
+
+
 <template>
     <div class="h-[260px] p-4  z-20  bg-white gap-3 flex flex-col rounded-lg">
         <div class="flex justify-between items-center">
@@ -99,89 +184,3 @@
 </style>
 
 
-<script setup lang="ts">
-import { CDN_IMAGES } from "~/assets/cdnImages";
-
-
-
-import { ref } from 'vue';
-
-// Define your sections for scrolling
-const about = ref<HTMLElement | null>(null);
-const team = ref<HTMLElement | null>(null);
-const media = ref<HTMLElement | null>(null);
-const news = ref<HTMLElement | null>(null);
-const jobOpening = ref<HTMLElement | null>(null);
-const contact = ref<HTMLElement | null>(null);
-const tag = ref<HTMLElement | null>(null);
-const marketPlace = ref<HTMLElement | null>(null);
-
-// Define the userType and tabs mapping
-type UserType = 'researcher' | 'investor' | 'agripreneur' | 'others'; // Define allowed user types
-
-const tabsByUserType: Record<UserType, string[]> = {
-    researcher: ['About', 'Team', 'Media', 'Contact', 'Tag'],
-    investor: ['About', 'Team', 'Media', 'News', 'Tag', 'Contact'],
-    agripreneur: ['About', 'Team', 'Media', 'Job Opening', 'Contact', 'Tag', 'Market Place'],
-    others: ['About', 'Team', 'Media', 'Contact', 'Tag']
-};
-
-const activeTab = ref<string>('About');
-
-// Define your props
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
-});
-
-// Compute the tabs to display based on user_type
-const filteredTabs = computed(() => {
-    const userType: UserType = props.profileData?.user_type || 'others';
-    return tabsByUserType[userType] || tabsByUserType['others'];
-});
-
-
-
-const getTagStyles = (tag: string) => {
-    // Function to generate a color based on the tag content
-    const generateColor = (tag: string) => {
-        const hash = Array.from(tag).reduce((hash, char) => {
-            return (hash << 5) - hash + char.charCodeAt(0);
-        }, 0);
-
-        // Use the hash to generate a color (for example, convert it to a hex color)
-        const color = `#${((hash & 0x00FFFFFF) >>> 0).toString(16).padStart(6, '0')}`;
-        return color;
-    };
-
-    const textColor = '#ffffff'; // Default text color
-    const bgColor = generateColor(tag); // Generate background color
-
-    return {
-        color: textColor,
-        backgroundColor: bgColor,
-    };
-};
-
-
-
-const scrollToSection = (section: string) => {
-    activeTab.value = section; // Update active tab
-    const sectionRef = {
-        About: about,
-        Team: team,
-        Media: media,
-        'Job Opening': jobOpening,
-        Contact: contact,
-        Tag: tag,
-        News: news,
-        'Market Place': marketPlace,
-    }[section];
-
-    sectionRef?.value?.scrollIntoView({
-        behavior: 'smooth',
-    });
-};
-</script>

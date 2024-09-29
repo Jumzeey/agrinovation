@@ -12,7 +12,11 @@ const params = ref<SearchEventData>({
 
 const currentPage = ref(1);
 
-const { data: eventData, error, isLoading, isError, refetch } = useGetEvents(params.value);
+const { data: Data, error, isLoading, isError, refetch } = useGetEvents(params.value);
+
+const eventData = computed(() => {
+    return Data?.value || null;
+});
 
 const router = useRouter()
 

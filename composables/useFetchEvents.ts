@@ -22,7 +22,7 @@ const fetchEvents = async (params: SearchEventData): Promise<EventResponse> => {
 };
 
 export const useGetEvents = (params: SearchEventData) => {
-  const queryKey = ["agripreneurs", params];
+  const queryKey = ["events", params];
 
   const query = useQuery<EventResponse, Error>({
     queryKey,

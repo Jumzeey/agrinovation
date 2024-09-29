@@ -16,7 +16,6 @@ const fetchSingleInvestor = async (id: string): Promise<InvestorDetails> => {
 };
 
 export const useGetSingleInvestor = (id: string) => {
-  const { handleError, handleSuccess } = useErrorHandler();
 
   const queryKey = ["investor", id];
 

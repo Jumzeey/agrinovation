@@ -21,7 +21,11 @@ const params = ref<SearchInvestorData>({
     type: null,
     page: 1,
 });
-const { data: investorData, error, isLoading, isError, refetch } = useGetInvestors(params.value);
+const { data: Data, error, isLoading, isError, refetch } = useGetInvestors(params.value);
+
+const investorData = computed(() => {
+    return Data?.value || null;
+});
 
 const selectedTab = ref('all');
 const currentPage = ref(1);
@@ -112,7 +116,7 @@ const handleTabSelect = (slug: string) => {
 
         <div class="">
             <div class=" border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="produceTypes" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
+                <TabItems :tabs="produceTypes || []" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
                     <template v-slot:tab-all>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
                             <div v-for="investor in investorData?.data" :key="investor.investor_id" class="w-full">

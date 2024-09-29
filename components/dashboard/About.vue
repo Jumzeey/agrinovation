@@ -1,129 +1,3 @@
-<template>
-    <div>
-        <div class="bg-white rounded-lg p-4">
-            <div class="flex flex-col gap-6">
-                <div class="border-b flex justify-between items-center pb-3">
-                    <div>
-                        <p class="text-2xl">About {{ profileData?.name }}</p>
-                    </div>
-                    <button v-if="showAction" class="py-2 px-3 border border-border_col rounded-md cursor-pointer" @click="openModal">
-                        <p class="text-priText">Edit Profile</p>
-                    </button>
-                </div>
-                <div v-if="profileData?.more?.about" class="flex justify-between w-full">
-                    <div class="w-[650px]">
-                        <p class="items-start leading-6 text-[#261B0D] font-normal">
-                            {{ profileData?.more?.about? profileData?.more?.about : profileData?.about }}
-                        </p>
-                    </div>
-                    <div v-if="showSubActions" class="flex flex-col gap-4">
-                        <div
-                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#275927] text-white items-center text-center cursor-pointer">
-                            Claim Account</div>
-                        <div
-                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
-                            Claim Profile</div>
-                        <div
-                            class="py-4 px-6 rounded-md w-[250px] h-full border border-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
-                            Add Favorite</div>
-                    </div>
-                </div>
-                <div v-else>
-                    <EmptyState />
-                </div>
-                <div class="md:flex flex-col gap-7" v-if="['agripreneur'].includes(profileData?.user_type)">
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.founding_icon" alt="" class="p-1" />
-                            <p>Founding Stage: {{ profileData?.more?.funding_stage || "NA" }}</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
-                            <p>{{ profileData?.address || "Location not available" }}</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.currency_icon" alt="" class="p-1" />
-                            <p>
-                                Average Annual Revenue:
-                                {{ profileData?.more?.average_annual_revenue || "Not Available" }}
-                            </p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.log_icon" alt="" class="p-1" />
-                            <p>
-                                Produce Information:
-                                {{
-                                    profileData?.more?.produce_information || "Information not available"
-                                }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
-                            <p>
-                                Available for Acquisition:
-                                {{ profileData?.more?.is_available_acquisition ? "Yes" : "No" }}
-                            </p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
-                            <p>
-                                Available for Merger:
-                                {{ profileData?.more?.is_available_merger ? "Yes" : "No" }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:flex flex-col gap-7" v-if="['investor'].includes(profileData?.user_type)">
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.investment_icon" alt="" class="p-1" />
-                            <p>Period of Investment: {{ profileData?.period_of_investment || "NA" }}</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
-                            <p>{{ profileData?.address || "Location not available" }}</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <img :src="CDN_IMAGES.sector_icon" alt="" class="p-1" />
-                            <p>
-                                Sector Interest:
-                                {{ profileData?.investment_sector || "Not Available" }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <Modal :shows="showModal" title="Update Profile Information" width="w-3/4" :icon="CDN_IMAGES.edit_about_icon"
-            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit"
-            :loading="loading">
-            <template #content>
-                <div>
-                    <!-- logo fields -->
-                    <div class="grid w-full max-w-sm items-center gap-0.5">
-                        <FormField :types="['file-upload']" v-for="field in userFields" :key="field.id" :field="field"
-                            :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
-                    </div>
-
-                    <!-- Textarea fields -->
-                    <div class="grid w-full">
-                        <FormField :types="['Textarea']" v-for="field in userFields" :key="field.id" :field="field"
-                            :formDataVariables="formDataVariables" />
-                    </div>
-
-                    <!-- other fields -->
-                    <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
-                        <FormField :types="['Input', 'Select', 'File']" v-for="field in userFields" :key="field.id"
-                            :field="field" :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
-                    </div>
-                </div>
-            </template>
-        </Modal>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { CDN_IMAGES } from "../../assets/cdnImages";
 import { updateProfileHandler } from "~/composables/useUpdateProfile";
@@ -304,3 +178,131 @@ const handleSubmit = async () => {
     await updateProfile(formData);
 };
 </script>
+
+<template>
+    <div>
+        <div class="bg-white rounded-lg p-4">
+            <div class="flex flex-col gap-6">
+                <div class="border-b flex justify-between items-center pb-3">
+                    <div>
+                        <p class="text-2xl">About {{ profileData?.name }}</p>
+                    </div>
+                    <button v-if="showAction" class="py-2 px-3 border border-border_col rounded-md cursor-pointer" @click="openModal">
+                        <p class="text-priText">Edit Profile</p>
+                    </button>
+                </div>
+                <div v-if="profileData?.more?.about" class="flex justify-between w-full">
+                    <div class="w-[650px]">
+                        <p class="items-start leading-6 text-[#261B0D] font-normal">
+                            {{ profileData?.more?.about? profileData?.more?.about : profileData?.about }}
+                        </p>
+                    </div>
+                    <div v-if="showSubActions" class="flex flex-col gap-4">
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#275927] text-white items-center text-center cursor-pointer">
+                            Claim Account</div>
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full bg-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
+                            Claim Profile</div>
+                        <div
+                            class="py-4 px-6 rounded-md w-[250px] h-full border border-[#EDF7ED] text-[#275927] items-center text-center cursor-pointer">
+                            Add Favorite</div>
+                    </div>
+                </div>
+                <div v-else>
+                    <EmptyState />
+                </div>
+                <div class="md:flex flex-col gap-7" v-if="['agripreneur'].includes(profileData?.user_type)">
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.founding_icon" alt="" class="p-1" />
+                            <p>Founding Stage: {{ profileData?.more?.funding_stage || "NA" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
+                            <p>{{ profileData?.address || "Location not available" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.currency_icon" alt="" class="p-1" />
+                            <p>
+                                Average Annual Revenue:
+                                {{ profileData?.more?.average_annual_revenue || "Not Available" }}
+                            </p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.log_icon" alt="" class="p-1" />
+                            <p>
+                                Produce Information:
+                                {{
+                                    profileData?.more?.produce_information || "Information not available"
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
+                            <p>
+                                Available for Acquisition:
+                                {{ profileData?.more?.is_available_acquisition ? "Yes" : "No" }}
+                            </p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.shake_icon" alt="" class="p-1" />
+                            <p>
+                                Available for Merger:
+                                {{ profileData?.more?.is_available_merger ? "Yes" : "No" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:flex flex-col gap-7" v-if="['investor'].includes(profileData?.user_type)">
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.investment_icon" alt="" class="p-1" />
+                            <p>Period of Investment: {{ profileData?.period_of_investment || "NA" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.location_icon" alt="" class="p-1" />
+                            <p>{{ profileData?.address || "Location not available" }}</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <img :src="CDN_IMAGES.sector_icon" alt="" class="p-1" />
+                            <p>
+                                Sector Interest:
+                                {{ profileData?.investment_sector || "Not Available" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Modal :shows="showModal" title="Update Profile Information" width="w-3/4" :icon="CDN_IMAGES.edit_about_icon"
+            @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Update'" :onSubmit="handleSubmit"
+            :loading="loading">
+            <template #content>
+                <div>
+                    <!-- logo fields -->
+                    <div class="grid w-full max-w-sm items-center gap-0.5">
+                        <FormField :types="['file-upload']" v-for="field in userFields" :key="field.id" :field="field"
+                            :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
+                    </div>
+
+                    <!-- Textarea fields -->
+                    <div class="grid w-full">
+                        <FormField :types="['Textarea']" v-for="field in userFields" :key="field.id" :field="field"
+                            :formDataVariables="formDataVariables" />
+                    </div>
+
+                    <!-- other fields -->
+                    <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField :types="['Input', 'Select', 'File']" v-for="field in userFields" :key="field.id"
+                            :field="field" :formDataVariables="formDataVariables" @file-upload="handleFileUpload" />
+                    </div>
+                </div>
+            </template>
+        </Modal>
+    </div>
+</template>
+
+

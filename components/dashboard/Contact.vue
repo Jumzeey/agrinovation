@@ -1,3 +1,13 @@
+<script setup lang="ts">
+
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+});
+</script>
+
 <template>
     <div class="bg-white rounded-lg pb-12  p-4">
         <div class="border-b flex justify-between items-center  pb-3">
@@ -61,12 +71,3 @@
     </div>
 </template>
 
-<script setup lang="ts">
-
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
-});
-</script>

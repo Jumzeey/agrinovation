@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { CDN_IMAGES } from "../../assets/cdnImages";
+
+
+const props = defineProps({
+    profileData: {
+        type: Object,
+        required: true,
+    },
+    loading: {
+        type: Boolean,
+        default: false,
+    }
+});
+
+
+const showModal = ref(false);
+
+function openModal() {
+    showModal.value = true;
+}
+
+function closeModal() {
+    showModal.value = false;
+}
+
+function handleSubmit() {
+    console.log('submitted')
+}
+</script>
+
 <template>
     <div>
         <div class="bg-white rounded-lg p-4">
@@ -81,33 +112,4 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { CDN_IMAGES } from "../../assets/cdnImages";
 
-
-const props = defineProps({
-    profileData: {
-        type: Object,
-        required: true,
-    },
-    loading: {
-        type: Boolean,
-        default: false,
-    }
-});
-
-
-const showModal = ref(false);
-
-function openModal() {
-    showModal.value = true;
-}
-
-function closeModal() {
-    showModal.value = false;
-}
-
-function handleSubmit() {
-    console.log('submitted')
-}
-</script>

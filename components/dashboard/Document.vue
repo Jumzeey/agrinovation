@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { CDN_IMAGES } from "../../assets/cdnImages";
+</script>
+
 <template>
     <div class="bg-white rounded-lg pb-12  p-4">
         <div class="grid grid-cols-4 gap-0 items-center border-b pb-3 px-4"> 
@@ -39,6 +43,4 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { CDN_IMAGES } from "../../assets/cdnImages";
-</script>
+

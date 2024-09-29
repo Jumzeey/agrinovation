@@ -21,7 +21,11 @@ const params = ref<SearchAgripreneurData>({
     page: 1,
 });
 
-const { data: agripreneurData, error, isLoading, isError, refetch } = useGetAgripreneur(params.value);
+const { data: Data, error, isLoading, isError, refetch } = useGetAgripreneur(params.value);
+
+const agripreneurData = computed(() => {
+    return Data?.value || null;
+});
 
 const selectedTab = ref('all');
 const currentPage = ref(1);
@@ -55,7 +59,7 @@ const handlePageChange = (page: number) => {
 
 const handleTabSelect = (slug: string) => {
     console.log('Tab selected in parent: ', slug);
-    params.value.type = slug === 'all' ? null : slug; 
+    params.value.type = slug === 'all' ? null : slug;
     selectedTab.value = slug
     refetch(); // Refetch data with the updated params
 };
@@ -112,8 +116,10 @@ const handleTabSelect = (slug: string) => {
             <div v-if="isLoading" class="flex items-center">
                 <NuxtLoadingIndicator />
             </div>
+            <!-- Show No Network component if a network error occurs -->
+            <NoNetwork v-if="isError && error?.message === 'No network connection'" />
             <div v-else class="border-b-[1px] border-[#F0F2F5] pb-[40px]">
-                <TabItems :tabs="produceTypes" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
+                <TabItems :tabs="produceTypes || []" :selectedTab="selectedTab" :onTabSelect="handleTabSelect">
                     <template v-slot:tab-all>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-7">
                             <div v-for="agripreneur in agripreneurData?.data" :key="agripreneur.agripreneur_id"
@@ -157,4 +163,5 @@ const handleTabSelect = (slug: string) => {
         </div>
     </div>
 
-<Footer /></template>
+    <Footer />
+</template>

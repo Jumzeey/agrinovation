@@ -21,6 +21,9 @@ const fetchAgripreneurs = async (
   );
 
   if (!response.ok) {
+    if (!navigator.onLine) {
+      throw new Error("No network connection");
+    }
     throw new Error("Failed to fetch agripreneurs");
   }
 

@@ -126,7 +126,7 @@ const props = defineProps<IType>()
 const cdnImages = CDN_IMAGES;
 
 const { logout, token } = useAuth()
-const isTokenPresent = token?.value?.length > 0
+const isTokenPresent = token.value?.length > 0 ?? false;
 const menuOpen = ref(false)
 const isHomePage = computed(() => route.path === '/');
 const route = useRoute()

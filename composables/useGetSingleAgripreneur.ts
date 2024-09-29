@@ -18,7 +18,6 @@ const fetchSingleAgripreneur = async (
 };
 
 export const useGetSingleAgripreneur = (id: string) => {
-  const { handleError, handleSuccess } = useErrorHandler();
 
   const queryKey = ["agripreneur", id];
 
