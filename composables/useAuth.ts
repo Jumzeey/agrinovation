@@ -89,6 +89,49 @@ export function useAuth() {
     },
   });
 
+  // Vue Query Mutation for signup
+  const signupMutation = useMutation<SignupResponse, Error, SignUpData>({
+    mutationFn: async (credentials: SignUpData): Promise<SignupResponse> => {
+      const response = await fetch(
+        `${config.public.apiUrl}${API_PATHS.AUTH.SIGNUP}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to sign up");
+      }
+
+      const result: SignupResponse = await response.json();
+      if (!result.status || !result.data) {
+        throw new Error(result.message || "SignUp failed");
+      }
+
+      // Return the full SignupResponse object, not just result.data
+      return result;
+    },
+    onSuccess: (response: SignupResponse) => {
+      const { message, data } = response;
+
+      // Invalidate the user profile query to refetch fresh data
+      queryClient.invalidateQueries({
+        queryKey: ["userCredentials"],
+      });
+
+      handleSuccess(message);
+      router.push("/auth/verify");
+    },
+    onError: (error: Error) => {
+      console.log(error.message);
+    },
+  });
+
+
   const logout = (): void => {
     // Clear token and user data from cookies
     token.value = null;
@@ -105,6 +148,7 @@ export function useAuth() {
 
   return {
     login: loginMutation.mutate,
+    signup: signupMutation.mutate,
     logout,
     token,
     loading: loginMutation.isPending,

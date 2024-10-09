@@ -2,7 +2,7 @@
 useHead({
   title: 'Agrinnovation',
   meta: [
-    { name: 'description', content: 'My amazing site.' }
+    { name: 'description', content: 'Agriculture investment platform.' }
   ],
   bodyAttrs: {
     class: 'test',

@@ -24,11 +24,15 @@ export interface SignUpData {
   business_name: string;
   user_type_id: number;
 }
-export interface SignupResponse
-  extends BaseResponse<{
+
+export interface SignupResponse {
+  status: boolean;
+  message: string;
+  data: {
     user_id: number;
     user_type: "investor" | "agripreneur" | "researcher" | "others";
-  }> {}
+  };
+}
 
 export interface AuthResponse extends BaseResponse<UserData> {}
 
