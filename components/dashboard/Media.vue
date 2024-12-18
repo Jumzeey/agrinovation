@@ -27,7 +27,7 @@ interface Image {
 const showModal = ref(false);
 const link = ref('');
 const description = ref('');
-const selectedMediaType = ref(null);
+const selectedMediaType = ref('');
 const imageFile = ref<File | null>(null);
 
 function openModal() {

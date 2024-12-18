@@ -13,6 +13,7 @@ const props = defineProps({
     }
 });
 
+const selectedMediaType = ref('');
 
 const showModal = ref(false);
 
@@ -35,7 +36,7 @@ function handleSubmit() {
             <div class="border-b flex justify-between items-center pb-3">
                 <p>Knowledge Hub</p>
                 <button class="py-2 px-3 border border-border_col rounded-md cursor-pointer" @click="openModal">
-                    <p class="text-priText">Add News</p>
+                    <p class="text-priText">Add Research</p>
                 </button>
             </div>
             <NewsComponent :newsItems="[
@@ -74,7 +75,7 @@ function handleSubmit() {
             ]" />
         </div>
 
-        <Modal :shows="showModal" title="Add Media" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
+        <Modal :shows="showModal" title="Add Research" width="w-[650px]" :icon="CDN_IMAGES.edit_about_icon"
             @closeModal="closeModal" class="flex flex-col gap-6" :buttonText="'Add'" :onSubmit="handleSubmit"
             :loading="loading">
             <template #content>

@@ -53,10 +53,6 @@ export function useAuth() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to log in");
-      }
-
       const result: LoginResponse = await response.json();
       if (!result.status || !result.data) {
         throw new Error(result.message || "Login failed");
@@ -81,11 +77,12 @@ export function useAuth() {
          queryKey: ["userProfile"],
        });
 
-      handleSuccess("Login successful!");
+      handleSuccess("Login successful! Redirecting to the dashboard...");
       router.push("/dashboard");
     },
     onError: (error: Error) => {
-      console.log(error.message);
+      handleError(error.message);
+      console.log('this is the error',error.message);
     },
   });
 
@@ -102,10 +99,6 @@ export function useAuth() {
           body: JSON.stringify(credentials),
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Failed to sign up");
-      }
 
       const result: SignupResponse = await response.json();
       if (!result.status || !result.data) {
@@ -127,6 +120,7 @@ export function useAuth() {
       router.push("/auth/verify");
     },
     onError: (error: Error) => {
+      handleError(error.message);
       console.log(error.message);
     },
   });
