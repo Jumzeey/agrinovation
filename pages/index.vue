@@ -62,9 +62,11 @@
           Can’t find the answer you’re looking for? Please reach out to our
           friendly team.
         </p>
-        <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
-          Get in touch
-        </button>
+        <a href='mailto: support@agrinnovation.com'>
+          <button class="bg-[#275927] text-white rounded-lg py-[10px] px-3 mb-8">
+            Get in touch
+          </button>
+        </a>
       </div>
     </div>
   </div>

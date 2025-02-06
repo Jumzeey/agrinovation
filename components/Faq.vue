@@ -9,7 +9,7 @@
 
       <div class="px-10 md:px-[163px]">
         <p class="text-[#667085] text-sm md:text-xl font-normal">
-          Everything you need to know about Agriinovation In Lagos State.
+          Everything you need to know about Agrinnovation In Lagos State.
         </p>
       </div>
     </div>

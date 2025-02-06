@@ -120,8 +120,8 @@ onMounted(() => {
           <p
             class="text-[#102310] text-base font-medium pb-8 px-7 md:px-0 sm:text-left"
           >
-            Discover how agriculture is transforming the landscape. Stay updated
-            on insights <br />from the agricultural sector
+            Discover how agriculture is transforming the landscape.<br /> Stay updated
+            on insights from the agricultural sector.
           </p>
         </div>
 
